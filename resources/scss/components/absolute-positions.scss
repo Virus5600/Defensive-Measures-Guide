@@ -1,0 +1,40 @@
+@use "sass:list";
+
+$vertical-pos: (
+	"top": "0",
+	"middle": "50%",
+	"bottom": "0"
+);
+
+$horizontal-pos: (
+	"left": "0",
+	"middle": "50%",
+	"right": "0"
+);
+
+// Iterate through the vertical map
+@each $vp, $vv in $vertical-pos {
+	// Iterate through the horizontal map
+	@each $hp, $hv in $horizontal-pos {
+		// Creates a class using the vertical and horizontal positions, containing the values needed to position an absolute element there
+		.posabs-#{$vp}-#{$hp} {
+			// VERTICAL POSITION
+			@if $vp == "middle" {
+				top: #{$vv};
+				transform: translateY(-#{$vv});
+			}
+			@else {
+				#{$vp}: #{$vv};
+			}
+
+			// HORIZONTAL POSITION
+			@if $hp == "middle" {
+				left: #{$vv};
+				transform: translateX(-#{$hv});
+			}
+			@else {
+				#{$hp}: #{$hv};
+			}
+		}
+	}
+}
