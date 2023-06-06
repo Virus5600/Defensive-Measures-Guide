@@ -21,6 +21,21 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 	// Home Page
 	Route::get('/', 'PageController@index')->name('home');
 
+	// Downloads
+	Route::group(['prefix' => 'downloads'], function() {
+		Route::get('/', 'DownloadsController@index')->name('downloads.index');
+	});
+
+	// Installations
+	Route::group(['prefix' => 'installations'], function() {
+		Route::get('/', 'InstallationsController@index')->name('installations.index');
+	});
+
+	// Contents
+	Route::group(['prefix' => 'contents'], function() {
+		Route::get('/', 'ContentsController@index')->name('contents.index');
+	});
+
 	////////////////
 	// ADMIN SIDE //
 	////////////////

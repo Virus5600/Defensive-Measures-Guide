@@ -13,33 +13,42 @@
 
 	{{-- Navbar Contents --}}
 	<div class="collapse navbar-collapse" id="navbarContent">
-		<ul class="navbar-nav ml-auto">
+		<ul class="navbar-nav ms-auto">
 			<li class="nav-item">
 				@if (\Request::is('/'))
 				<span class="nav-link active">Home</span>
 				@else
-				<a href="{{ route('home') }}" class="nav-link"></a>
+				<a href="{{ route('home') }}" class="nav-link">Home</a>
 				@endif
 			</li>
 
 			<li class="nav-item">
 				@if (\Request::is('downloads'))
+				<span class="nav-link active">Downloads</span>
 				@elseif (\Request::is('downloads*'))
+				<a href="{{ route('home') }}" class="nav-link active">Downloads</a>
 				@else
+				<a href="{{ route('home') }}" class="nav-link">Downloads</a>
 				@endif
 			</li>
 
 			<li class="nav-item">
 				@if (\Request::is('installation'))
+				<span class="nav-link active">Installations</span>
 				@elseif (\Request::is('installation*'))
+				<a href="{{ route('home') }}" class="nav-link active">Installations</a>
 				@else
+				<a href="{{ route('home') }}" class="nav-link">Installations</a>
 				@endif
 			</li>
 
 			<li class="nav-item">
 				@if (\Request::is('contents'))
+				<span class="nav-link active">Contents</span>
 				@elseif (\Request::is('contents*'))
+				<a href="{{ route('home') }}" class="nav-link active">Contents</a>
 				@else
+				<a href="{{ route('home') }}" class="nav-link">Contents</a>
 				@endif
 			</li>
 		</ul>
