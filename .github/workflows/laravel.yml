@@ -17,26 +17,44 @@ jobs:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
       with:
         php-version: '8.1'
+
     - uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      run: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+    
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+    
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --ignore-platform-reqs
+    
     - name: Generate key
       run: php artisan key:generate
+    
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
+
+    - name: Install NPM dependencies
+        run: npm ci
+
+    - name: Run Webpack for dev
+      run: npm run dev
+    
     - name: Create Database
       run: |
         mkdir -p database
         touch database/database.sqlite
-    - name: Execute tests (Unit and Feature tests) via PHPUnit
+    
+    - name: Execute tests (Unit and Feature tests) via PHPUnit (Using FBAT: ${{ secrets.FACEBOOK_ACCESS_TOKEN }}; ${{ secrets.FACEBOOK_APP_ID }}; ${{ secrets.FACEBOOK_APP_SECRET }}; ${{ secrets.FACEBOOK_DEFAULT_GRAPH_VERSION }})
       run: vendor/bin/phpunit
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-        FACEBOOK_ACCESS_TOKEN: ${{secrets.FACEBOOK_ACCESS_TOKEN}}
-        FACEBOOK_APP_ID: ${{secrets.FACEBOOK_APP_ID}}
-        FACEBOOK_APP_SECRET: ${{secrets.FACEBOOK_APP_SECRET}}
-        FACEBOOK_DEFAULT_GRAPH_VERSION: ${{secrets.FACEBOOK_DEFAULT_GRAPH_VERSION}}
-        MAIL_PASSWORD: ${{secrets.MAIL_PASSWORD}}
+        FACEBOOK_ACCESS_TOKEN: ${{ secrets.FACEBOOK_ACCESS_TOKEN }}
+        FACEBOOK_APP_ID: ${{ secrets.FACEBOOK_APP_ID }}
+        FACEBOOK_APP_SECRET: ${{ secrets.FACEBOOK_APP_SECRET }}
+        FACEBOOK_DEFAULT_GRAPH_VERSION: ${{ secrets.FACEBOOK_DEFAULT_GRAPH_VERSION }}
+        MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
