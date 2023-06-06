@@ -39,7 +39,7 @@ jobs:
       run: chmod -R 777 storage bootstrap/cache
 
     - name: Install NPM dependencies
-      run: npm ci
+      run: npm i
 
     - name: Run Webpack for dev
       run: npm run dev
