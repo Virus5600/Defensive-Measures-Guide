@@ -20,20 +20,20 @@ $horizontal-pos: (
 		.posabs-#{$vp}-#{$hp} {
 			// VERTICAL POSITION
 			@if $vp == "middle" {
-				top: #{$vv};
-				transform: translateY(-#{$vv});
+				top: #{$vv} !important;
+				transform: translateY(-#{$vv}) !important;
 			}
 			@else {
-				#{$vp}: #{$vv};
+				#{$vp}: #{$vv} !important;
 			}
 
 			// HORIZONTAL POSITION
 			@if $hp == "middle" {
-				left: #{$vv};
-				transform: translateX(-#{$hv});
+				left: #{$vv} !important;
+				transform: translateX(-#{$hv}) !important;
 			}
 			@else {
-				#{$hp}: #{$hv};
+				#{$hp}: #{$hv} !important;
 			}
 		}
 	}

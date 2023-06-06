@@ -1,0 +1,17 @@
+@use "sass:list";
+@use "sass:string";
+
+$fonts: (
+	"Minecraftia": url("/fonts/Minecraftia-Regular.ttf")
+);
+
+@each $fontName, $fontUrl in $fonts {
+	@font-face {
+		font-family: $fontName;
+		src: $fontUrl;
+	}
+
+	.font-#{to-lower-case($fontName)} {
+		font-family: $fontName;
+	}
+}

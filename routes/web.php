@@ -13,6 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-	return view('welcome');
+Route::group(['namespace' => "App\Http\Controllers"], function() {
+	///////////////
+	// USER SIDE //
+	///////////////
+	
+	// Home Page
+	Route::get('/', 'PageController@index')->name('home');
+
+	////////////////
+	// ADMIN SIDE //
+	////////////////
+	Route::group(['prefix' => 'admin'], function() {
+		// SETTINGS
+		Route::group(['prefix' => 'settings'], function() {
+			// Index
+			Route::get('/', 'SettingsController@index')->name('admin.settings.index');
+		});
+	});
 });

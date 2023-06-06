@@ -8,12 +8,14 @@
     "/js/libs/slick.js": "/js/libs/slick.js",
     "/js/libs/summernote.js": "/js/libs/summernote.js",
     "/js/libs/swal.js": "/js/libs/swal.js",
+    "/views/index/index.js": "/views/index/index.js",
+    "/css/libs/slick.css": "/css/libs/slick.css",
     "/css/libs/fontawesome.css": "/css/libs/fontawesome.css",
     "/css/libs/bootstrap5.css": "/css/libs/bootstrap5.css",
     "/css/general.css": "/css/general.css",
-    "/css/index.css": "/css/index.css",
     "/css/app.css": "/css/app.css",
+    "/views/index/index.css": "/views/index/index.css",
+    "/css/widget/card-widget.css": "/css/widget/card-widget.css",
     "/css/libs/swal.css": "/css/libs/swal.css",
-    "/css/libs/summernote.css": "/css/libs/summernote.css",
-    "/css/libs/slick.css": "/css/libs/slick.css"
+    "/css/libs/summernote.css": "/css/libs/summernote.css"
 }

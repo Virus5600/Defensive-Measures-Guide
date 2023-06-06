@@ -1,0 +1,30 @@
+@use "sass:list";
+
+@import "./breakpoints";
+
+$thickness: (
+	25: 0.625px,
+	50: 1.25px,
+	75: 1.875px,
+	100: 2.5px
+);
+
+@each $bp, $px in $sizes {
+	@each $tk, $tv in $thickness {
+		@if $bp == "xs" {
+			.hr-thick-#{$tk},
+			.hr-thick-#{$bp}-#{$tk} {
+				border-width: #{$tv}!important;
+				border-top-width: #{$tv}!important;
+			}
+		}
+		@else {
+			@media (min-width: $px) {
+				.hr-thick-#{$bp}-#{$tk} {
+					border-width: #{$tv}!important;
+					border-top-width: #{$tv}!important;
+				}
+			}
+		}
+	}
+}

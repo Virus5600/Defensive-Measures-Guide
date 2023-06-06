@@ -14,43 +14,49 @@ const path = require('path');
 
 // START
 mix
-    // Configurations
-    .webpackConfig({
-        resolve: {
-            alias: {
-                jquery: path.resolve(__dirname, 'node_modules/jquery/dist/jquery.min.js'),
-                jQuery: path.resolve(__dirname, 'node_modules/jquery/dist/jquery.min.js')
-            }
-        },
-        devtool: 'inline-source-map'
-    })
-    .sourceMaps()
-    .disableNotifications()
+	// Configurations
+	.webpackConfig({
+		resolve: {
+			alias: {
+				jquery: path.resolve(__dirname, 'node_modules/jquery/dist/jquery.min.js'),
+				jQuery: path.resolve(__dirname, 'node_modules/jquery/dist/jquery.min.js')
+			}
+		},
+		devtool: 'inline-source-map'
+	})
+	.sourceMaps()
+	.disableNotifications()
 
-    // JavaScript
-    .js('resources/js/app.js', 'public/js')
-    .js('resources/js/custom/components/navbar-dynamic.js', 'public/js/custom/components')
+	// JavaScript
+	.js('resources/js/app.js', 'public/js')
+	.js('resources/js/custom/components/navbar-dynamic.js', 'public/js/custom/components')
 
-    // JS Libs
-    .js('resources/js/libs/bootstrap5.js', 'public/js/libs')
-    .js('resources/js/libs/fontawesome.js', 'public/js/libs')
-    .js('resources/js/libs/jQuery.js', 'public/js/libs')
-    .js('resources/js/libs/popperjs.js', 'public/js/libs')
-    .js('resources/js/libs/slick.js', 'public/js/libs')
-    .js('resources/js/libs/summernote.js', 'public/js/libs')
-    .js('resources/js/libs/swal.js', 'public/js/libs')
+	// JS Libs
+	.js('resources/js/libs/bootstrap5.js', 'public/js/libs')
+	.js('resources/js/libs/fontawesome.js', 'public/js/libs')
+	.js('resources/js/libs/jQuery.js', 'public/js/libs')
+	.js('resources/js/libs/popperjs.js', 'public/js/libs')
+	.js('resources/js/libs/slick.js', 'public/js/libs')
+	.js('resources/js/libs/summernote.js', 'public/js/libs')
+	.js('resources/js/libs/swal.js', 'public/js/libs')
 
-    // SASS
-    .sass('resources/scss/app.scss', 'public/css')
-    .sass('resources/scss/index.scss', 'public/css')
-    .sass('resources/scss/general.scss', 'public/css')
+	// SASS
+	.sass('resources/scss/app.scss', 'public/css')
+	.sass('resources/scss/general.scss', 'public/css')
 
-    // SASS Libs
-    .sass('resources/scss/libs/bootstrap5.scss', 'public/css/libs')
-    .sass('resources/scss/libs/fontawesome.scss', 'public/css/libs')
-    .sass('resources/scss/libs/slick.scss', 'public/css/libs')
-    .sass('resources/scss/libs/summernote.scss', 'public/css/libs')
-    .sass('resources/scss/libs/swal.scss', 'public/css/libs')
+	// SASS Libs
+	.sass('resources/scss/libs/bootstrap5.scss', 'public/css/libs')
+	.sass('resources/scss/libs/fontawesome.scss', 'public/css/libs')
+	.sass('resources/scss/libs/slick.scss', 'public/css/libs')
+	.sass('resources/scss/libs/summernote.scss', 'public/css/libs')
+	.sass('resources/scss/libs/swal.scss', 'public/css/libs')
 
-    // ENDING
-    ;
+	// WIDGETS
+	// Cards
+	.sass('resources/scss/widget/card-widget.scss', 'public/css/widget')
+
+	// Index (Home) Page
+	.js('resources/js/index.js', 'public/views/index')
+	.sass('resources/scss/index.scss', 'public/views/index')
+	// ENDING
+	;
