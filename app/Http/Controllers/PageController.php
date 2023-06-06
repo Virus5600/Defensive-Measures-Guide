@@ -16,17 +16,25 @@ class PageController extends Controller
 	private $fb;
 	private $APP_ID;
 	private $APP_SECRET;
+	private $DEFAULT_GRAPH_VERSION;
+	private $ACCESS_TOKEN;
 
 	// CONSTRUCTOR
-	public function __construct(Facebook $fb) {
-		$this->APP_ID = config('services.facebook.client_id');
-		$this->APP_SECRET = config('services.facebook.client_secret');
+	public function __construct() {
+		$this->APP_ID = config('services.facebook.app_id');
+		$this->APP_SECRET = config('services.facebook.app_secret');
+		$this->DEFAULT_GRAPH_VERSION = config('services.facebook.default_graph_version');
+		$this->ACCESS_TOKEN = config('services.facebook.access_token');
 
-		$this->fb = $fb;
-		$this->fb->setDefaultAccessToken(config('services.facebook.access_token'));
+		$this->fb = new Facebook([
+			'app_id' => $this->APP_ID,
+			'app_secret' => $this->APP_SECRET,
+			'default_graph_version' => $this->DEFAULT_GRAPH_VERSION,
+			'default_access_token' => $this->ACCESS_TOKEN,
+		]);
 	}
 
-	protected function index(Facebook $fb) {
+	protected function index() {
 		$videos = array();
 		try {
 			// Fetches the Virus5600 page

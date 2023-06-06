@@ -32,9 +32,9 @@ return [
 	],
 
 	'facebook' => [
-		'client_id' => env('FACEBOOK_APP_ID'),
-		'client_secret' => env('FACEBOOK_APP_SECRET'),
-		'default_graph_version' => env('FACEBOOK_DEFAULT_GRAPH_VERSION', 'v17.0'),
+		'app_id' => env('FACEBOOK_APP_ID'),
+		'app_secret' => env('FACEBOOK_APP_SECRET'),
+		'default_graph_version' => env('FACEBOOK_GRAPH_VERSION', 'v17.0'),
 		'access_token' => env('FACEBOOK_ACCESS_TOKEN'),
 	]
 
