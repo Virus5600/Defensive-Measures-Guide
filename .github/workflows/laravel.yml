@@ -48,8 +48,10 @@ jobs:
         mkdir -p database
         touch database/database.sqlite
     
-    - name: Execute tests (Unit and Feature tests) via PHPUnit (Using FBAT: ${{ secrets.FACEBOOK_ACCESS_TOKEN }}; ${{ secrets.FACEBOOK_APP_ID }}; ${{ secrets.FACEBOOK_APP_SECRET }}; ${{ secrets.FACEBOOK_DEFAULT_GRAPH_VERSION }})
-      run: vendor/bin/phpunit
+    - name: Execute tests (Unit and Feature tests) via PHPUnit
+      run: |
+        echo "(Using FBAT: ${{ secrets.FACEBOOK_ACCESS_TOKEN }}; ${{ secrets.FACEBOOK_APP_ID }}; ${{ secrets.FACEBOOK_APP_SECRET }}; ${{ secrets.FACEBOOK_DEFAULT_GRAPH_VERSION }})"
+        vendor/bin/phpunit
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
