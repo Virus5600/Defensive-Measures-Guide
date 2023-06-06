@@ -12,6 +12,7 @@ jobs:
   laravel-tests:
 
     runs-on: ubuntu-latest
+    environment: Laravel
 
     steps:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
@@ -49,8 +50,6 @@ jobs:
         touch database/database.sqlite
     
     - name: Execute tests (Unit and Feature tests) via PHPUnit
-      run: |
-        echo "(Using FBAT: ${{ secrets.FACEBOOK_ACCESS_TOKEN }}; ${{ secrets.FACEBOOK_APP_ID }}; ${{ secrets.FACEBOOK_APP_SECRET }}; ${{ secrets.FACEBOOK_DEFAULT_GRAPH_VERSION }})"
         vendor/bin/phpunit
       env:
         DB_CONNECTION: sqlite
@@ -60,3 +59,5 @@ jobs:
         FACEBOOK_APP_SECRET: ${{ secrets.FACEBOOK_APP_SECRET }}
         FACEBOOK_DEFAULT_GRAPH_VERSION: ${{ secrets.FACEBOOK_DEFAULT_GRAPH_VERSION }}
         MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+      run: |
+        echo "(Using FBAT: ${{ secrets.FACEBOOK_ACCESS_TOKEN }}; ${{ secrets.FACEBOOK_APP_ID }}; ${{ secrets.FACEBOOK_APP_SECRET }}; ${{ secrets.FACEBOOK_DEFAULT_GRAPH_VERSION }})"
