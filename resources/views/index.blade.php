@@ -13,7 +13,7 @@
 			{{-- BANNER --}}
 			<div class="row">
 				<div class="col text-center">
-					<img src="{{ asset("images/home/Defensive Measures Add-On Banner.png") }}" alt="Banner" class="w-100 w-lg-75 cursor-pointer" draggable="false" data-bs-toggle="modal" data-bs-target="#banner-modal">
+					<img src="{{ asset("images/home/Defensive Measures Guide Banner.png") }}" alt="Banner" class="w-100 w-lg-75 cursor-pointer" draggable="false" data-bs-toggle="modal" data-bs-target="#banner-modal">
 
 					<div id="banner-modal" class="modal fade" tabindex="-1" aria-label="Defensive Measures Banner" aria-hidden="true">
 						<div class="modal-dialog modal-xl modal-fullscreen-md-down modal-dialog-centered">
@@ -24,7 +24,7 @@
 
 								<div class="modal-body">
 									<div class="d-flex flex-column h-100">
-										<img src="{{ asset("images/home/Defensive Measures Add-On Banner.png") }}" alt="Banner" class="my-auto" width="100%" draggable="false">
+										<img src="{{ asset("images/home/Defensive Measures Guide Banner.png") }}" alt="Banner" class="my-auto" width="100%" draggable="false">
 									</div>
 								</div>
 							</div>
@@ -37,8 +37,9 @@
 			<div class="row">
 				<div class="col">
 					<p class="my-3">
-						Defensive Add-on is an add-on that allows players to place defensive turrets and traps to protect 
-						themselves, their creations, positions, and so on. The add-on adds Towers, Traps, Entities, Structures, Villager Variants, and Items to the game, which opens a lot of new capabilities, ideas, and creative imaginations for the players to explore.
+						Defensive Measures is an add-on (Bedrock) or mod (Java) that allows players to place defensive turrets and traps to protect 
+						themselves, their creations, positions, and so on. The add-on/mod adds Towers, Traps, Entities, Structures, Villager Variants, and
+						Items to the game, which opens a lot of new capabilities, ideas, and creative imaginations for the players to explore.
 					</p>
 				</div>
 			</div>
@@ -76,7 +77,7 @@
 		<div class="col">
 			<h2>Recent Facebook Videos</h2>
 
-			@foreach($videos as $v)
+			@forelse($videos as $v)
 			<div class="row my-5">
 				<dic class="col">
 					<div class="card floating-header rounded">
@@ -108,7 +109,17 @@
 					</div>
 				</dic>
 			</div>
-			@endforeach
+			@empty
+			<div class="row my-3">
+				<div class="col">
+					<div class="card rounded">
+						<div class="card-header"></div>
+						<h4 class="card-body text-center">Nothing to show right now</h4>
+						<div class="card-footer"></div>
+					</div>
+				</div>
+			</div>
+			@endforelse
 
 			<h5 class="text-center">
 				<a class="btn btn-outline-primary" target="_new" href="https://facebook.com/watch/101775128453596/720160775280918">

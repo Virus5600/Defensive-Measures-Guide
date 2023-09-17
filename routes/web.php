@@ -36,10 +36,17 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 		Route::get('/', 'ContentsController@index')->name('contents.index');
 	});
 
+	//////////////////
+	// AUTH RELATED //
+	//////////////////
+	Route::group(['middleware' => ['guest']], function() {
+		Route::get('/login', 'AuthenticationController@login')->name('login');
+	});
+
 	////////////////
 	// ADMIN SIDE //
 	////////////////
-	Route::group(['prefix' => 'admin'], function() {
+	Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
 		// SETTINGS
 		Route::group(['prefix' => 'settings'], function() {
 			// Index

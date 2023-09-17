@@ -1,8 +1,12 @@
 @use "sass:list";
 @use "sass:string";
 
+@import "node_modules/@fortawesome/fontawesome-free/scss/brands";
+@import "node_modules/@fortawesome/fontawesome-free/scss/regular";
+@import "node_modules/@fortawesome/fontawesome-free/scss/solid";
+
 $fonts: (
-	"Minecraftia": url("/fonts/Minecraftia-Regular.ttf")
+	"Minecraftia": url("/fonts/Minecraftia.ttf"),
 );
 
 @each $fontName, $fontUrl in $fonts {

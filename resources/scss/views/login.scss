@@ -1,0 +1,133 @@
+@import "./../libs/wait-animate";
+
+.hemisphere {
+	width: 50%;
+	height: 100vh !important;
+}
+
+#left-hemisphere {
+	@extend .hemisphere;
+	
+	width: 75%;
+
+	background-image: var(--bg-img);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	filter: blur(5px);
+}
+
+#right-hemisphere {
+	@extend .hemisphere;
+	
+	width: 25%;
+}
+
+.login-card {
+	transition: .25s;
+	opacity: 75%;
+
+	&:hover,
+	&:active {
+		opacity: 100%;
+	}
+
+	#login-form {
+		transition: .5s ease-out;
+
+		overflow: hidden;
+		max-height: 1vh;
+
+		&::after {
+			content: "\f245";
+			font-family: "Font Awesome 6 Free";
+			font-weight: 900;
+			color: #f8f9fa;
+
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%);
+			
+			transition: .125s ease-out;
+			opacity: 1;
+
+			@extend .mouse-over;
+		}
+		
+		& > * {
+			transition: .5s;
+			opacity: 0;
+		}
+
+		&:hover,
+		&:active {
+			max-height: 100vh;
+
+			&::after {
+				opacity: 0;
+				animation: none;
+			}
+
+			& > * {
+				opacity: 1;
+			}
+		}
+	}
+}
+
+
+@include waitAnimate(
+	(
+		animationName: mouse-over,
+		duration: 1,
+		waitTime: 5,
+		timingFunction: ease-in-out,
+		iteration-count: infinitem,
+		keyframes: (
+			0: (
+				transform: translateX(250%) translateY(100%),
+				opacity: 0,
+			),
+
+			37.5: (
+				opacity: 1,
+			),
+
+			40: (
+				transform: translateX(-50%) translateY(-50%),
+			),
+
+			44.99: (
+				color: #f8f9fa,
+			),
+
+			45: (
+				transform: translateX(-55%) translateY(-55%) scale(95%),
+				color: #343a40,
+			),
+
+			55: (
+				transform: translateX(-55%) translateY(-55%) scale(100%),
+				color: #343a40,
+			),
+
+			55.01: (
+				color: #f8f9fa,
+			),
+
+			60: (
+				transform: translateX(-50%) translateY(-50%),
+			),
+
+			62.5: (
+				opacity: 1,
+			),
+
+			100: (
+				transform: translateX(-250%) translateY(100%),
+				opacity: 0,
+			)
+		),
+	)
+);

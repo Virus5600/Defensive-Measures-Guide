@@ -1,5 +1,5 @@
 {{-- Navigation Bar --}}
-<nav class="navbar navbar-expand-lg fixed-top shadow px-lg-3 bg-body-tertiary font-minecraftia" id="mainNavbar">
+<nav class="navbar navbar-expand-lg fixed-top shadow px-3 bg-body-tertiary font-minecraftia" id="mainNavbar">
 	{{-- Branding --}}
 	<a href="{{ route('home') }}" class="navbar-brand m-0">
 		<img src="{{ asset('/images/ui/Cannon Turret.png') }}" alt="Defensive Measures Logo" width="auto" height="50" class="mh-100 m-0 p-0">
@@ -63,7 +63,7 @@
 		<div class="col-10 offset-1">
 			<div class="carousel js-only">
 				@forelse($carousel as $c)
-				<div class="bg-secondary" style="--bg-img: url('{{ $c->file }}')">
+				<div class="bg-secondary carousel-item" style="--bg-img: url('{{ $c->file }}')">
 					<div class="backdrop-lg-blur opacity-lg-100 opacity-0">
 						<img class="mx-auto" src="{{$c->file}}"/>
 					</div>

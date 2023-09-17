@@ -9,7 +9,6 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 	<head>
-
 		{{-- META DATA --}}
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta charset="utf-8">
@@ -49,6 +48,7 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 		<script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
 
 		{{-- CUSTOM STYLES --}}
+		<link rel="stylesheet" type="text/css" href="{{ mix('views/layouts/public/public.css') }}">
 		@yield('css')
 
 		{{-- TITLE --}}

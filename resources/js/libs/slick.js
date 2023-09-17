@@ -1,2 +1,2 @@
 // Slick Carousel
-window.slick = require('slick-carousel/slick/slick.min');
+window.slick = require('slick-carousel');

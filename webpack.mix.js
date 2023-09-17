@@ -55,8 +55,16 @@ mix
 	// Cards
 	.sass('resources/scss/widget/card-widget.scss', 'public/css/widget')
 
+	// LAYOUTS
+	// Public Layout
+	.sass('resources/scss/views/layouts/public.scss', 'public/views/layouts/public')
+
+	// VIEWS
 	// Index (Home) Page
-	.js('resources/js/index.js', 'public/views/index')
-	.sass('resources/scss/index.scss', 'public/views/index')
+	.js('resources/js/views/index.js', 'public/views/index')
+	.sass('resources/scss/views/index.scss', 'public/views/index')
+
+	// Login Page
+	.sass('resources/scss/views/login.scss', 'public/views/login')
 	// ENDING
 	;
