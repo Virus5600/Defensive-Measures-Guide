@@ -107,7 +107,7 @@ class AuthenticationController extends Controller
 							}
 							// Otherwise, fetch the row to use the already generated data
 							else {
-								$pr = PasswordReset:where('email', '=', $user->email)->first();
+								$pr = PasswordReset::where('email', '=', $user->email)->first();
 
 								activity('authentication')
 									->byAnonymous()
