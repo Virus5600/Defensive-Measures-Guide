@@ -60,7 +60,7 @@
 {{-- Carousel --}}
 <section class="container-fluid mt-5 pt-5">
 	<div class="row">
-		<div class="col-10 offset-1">
+		<div class="col-10 offset-1" id="masthead">
 			<div class="carousel js-only">
 				@forelse($carousel as $c)
 				<div class="bg-secondary carousel-item" style="--bg-img: url('{{ $c->file }}')">

@@ -40,17 +40,30 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 	// AUTH RELATED //
 	//////////////////
 	Route::group(['middleware' => ['guest']], function() {
+		// Login
 		Route::get('/login', 'AuthenticationController@login')->name('login');
+
+		// Authenticate
+		Route::post('/authenticate', 'AuthenticationController@authenticate')->name('authenticate');
 	});
 
-	////////////////
-	// ADMIN SIDE //
-	////////////////
-	Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
-		// SETTINGS
-		Route::group(['prefix' => 'settings'], function() {
-			// Index
-			Route::get('/', 'SettingsController@index')->name('admin.settings.index');
+	////////////////////////
+	// AUTHENTICATED SIDE //
+	////////////////////////
+	Route::group(['middleware' => ['auth']], function() {
+		// LOGOUT
+		Route::post('/logout', 'AuthenticationController@logout')->name('logout');
+		
+		////////////////
+		// ADMIN SIDE //
+		////////////////
+		Route::group(['prefix' => 'admin'], function() {
+			// SETTINGS
+			Route::group(['prefix' => 'settings'], function() {
+				// Index
+				Route::get('/', 'SettingsController@index')->name('admin.settings.index');
+			});
 		});
 	});
+
 });

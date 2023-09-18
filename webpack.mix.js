@@ -29,16 +29,10 @@ mix
 
 	// JavaScript
 	.js('resources/js/app.js', 'public/js')
-	.js('resources/js/custom/components/navbar-dynamic.js', 'public/js/custom/components')
+	.js('resources/js/custom/components/*.js', 'public/js/custom/components')
 
 	// JS Libs
-	.js('resources/js/libs/bootstrap5.js', 'public/js/libs')
-	.js('resources/js/libs/fontawesome.js', 'public/js/libs')
-	.js('resources/js/libs/jQuery.js', 'public/js/libs')
-	.js('resources/js/libs/popperjs.js', 'public/js/libs')
-	.js('resources/js/libs/slick.js', 'public/js/libs')
-	.js('resources/js/libs/summernote.js', 'public/js/libs')
-	.js('resources/js/libs/swal.js', 'public/js/libs')
+	.js('resources/js/libs/*.js', 'public/js/libs')
 
 	// SASS
 	.sass('resources/scss/app.scss', 'public/css')
@@ -65,6 +59,7 @@ mix
 	.sass('resources/scss/views/index.scss', 'public/views/index')
 
 	// Login Page
+	.js('resources/js/views/login.js', 'public/views/login')
 	.sass('resources/scss/views/login.scss', 'public/views/login')
 	// ENDING
 	;

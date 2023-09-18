@@ -1,23 +1,18 @@
 {
     "/js/app.js": "/js/app.js",
-    "/js/custom/components/navbar-dynamic.js": "/js/custom/components/navbar-dynamic.js",
+    "/js/custom/components/login-page.js": "/js/custom/components/login-page.js",
     "/js/libs/bootstrap5.js": "/js/libs/bootstrap5.js",
-    "/js/libs/fontawesome.js": "/js/libs/fontawesome.js",
-    "/js/libs/jQuery.js": "/js/libs/jQuery.js",
-    "/js/libs/popperjs.js": "/js/libs/popperjs.js",
-    "/js/libs/slick.js": "/js/libs/slick.js",
-    "/js/libs/summernote.js": "/js/libs/summernote.js",
-    "/js/libs/swal.js": "/js/libs/swal.js",
     "/views/index/index.js": "/views/index/index.js",
+    "/views/login/login.js": "/views/login/login.js",
     "/css/libs/slick.css": "/css/libs/slick.css",
     "/css/libs/fontawesome.css": "/css/libs/fontawesome.css",
     "/css/libs/bootstrap5.css": "/css/libs/bootstrap5.css",
+    "/css/general.css": "/css/general.css",
     "/css/app.css": "/css/app.css",
     "/views/login/login.css": "/views/login/login.css",
     "/views/index/index.css": "/views/index/index.css",
     "/views/layouts/public/public.css": "/views/layouts/public/public.css",
     "/css/widget/card-widget.css": "/css/widget/card-widget.css",
     "/css/libs/swal.css": "/css/libs/swal.css",
-    "/css/libs/summernote.css": "/css/libs/summernote.css",
-    "/css/general.css": "/css/general.css"
+    "/css/libs/summernote.css": "/css/libs/summernote.css"
 }

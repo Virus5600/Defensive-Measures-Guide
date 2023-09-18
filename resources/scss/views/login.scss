@@ -15,6 +15,12 @@
 	background-size: cover;
 	background-position: center;
 	filter: blur(5px);
+
+	transition: .5s;
+
+	&.unblur {
+		filter: blur(0px);
+	}
 }
 
 #right-hemisphere {
@@ -25,11 +31,11 @@
 
 .login-card {
 	transition: .25s;
-	opacity: 75%;
+	opacity: .75;
 
 	&:hover,
 	&:active {
-		opacity: 100%;
+		opacity: 1;
 	}
 
 	#login-form {
@@ -61,7 +67,8 @@
 		}
 
 		&:hover,
-		&:active {
+		&:active,
+		&.show {
 			max-height: 100vh;
 
 			&::after {
@@ -71,6 +78,69 @@
 
 			& > * {
 				opacity: 1;
+			}
+		}
+
+	}
+
+	&, & * {
+		text-shadow: 0 0 5px white;
+		color: transparent;
+	}
+
+	&:hover,
+	&.show {
+		opacity: 1;
+		
+		&, & * {
+			text-shadow: initial;
+			color: initial;
+		}
+	}
+	
+
+	// Lock and Unlock View
+	#lock-view {
+		position: relative;
+
+		cursor: pointer;
+		transition: .5s;
+
+		&:hover {
+			opacity: .75;
+		}
+
+		.fa-lock,
+		.fa-lock-open {
+			left: 50%;
+			top: 50%;
+			transform: translateX(-50%) translateY(-50%);
+			position: absolute;
+
+			transition: 0.25s;
+		}
+
+		&.unlocked {
+			& .fa-lock {
+				opacity: 0;
+				z-index: 0;
+			}
+
+			& .fa-lock-open {
+				opacity: 1;
+				z-index: 1;
+			}
+		}
+
+		&.locked {
+			& .fa-lock {
+				opacity: 1;
+				z-index: 1;
+			}
+
+			& .fa-lock-open {
+				opacity: 0;
+				z-index: 0;
 			}
 		}
 	}

@@ -45,11 +45,12 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 		{{-- COMMON LIBS --}}
 		<link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ mix('css/general.css') }}">
-		<link rel="stylesheet" type="text/css" href="{{ mix('views/login/login.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ mix('views/layouts/public/public.css') }}">
 		<script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
 
 		{{-- CUSTOM STYLES --}}
-		<link rel="stylesheet" type="text/css" href="{{ mix('views/layouts/public/public.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ mix('views/login/login.css') }}">
+		<script type="text/javascript" src="{{ mix('views/login/login.js') }}"></script>
 		@yield('css')
 
 		{{-- TITLE --}}
@@ -63,7 +64,7 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 		<div class="d-flex flex-column min-vh-100 js-only position-relative">
 			<div class="d-flex flex-row flex-grow-1 h-100">
 				{{-- BACKGROUND LEFT --}}
-				<div class="w-100 w-md-75" id="left-hemisphere" style="--bg-img: url('{{ asset("images/home/Defensive Measures Banner.png") }}');">
+				<div class="w-100 w-md-75 unblur" id="left-hemisphere" style="--bg-img: url('{{ asset("images/home/Defensive Measures Banner.png") }}');">
 				</div>
 				
 				{{-- BACKGROUND RIGHT --}}
@@ -73,9 +74,17 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 
 			{{-- LOGIN CARD --}}
 			<div class="w-75 w-md-50 w-lg-25 position-absolute posabs-center posabs-md-vertical-middle posabs-md-innerright m-md-auto login-card">
-				<form class="card">
+				<form class="card" method="POST" action="{{ route("authenticate") }}" enctype="multipart/form-data">
 					<div class="card-header text-center">
-						<h3 class="card-title">LOGIN</h3>
+						<h3 class="card-title d-flex flex-row position-relative">
+							<span class="m-auto">LOGIN</span>
+							
+							{{-- LOCK/UNLOCK VIEW --}}
+							<span id="lock-view" class="position-absolute posabs-vertical-middle posabs-outerright fs-5 ms-auto my-auto unlocked">
+								<i class="fas fa-lock-open" title="Toggle to lock view"></i>
+								<i class="fas fa-lock" title="Toggle to unlock view"></i>
+							</span>
+						</h3>
 					</div>
 
 					<div class="card-body">
@@ -86,7 +95,9 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 							</div>
 
 							{{-- Actual Form --}}
-							<div class="border border-light rounded p-3">
+							<div class="border border-gray rounded p-3">
+								@csrf
+
 								{{-- USERNAME --}}
 								<div class="form-group">
 									<label for="username" class="form-label">Username</label>
@@ -96,7 +107,14 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 								{{-- PASSWORD --}}
 								<div class="form-group">
 									<label for="password" class="form-label">Password</label>
-									<input id="password" type="password" name="password" class="form-control">
+
+									<div class="input-group">
+										<input id="password" type="password" name="password" class="form-control border-end-0">
+										<button type="button" class="btn btn-secondary border-start-0" id="toggle-show-password" aria-label="Show Password" data-target="#password">
+											<i id="show" class="fas fa-eye d-none" title="Show"></i>
+											<i id="hide" class="fas fa-eye-slash" title="Hide"></i>
+										</button>
+									</div>
 								</div>
 							</div>
 

@@ -138,4 +138,5 @@
 
 @section('js')
 <script type="text/javascript" src="{{ mix('views/index/index.js') }}"></script>
+<script type="text/javascript" src="{{ mix('js/custom/components/login-page.js') }}"></script>
 @endsection
