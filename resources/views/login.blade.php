@@ -73,7 +73,7 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 			</div>
 
 			{{-- LOGIN CARD --}}
-			<div class="w-75 w-md-50 w-lg-25 position-absolute posabs-center posabs-md-vertical-middle posabs-md-innerright m-md-auto login-card">
+			<div class="w-75 w-md-50 w-lg-25 position-absolute posabs-center posabs-md-vertical-middle posabs-md-outerright m-md-auto login-card">
 				<form class="card" method="POST" action="{{ route("authenticate") }}" enctype="multipart/form-data">
 					<div class="card-header text-center">
 						<h3 class="card-title d-flex flex-row position-relative">

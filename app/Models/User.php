@@ -18,13 +18,14 @@ class User extends Authenticatable
 	use Notifiable, SoftDeletes, HasApiTokens;
 
 	protected $fillable = [
+		'username',
 		'first_name',
 		'middle_name',
 		'last_name',
 		'suffix',
 		'email',
 		'avatar',
-		'type_id',
+		'user_type_id',
 		'login_attempts',
 		'locked',
 		'locked_by',
@@ -46,7 +47,70 @@ class User extends Authenticatable
 		'last_auth' => 'datetime',
 	];
 
+	protected $with = [
+		'userType.permissions',
+		'userPerm'
+	];
+
+	// Relationships
+	public function userType() { return $this->belongsTo('App\Models\UserType'); }
+	protected function passwordReset() { return $this->belongsTo('App\Models\PasswordReset'); }
+	public function userPerm() { return $this->hasMany('App\Models\UserPermission'); }
+	public function userPerms() { return $this->belongsToMany('App\Models\Permission', 'user_permissions'); }
+
 	// Custom Functions
+	public function permissions() {
+		if ($this->userPerm->count() <= 0)
+			$perms = $this->type->permissions;
+
+		return $perms ?? $this->userPerm;
+	}
+
+	public function isUsingTypePermissions() {
+		return $this->userPerm->count() <= 0;
+	}
+
+	public function hasPermission(...$permissions) {
+		$matches = 0;
+		$usingTypePermissions = $this->isUsingTypePermissions();
+		$perms = $this->permissions();
+
+		if (is_array($permissions[0]))
+			$permissions = $permissions[0];
+
+		foreach ($perms as $p) {
+			if ($usingTypePermissions)
+				if (in_array($p->slug, $permissions))
+					$matches += 1;
+			else
+				if (in_array($p->permission->slug, $permissions))
+					$matches += 1;
+		}
+
+		return $matche4s == count($permissions);
+	}
+
+	public function hasSomePermission(...$permissions) {
+		$usingTypePermissions = $this->isUsingTypePermissions();
+		$perms = $this->permissions();
+
+		if (is_array($permissions[0]))
+			$permissions = $permissions[0];
+
+		foreach ($perms as $p) {
+			if ($usingTypePermissions) {
+				if (in_array($p->slug, $permissions)) {
+					return true;
+				}
+			}
+			else {
+				if (in_array($p->permission->slug, $permissions)) {
+					return true;
+				}
+			}
+		}
+	}
+
 	public function getAvatar($useDefault=false, $getFull=true) {
 		$avatarF = $this->avatar;
 		$avatarU = asset('/uploads/users/'.$this->avatar);

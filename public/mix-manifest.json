@@ -2,6 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/js/custom/components/login-page.js": "/js/custom/components/login-page.js",
     "/js/libs/bootstrap5.js": "/js/libs/bootstrap5.js",
+    "/js/util/disable-on-submit.js": "/js/util/disable-on-submit.js",
     "/views/index/index.js": "/views/index/index.js",
     "/views/login/login.js": "/views/login/login.js",
     "/css/libs/slick.css": "/css/libs/slick.css",

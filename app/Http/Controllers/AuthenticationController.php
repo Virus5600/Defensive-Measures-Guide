@@ -165,21 +165,21 @@ class AuthenticationController extends Controller
 
 	protected function logout(Request $req) {
 		if (auth()->check()) {
-			$auth = auth()->user();
+			$user = auth()->user();
 
 			auth()->logout();
 			session()->flush();
 
 			activity('user')
-				->by($auth)
-				->on($auth)
+				->by($user)
+				->on($user)
 				->event('logout')
 				->withProperties([
 					'timestamp' => now()->timezone('Asia/Manila'),
 					'login_attempts' => $user->login_attempts,
 					'previous_auth' => $user->last_auth,
 				])
-				->log("User {$auth->username} ({$user->email}) logged out");
+				->log("User {$user->username} ({$user->email}) logged out");
 
 			return redirect(route("home"))
 				->with('flash_success', "Logged out!");
