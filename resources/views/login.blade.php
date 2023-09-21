@@ -81,8 +81,8 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 							
 							{{-- LOCK/UNLOCK VIEW --}}
 							<span id="lock-view" class="position-absolute posabs-vertical-middle posabs-outerright fs-5 ms-auto my-auto unlocked">
-								<i class="fas fa-lock-open" title="Toggle to lock view"></i>
-								<i class="fas fa-lock" title="Toggle to unlock view"></i>
+								<i class="fas fa-lock-open" data-bs-title="Toggle to lock view" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="dma-tooltip"></i>
+								<i class="fas fa-lock" data-bs-title="Toggle to unlock view" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="dma-tooltip"></i>
 							</span>
 						</h3>
 					</div>
@@ -133,5 +133,25 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 			{{-- TITLE --}}
 			<img src="{{ asset("images/ui/Defensive Measures Guide.png") }}" class="img w-50 position-absolute posabs-outerleft posabs-outerbottom d-none d-md-block" draggable="false">
 		</div>
+
+		{{-- SCRIPTS --}}
+		<script>
+			$(document).ready(() => {
+				$('[data-bs-toggle="tooltip"]').tooltip();
+			});
+		</script>
+		<script type="text/javascript" src="{{ mix('js/util/disable-on-submit.js') }}"></script>
+		@include('includes.swal-flash')
+
+		@if (Session::has('flash_error'))
+		<script type="text/javascript" id="for-removal">
+			$(document).ready(() => {
+				setTimeout(() => {
+					$(`#lock-view`)[0].click();
+					$(`#for-removal`)[0].remove();
+				}, 1000);
+			});
+		</script>
+		@endif
 	</body>
 </html>

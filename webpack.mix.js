@@ -33,6 +33,7 @@ mix
 
 	// JS Libs
 	.js('resources/js/libs/*.js', 'public/js/libs')
+	.js('resources/js/util/*.js', 'public/js/util')
 
 	// SASS
 	.sass('resources/scss/app.scss', 'public/css')
@@ -52,6 +53,10 @@ mix
 	// LAYOUTS
 	// Public Layout
 	.sass('resources/scss/views/layouts/public.scss', 'public/views/layouts/public')
+
+	// Admin Layout
+	.sass('resources/scss/views/layouts/admin.scss', 'public/views/layouts/admin')
+	.js('resources/js/views/layouts/admin.js', 'public/views/layouts/admin')
 
 	// VIEWS
 	// Index (Home) Page

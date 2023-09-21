@@ -2,10 +2,6 @@
 
 @section('title', 'Home')
 
-@section('header')
-@include('includes.header')
-@endsection
-
 @section('content')
 <section class="container-fluid my-5 p-lg-5 p-3 body-container">
 	<div class="row">
@@ -134,9 +130,10 @@
 @section('css')
 <link rel="stylesheet" type="text/css" href="{{ mix('views/index/index.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ mix('css/widget/card-widget.css') }}">
+<style type="text/css">:root { --carousel-arrow: url('{{ asset("images/settings/carousel/arrow.png") }}'); }</style>
 @endsection
 
-@section('js')
+@section('scripts')
 <script type="text/javascript" src="{{ mix('views/index/index.js') }}"></script>
 <script type="text/javascript" src="{{ mix('js/custom/components/login-page.js') }}"></script>
 @endsection

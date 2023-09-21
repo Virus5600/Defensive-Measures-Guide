@@ -59,11 +59,10 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 		{{-- NOSCRIPT --}}
 		@include('includes.noscript')
 
-		<div class="d-flex flex-column min-vh-100 js-only">
+		<div class="d-flex flex-column min-vh-100 js-only position-relative">
 			{{-- HEADER --}}
 			<header class="header dark-shadow">
-				<style type="text/css">:root { --carousel-arrow: url('{{ asset("images/settings/carousel/arrow.png") }}'); }</style>
-				@yield('header')
+				@include('includes.header')
 			</header>
 
 			{{-- CONTENTS --}}
@@ -75,9 +74,7 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 
 			{{-- FOOTER --}}
 			<footer class="footer">
-				<div class="container-fluid">
-					@include('includes.footer')
-				</div>
+				@include('includes.footer')
 			</footer>
 		</div>
 
@@ -85,6 +82,6 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 		@include('includes.swal-flash')
 
 		{{-- CUSTOM SCRIPTS --}}
-		@yield('js')
+		@yield('scripts')
 	</body>
 </html>

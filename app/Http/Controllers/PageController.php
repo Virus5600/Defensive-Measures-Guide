@@ -34,6 +34,9 @@ class PageController extends Controller
 		]);
 	}
 
+	////////////////
+	// GUEST SIDE //
+	////////////////
 	protected function index() {
 		$videos = array();
 		try {
@@ -79,5 +82,12 @@ class PageController extends Controller
 		return view('index', [
 			'videos' => $videos
 		]);
+	}
+
+	////////////////
+	// ADMIN SIDE //
+	////////////////
+	protected function dashboard(Request $req) {
+		return view('admin.dashboard');
 	}
 }

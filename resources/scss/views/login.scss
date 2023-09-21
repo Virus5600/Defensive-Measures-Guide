@@ -1,5 +1,11 @@
 @import "./../libs/wait-animate";
 
+.dma-tooltip {
+	--bs-tooltip-bg: var(--bs-secondary-bg);
+	--bs-tooltip-color: var(--bs-white);
+	font-family: Minecraftia;
+}
+
 .hemisphere {
 	width: 50%;
 	height: 100vh !important;

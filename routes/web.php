@@ -58,6 +58,9 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 		// ADMIN SIDE //
 		////////////////
 		Route::group(['prefix' => 'admin'], function() {
+			// Dashboard
+			Route::get('/dashboard', 'PageController@dashboard')->name('admin.dashboard');
+
 			// SETTINGS
 			Route::group(['prefix' => 'settings'], function() {
 				// Index
@@ -65,5 +68,4 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 			});
 		});
 	});
-
 });
