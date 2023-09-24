@@ -1,5 +1,5 @@
 {{-- Navigation Bar --}}
-<nav class="navbar navbar-expand-lg fixed-top shadow px-3 bg-body-tertiary font-minecraftia" id="mainNavbar">
+<nav class="navbar navbar-expand-lg fixed-top shadow-lg px-3 bg-body-tertiary font-minecraftia" id="mainNavbar">
 	{{-- Branding --}}
 	<a href="{{ route('home') }}" class="navbar-brand m-0">
 		<img src="{{ asset('/images/ui/Cannon Turret.png') }}" alt="Defensive Measures Logo" width="auto" height="50" class="mh-100 m-0 p-0">

@@ -4,6 +4,7 @@ $positions: map-get(
 	map-get($utilities, "position"),
 	"values"
 );
+
 @each $bpn, $bpv in $grid-breakpoints {
 	@each $pos in $positions {
 		@include media-breakpoint-up($bpn) {

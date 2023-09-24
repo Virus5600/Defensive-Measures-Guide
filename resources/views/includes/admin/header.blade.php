@@ -1,5 +1,5 @@
 {{-- Navigation Bar (TOP) --}}
-<nav class="navbar navbar-expand-lg shadow px-3 bg-body-tertiary font-minecraftia" style="z-index: 1000;">
+<nav class="navbar navbar-expand-lg shadow-lg px-3 bg-body-tertiary font-minecraftia" style="z-index: 1000;">
 	<div class="container-fluid">
 		{{-- Branding --}}
 		<a href="{{ route('admin.dashboard') }}" class="navbar-brand mx-auto mx-lg-0 py-0 h-auto d-none d-lg-block">

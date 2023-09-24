@@ -1,0 +1,28 @@
+@import "./base";
+
+$widths: map-get(
+	map-get($utilities, "width"),
+	"values"
+);
+$heights: map-get(
+	map-get($utilities, "height"),
+	"values"
+);
+
+@each $bpn, $bpv in $grid-breakpoints {
+	@each $wk, $wv in $widths {
+		@include media-breakpoint-up($bpn) {
+			.w-#{$bpn}-#{$wk} {
+				width: #{$wv} !important;
+			}
+		}
+	}
+
+	@each $hk, $hv in $heights {
+		@include media-breakpoint-up($bpn) {
+			.h-#{$bpn}-#{$hk} {
+				height: #{$hv} !important;
+			}
+		}
+	}
+}

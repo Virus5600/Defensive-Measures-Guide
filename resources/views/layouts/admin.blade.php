@@ -64,20 +64,22 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 
 		<div class="d-flex flex-column min-vh-100 js-only">
 			{{-- HEADER --}}
-			<header class="header dark-shadow">
+			<header class="header shadow-lg">
 				@include('includes.admin.header')
 			</header>
 
 			{{-- CONTENTS --}}
 			<main class="d-flex flex-column flex-fill m-0" id="content">
-				<div class="content flex-fill m-0">
-					<div class="d-flex flex-d-row flex-grow-1 position-relative h-100" style="overflow: hidden;">
+				<div class="d-flex flex-fill m-0">
+					<div class="d-flex flex-fill position-relative h-100">
 						{{-- SIDEBAR --}}
 						@include('includes.admin.sidebar')
 
 						{{-- CONTENT --}}
-						<div class="container-fluid content flex-fill m-0 pt-2 pb-5 h-100">
-							@yield('content')
+						<div class="d-flex flex-column content flex-fill m-0 pt-2 pb-5 h-100">
+							<div class="container-fluid">
+								@yield('content')
+							</div>
 						</div>
 					</div>
 				</div>

@@ -11,7 +11,7 @@
 	</style>
 	<div class="row h-100">
 		<div class="col-12 col-md-4 offset-md-4 py-5 my-auto">
-			<div class="card shadow my-auto">
+			<div class="card shadow-lg my-auto">
 				<h4 class="card-header card-title text-center">Javascript is Disabled</h4>
 
 				<div class="card-body">

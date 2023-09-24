@@ -61,7 +61,7 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 
 		<div class="d-flex flex-column min-vh-100 js-only position-relative">
 			{{-- HEADER --}}
-			<header class="header dark-shadow">
+			<header class="header shadow-lg">
 				@include('includes.header')
 			</header>
 

@@ -15,7 +15,7 @@ use Validator;
 class SettingsController extends Controller
 {
 	protected function index() {
-		return view('admin.settings.index');
+		return view('admin.settings');
 	}
 
 	protected function update(Request $req) {
@@ -84,13 +84,13 @@ class SettingsController extends Controller
 			Log::error($e);
 
 			return redirect()
-				->route('admin.settings.index')
+				->route('admin.settings')
 				->withInput()
 				->with('flash_error', 'Something went wrong, please try again later');
 		}
 
 		return redirect()
-			->route('admin.settings.index')
+			->route('admin.settings')
 			->with('flash_success', 'Successfully updated settings');
 	}
 }
