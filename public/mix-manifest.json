@@ -1,14 +1,21 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/custom/components/login-page.js": "/js/custom/components/login-page.js",
-    "/js/libs/bootstrap5.js": "/js/libs/bootstrap5.js",
+    "/js/custom/components/navbar-dynamic.js": "/js/custom/components/navbar-dynamic.js",
+    "/js/libs/popperjs.js": "/js/libs/popperjs.js",
+    "/js/libs/slick.js": "/js/libs/slick.js",
+    "/js/libs/summernote.js": "/js/libs/summernote.js",
+    "/js/libs/swal.js": "/js/libs/swal.js",
     "/js/util/disable-on-submit.js": "/js/util/disable-on-submit.js",
+    "/js/util/fallback-image.js": "/js/util/fallback-image.js",
+    "/js/util/image-input.js": "/js/util/image-input.js",
+    "/js/util/text-counter.js": "/js/util/text-counter.js",
     "/views/layouts/admin/admin.js": "/views/layouts/admin/admin.js",
     "/views/index/index.js": "/views/index/index.js",
     "/views/login/login.js": "/views/login/login.js",
+    "/css/libs/swal.css": "/css/libs/swal.css",
+    "/css/libs/summernote.css": "/css/libs/summernote.css",
     "/css/libs/slick.css": "/css/libs/slick.css",
-    "/css/libs/fontawesome.css": "/css/libs/fontawesome.css",
-    "/css/libs/bootstrap5.css": "/css/libs/bootstrap5.css",
     "/css/general.css": "/css/general.css",
     "/css/app.css": "/css/app.css",
     "/views/login/login.css": "/views/login/login.css",
@@ -16,6 +23,6 @@
     "/views/layouts/admin/admin.css": "/views/layouts/admin/admin.css",
     "/views/layouts/public/public.css": "/views/layouts/public/public.css",
     "/css/widget/card-widget.css": "/css/widget/card-widget.css",
-    "/css/libs/swal.css": "/css/libs/swal.css",
-    "/css/libs/summernote.css": "/css/libs/summernote.css"
+    "/css/util/text-counter.css": "/css/util/text-counter.css",
+    "/css/util/image-input.css": "/css/util/image-input.css"
 }

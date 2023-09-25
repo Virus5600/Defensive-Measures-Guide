@@ -15,12 +15,12 @@ class Permissions
 	 *
 	 * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
 	 */
-	public function handle(Request $req, Closure $next): Response
+	public function handle(Request $req, Closure $next, ...$permissions): Response
 	{
 		if (!auth()->check())
 			return redirect()->intended();
 
-		$user->auth()->user();
+		$user = auth()->user();
 
 		if ($user->hasPermission($permissions)) {
 			return $next($req);

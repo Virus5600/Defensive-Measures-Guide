@@ -61,7 +61,7 @@ class User extends Authenticatable
 	// Custom Functions
 	public function permissions() {
 		if ($this->userPerm->count() <= 0)
-			$perms = $this->type->permissions;
+			$perms = $this->userType->permissions;
 
 		return $perms ?? $this->userPerm;
 	}
@@ -79,15 +79,19 @@ class User extends Authenticatable
 			$permissions = $permissions[0];
 
 		foreach ($perms as $p) {
-			if ($usingTypePermissions)
-				if (in_array($p->slug, $permissions))
+			if ($usingTypePermissions) {
+				if (in_array($p->slug, $permissions)) {
 					$matches += 1;
-			else
-				if (in_array($p->permission->slug, $permissions))
+				}
+			}
+			else {
+				if (in_array($p->permission->slug, $permissions)) {
 					$matches += 1;
+				}
+			}
 		}
 
-		return $matche4s == count($permissions);
+		return $matches == count($permissions);
 	}
 
 	public function hasSomePermission(...$permissions) {
@@ -111,7 +115,7 @@ class User extends Authenticatable
 		}
 	}
 
-	public function getAvatar($useDefault=false, $getFull=true) {
+	public function getAvatar($useDefault=false, $getFull=true, $isUrl=true) {
 		$avatarF = $this->avatar;
 		$avatarU = asset('/uploads/users/'.$this->avatar);
 		$avatarD = asset('/uploads/users/default.png');
@@ -132,7 +136,9 @@ class User extends Authenticatable
 			}
 		}
 
-		return $toRet;
+		if ($isUrl)
+			return $toRet;
+		return "<img src=\"" . asset($toRet) . "\" class=\"avatar avatar-3 rounded-circle\">";
 	}
 
 	public function getName($include_middle = false) {

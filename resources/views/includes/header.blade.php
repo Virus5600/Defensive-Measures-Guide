@@ -2,8 +2,8 @@
 <nav class="navbar navbar-expand-lg fixed-top shadow-lg px-3 bg-body-tertiary font-minecraftia" id="mainNavbar">
 	{{-- Branding --}}
 	<a href="{{ route('home') }}" class="navbar-brand m-0">
-		<img src="{{ asset('/images/ui/Cannon Turret.png') }}" alt="Defensive Measures Logo" width="auto" height="50" class="mh-100 m-0 p-0">
-		<img src="{{ asset('/images/ui/Defensive Measures Guide.png') }}" alt="Defensive Measures Logo" width="auto" height="33" class="mh-100 m-0 p-0">
+		<img src="{{ asset('/images/ui/Cannon Turret.png') }}" alt="Defensive Measures Logo" class="m-0 p-0" style="max-height: 2.5rem;">
+		<img src="{{ asset('/images/ui/Defensive Measures Guide.png') }}" alt="Defensive Measures Logo" class="m-0 p-0" style="height: 33px;">
 	</a>
 
 	{{-- Navbar Toggler (on small screens) --}}
@@ -13,7 +13,8 @@
 
 	{{-- Navbar Contents --}}
 	<div class="collapse navbar-collapse" id="navbarContent">
-		<ul class="navbar-nav ms-auto">
+		<ul class="navbar-nav ms-auto text-center text-lg-start">
+			{{-- HOME --}}
 			<li class="nav-item">
 				@if (\Request::is('/'))
 				<span class="nav-link active">Home</span>
@@ -22,6 +23,7 @@
 				@endif
 			</li>
 
+			{{-- DOWNLOADS --}}
 			<li class="nav-item">
 				@if (\Request::is('downloads'))
 				<span class="nav-link active">Downloads</span>
@@ -32,6 +34,7 @@
 				@endif
 			</li>
 
+			{{-- INSTALLATION --}}
 			<li class="nav-item">
 				@if (\Request::is('installation'))
 				<span class="nav-link active">Installations</span>
@@ -42,6 +45,7 @@
 				@endif
 			</li>
 
+			{{-- CONTENTS --}}
 			<li class="nav-item">
 				@if (\Request::is('contents'))
 				<span class="nav-link active">Contents</span>
@@ -51,6 +55,44 @@
 				<a href="{{ route('home') }}" class="nav-link">Contents</a>
 				@endif
 			</li>
+
+			{{-- Additional directories if authenticated --}}
+			@auth
+			{{-- SEPARATOR --}}
+			<li class="nav-item">
+				<div class="vr h-100 d-none d-lg-block" style="width: 2.5px;"></div>
+				<hr class="w-100 d-block d-lg-none" style="border-width: 2.5px;">
+			</li>
+
+			{{-- ADMIN DIRECTORIES --}}
+			<li class="nav-item">
+				<div class="dropdown my-auto">
+					{{-- Dropdown Trigger --}}
+					<a href="#" role="button" class="nav-link dropdown-toggle fs-6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						{!! auth()->user()->getAvatar(false, true, false) !!}
+						{{ auth()->user()->getName() }}
+					</a>
+
+					<div class="dropdown-menu dropdown-menu-end text-center text-lg-end">
+						{{-- DASHBOARD --}}
+						<a href="{{ route('admin.dashboard') }}" class="dropdown-item">Dashboard</a>
+
+						<div class="dropdown-divider"></div>
+
+						{{-- UPDATES --}}
+						<a href="{{ route('admin.dashboard') }}" class="dropdown-item">Updates</a>
+
+						<div class="dropdown-divider"></div>
+						
+						{{-- LOGOUT --}}
+						<form action="{{ route('logout') }}" method="POST" class="dropdown-item">
+							@csrf
+							<button type="submit" class="remove-button-style w-100 text-center text-lg-end">Logout</button>
+						</form>
+					</div>
+				</div>
+			</li>
+			@endauth
 		</ul>
 	</div>
 </nav>

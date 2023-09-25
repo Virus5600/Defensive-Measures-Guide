@@ -29,22 +29,34 @@ mix
 
 	// JavaScript
 	.js('resources/js/app.js', 'public/js')
-	.js('resources/js/custom/components/*.js', 'public/js/custom/components')
+	
+	.js('resources/js/custom/components/login-page.js', 'public/js/custom/components')
+	.js('resources/js/custom/components/navbar-dynamic.js', 'public/js/custom/components')
 
 	// JS Libs
-	.js('resources/js/libs/*.js', 'public/js/libs')
-	.js('resources/js/util/*.js', 'public/js/util')
+	.js('resources/js/libs/popperjs.js', 'public/js/libs')
+	.js('resources/js/libs/slick.js', 'public/js/libs')
+	.js('resources/js/libs/summernote.js', 'public/js/libs')
+	.js('resources/js/libs/swal.js', 'public/js/libs')
+	
+	// JS Utilities
+	.js('resources/js/util/disable-on-submit.js', 'public/js/util')
+	.js('resources/js/util/fallback-image.js', 'public/js/util')
+	.js('resources/js/util/image-input.js', 'public/js/util')
+	.js('resources/js/util/text-counter.js', 'public/js/util')
 
 	// SASS
 	.sass('resources/scss/app.scss', 'public/css')
 	.sass('resources/scss/general.scss', 'public/css')
 
 	// SASS Libs
-	.sass('resources/scss/libs/bootstrap5.scss', 'public/css/libs')
-	.sass('resources/scss/libs/fontawesome.scss', 'public/css/libs')
 	.sass('resources/scss/libs/slick.scss', 'public/css/libs')
 	.sass('resources/scss/libs/summernote.scss', 'public/css/libs')
 	.sass('resources/scss/libs/swal.scss', 'public/css/libs')
+
+	// SASS Utilities
+	.sass('resources/scss/util/image-input.scss', 'public/css/util')
+	.sass('resources/scss/util/text-counter.scss', 'public/css/util')
 
 	// WIDGETS
 	// Cards

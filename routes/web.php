@@ -114,9 +114,12 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 			});
 
 			// SETTINGS
-			Route::group(['prefix' => 'settings'], function() {
+			Route::group(['prefix' => 'settings', 'middleware' => ['permissions:settings_tab_access']], function() {
 				// Index
 				Route::get('/', 'SettingsController@index')->name('admin.settings.index');
+
+				// Update
+				Route::put('/update', 'SettingsController@update')->name('admin.settings.update');
 			});
 		});
 	});

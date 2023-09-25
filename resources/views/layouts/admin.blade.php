@@ -76,10 +76,8 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 						@include('includes.admin.sidebar')
 
 						{{-- CONTENT --}}
-						<div class="d-flex flex-column content flex-fill m-0 pt-2 pb-5 h-100">
-							<div class="container-fluid">
-								@yield('content')
-							</div>
+						<div class="container-fluid content flex-fill m-0 pt-2 pb-5 min-h-100">
+							@yield('content')
 						</div>
 					</div>
 				</div>

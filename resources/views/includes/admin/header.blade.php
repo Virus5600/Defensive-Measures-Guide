@@ -3,7 +3,7 @@
 	<div class="container-fluid">
 		{{-- Branding --}}
 		<a href="{{ route('admin.dashboard') }}" class="navbar-brand mx-auto mx-lg-0 py-0 h-auto d-none d-lg-block">
-			<img src="{{ $webLogo }}" alt="Defensive Measures Icon" style="max-height: 3.25rem;" class="m-0 p-0">
+			<img src="{{ $webLogo }}" alt="Defensive Measures Icon" style="max-height: 3.25rem;" class="m-0 p-0 me-2">
 			{{ $webName }}
 		</a>
 
@@ -14,6 +14,7 @@
 					<div class="dropdown my-auto">
 						{{-- Dropdown Trigger --}}
 						<a href="#" role="button" class="nav-link dropdown-toggle fs-6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							{!! auth()->user()->getAvatar(false, true, false) !!}
 							{{ auth()->user()->getName() }}
 						</a>
 

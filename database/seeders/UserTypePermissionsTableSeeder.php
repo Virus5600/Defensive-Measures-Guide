@@ -17,22 +17,22 @@ class UserTypePermissionsTableSeeder extends Seeder
 	public function run(): void
 	{
 		// Master Admin
-		$typeID = UserType::where('slug', '=', 'master_admin')->first();
-		$perms = Permission::get();
+		$typeID = UserType::where('slug', '=', 'master_admin')->first()->id;
+		$perms = Permission::pluck('slug')->toArray();
 		$this->insertEntries($typeID, $perms);
 
 		// Admin
-		$typeID = UserType::where('slug', '=', 'admin')->first();
+		$typeID = UserType::where('slug', '=', 'admin')->first()->id;
 		$perms = [
 		];
 
 		// Editor
-		$typeID = UserType::where('slug', '=', 'editor')->first();
+		$typeID = UserType::where('slug', '=', 'editor')->first()->id;
 		$perms = [
 		];
 
 		// Writer
-		$typeID = UserType::where('slug', '=', 'writer')->first();
+		$typeID = UserType::where('slug', '=', 'writer')->first()->id;
 		$perms = [
 		];
 	}
@@ -41,7 +41,7 @@ class UserTypePermissionsTableSeeder extends Seeder
 	{
 		for ($i = 1; $i <= count($perms); $i++) {
 			UserTypePermission::insert([
-				'type_id' => $typeID,
+				'user_type_id' => $typeID,
 				'permission_id' => $i
 			]);
 		}
