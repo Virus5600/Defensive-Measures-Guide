@@ -40,10 +40,10 @@ $editSettingsPerm = auth()->user()->hasPermission('settings_tab_edit');
 					{{-- IMAGE INPUT --}}
 					<div class="image-input-scope h-100" id="web-logo-scope" data-settings="#image-input-settings" data-fallback-img="{{ asset('uploads/settings/default.png') }}">
 						{{-- FILE IMAGE --}}
-						<div class="h-100 pb-3 text-center image-input collapse show avatar_holder" id="web-logo-image-input-wrapper">
+						<div class="h-100 pb-3 pb-lg-0 text-center image-input collapse show avatar_holder" id="web-logo-image-input-wrapper">
 							<div class="h-100 row border rounded border-secondary-light py-2 mx-1">
 								<div class="col-12 col-lg-6 justify-content-start">
-									<div class="hover-cam mx-auto input-avatar rounded overflow-hidden">
+									<div class="hover-cam mx-auto input-avatar rounded overflow-hidden border border-lg-0">
 										<img src="{{ Settings::getInstance('web-logo')->getImage(!Settings::getInstance('web-logo')->is_file) }}" class="hover-zoom img-fluid input-avatar" id="web-logo-container" alt="Website Logo" data-default-src="{{ asset('uploads/settings/default.png') }}">
 										<span class="icon text-center image-input-float" id="web-logo" tabindex="0">
 											<i class="fas fa-camera text-white hover-icon-2x"></i>
@@ -82,7 +82,7 @@ $editSettingsPerm = auth()->user()->hasPermission('settings_tab_edit');
 					{{-- APP DESCRIPTION --}}
 					<div class="form-group text-counter-parent">
 						<label for="web-desc" class="form-label">Website Description</label>
-						<textarea name="web-desc" id="web-desc" class="form-control not-resizable text-counter-input" rows="3" data-max="255" data-warn-at="10" required>{{ Settings::getValue('web-desc') == null ? 'The official website of Taytay Municipal' : Settings::getValue('web-desc') }}</textarea>
+						<textarea name="web-desc" id="web-desc" class="form-control not-resizable text-counter-input" rows="5" data-max="255" data-warn-at="10" required>{{ Settings::getValue('web-desc') == null ? 'The official website of Taytay Municipal' : Settings::getValue('web-desc') }}</textarea>
 						<span class="text-counter small">255</span>
 						<span class="text-danger small">{{$errors->first('web-desc')}}</span>
 					</div>
@@ -100,10 +100,17 @@ $editSettingsPerm = auth()->user()->hasPermission('settings_tab_edit');
 
 @section('scripts')
 <script type="text/javascript" src="{{ mix('js/util/image-input.js') }}"></script>
-<script type="text/javascript" src="{{ mix('js/util/text-counter.js') }}"></script>
-
 <script type="text/javascript">
 	$(document).ready(() => {
+		$(document).on('beforeunload', (e) => {
+			let p = prompt("You sure");
+
+			if (!p) {
+				e.preventDefault();
+				e.stopPropagation();
+			}
+		});
+
 		@if ($editSettingsPerm)
 		$('#revert').on('click', (e) => {
 			location.reload();
@@ -112,7 +119,6 @@ $editSettingsPerm = auth()->user()->hasPermission('settings_tab_edit');
 		$.each($('form').find('input, textarea'), (k, v) => {
 			$(v).prop('readonly', true);
 		});
-
 		$('div.tag .tag-i').remove();
 		@endif
 	});

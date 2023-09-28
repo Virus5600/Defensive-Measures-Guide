@@ -32,3 +32,21 @@ $avatarSize: (
 		}
 	}
 }
+
+textarea {
+	$dir: (
+		hr: horizontal,
+		vr: vertical,
+		b: both
+	);
+
+	@each $dk, $dv in $dir {
+		&.resizable-#{$dk} {
+			resize: $dv
+		}
+	}
+
+	&.not-resizable {
+		resize: none !important;
+	}
+}

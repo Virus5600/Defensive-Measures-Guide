@@ -1,2 +1,12 @@
 // Sweetalert 2
 @import "node_modules/sweetalert2/dist/sweetalert2.min";
+@import "node_modules/@sweetalert2/theme-dark/dark.min";
+
+.swal2-icon.swal2-warning,
+.swal2-icon.swal2-info,
+.swal2-icon.swal2-question {
+	.swal2-icon-content {
+		padding-left: .5rem;
+		padding-bottom: .25rem;
+	}
+}

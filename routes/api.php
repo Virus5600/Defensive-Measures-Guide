@@ -14,6 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-	return $request->user();
+Route::group(['namespace' => "App\Http\Controllers"], function() {
+	////////////////////////
+	// AUTHENTICATED SIDE //
+	////////////////////////
+	Route::group(['middleware' => ['auth']], function() {
+		////////////////
+		// ADMIN SIDE //
+		////////////////
+		Route::group(['prefix' => 'admin'], function() {
+			// SETTINGS
+			Route::group(['prefix' => 'settings', 'middleware' => ['permissions:settings_tab_access']], function() {
+				// RESET
+				Route::group(['prefix' => 'reset', 'middleware' => ['permissions:settings_tab_edit']], function() {
+					Route::patch('/{type}', 'SettingsController@reset')->name('admin.settings.reset.favicon');
+				});
+			});
+		});
+	});
 });

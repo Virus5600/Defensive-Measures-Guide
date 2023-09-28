@@ -6,10 +6,6 @@
     "/js/libs/slick.js": "/js/libs/slick.js",
     "/js/libs/summernote.js": "/js/libs/summernote.js",
     "/js/libs/swal.js": "/js/libs/swal.js",
-    "/js/util/disable-on-submit.js": "/js/util/disable-on-submit.js",
-    "/js/util/fallback-image.js": "/js/util/fallback-image.js",
-    "/js/util/image-input.js": "/js/util/image-input.js",
-    "/js/util/text-counter.js": "/js/util/text-counter.js",
     "/views/layouts/admin/admin.js": "/views/layouts/admin/admin.js",
     "/views/index/index.js": "/views/index/index.js",
     "/views/login/login.js": "/views/login/login.js",
@@ -24,5 +20,12 @@
     "/views/layouts/public/public.css": "/views/layouts/public/public.css",
     "/css/widget/card-widget.css": "/css/widget/card-widget.css",
     "/css/util/text-counter.css": "/css/util/text-counter.css",
-    "/css/util/image-input.css": "/css/util/image-input.css"
+    "/css/util/image-input.css": "/css/util/image-input.css",
+    "/js/util/confirm-leave.js": "/js/util/confirm-leave.js",
+    "/js/util/dirty-form.js": "/js/util/dirty-form.js",
+    "/js/util/disable-on-submit.js": "/js/util/disable-on-submit.js",
+    "/js/util/fallback-image.js": "/js/util/fallback-image.js",
+    "/js/util/image-input.js": "/js/util/image-input.js",
+    "/js/util/swal-flash.js": "/js/util/swal-flash.js",
+    "/js/util/text-counter.js": "/js/util/text-counter.js"
 }

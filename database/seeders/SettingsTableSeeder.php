@@ -18,6 +18,7 @@ class SettingsTableSeeder extends Seeder
 		Settings::create([
 			'name' => 'web-logo',
 			'value' => 'default.png',
+			'default_value' => 'default.png',
 			'is_file' => true
 		]);
 
@@ -25,12 +26,14 @@ class SettingsTableSeeder extends Seeder
 		Settings::create([
 			'name' => 'web-name',
 			'value' => 'Defensive Measures Guide'
+			'default_value' => 'Defensive Measures Guide'
 		]);
 
 		// DESCRIPTION
 		Settings::create([
 			'name' => 'web-desc',
 			'value' => 'A Guide dedicated to Defensive Measures developed by Virus5600. Contains all details needed to know in Defensive Measures, ranging from installation, up to the updates released by the add-on and mod.'
+			'default_value' => 'A Guide dedicated to Defensive Measures developed by Virus5600. Contains all details needed to know in Defensive Measures, ranging from installation, up to the updates released by the add-on and mod.'
 		]);
 	}
 }

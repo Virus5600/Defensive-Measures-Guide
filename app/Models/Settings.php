@@ -9,7 +9,8 @@ class Settings extends Model
 	protected $fillable = [
 		'name',
 		'value',
-		'is_file'
+		'default_value',
+		'is_file',
 	];
 
 	// CUSTOM FUNCTIONS

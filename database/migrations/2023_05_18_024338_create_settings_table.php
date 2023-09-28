@@ -15,6 +15,7 @@ return new class extends Migration
 			$table->id();
 			$table->string('name')->unique();
 			$table->mediumText('value');
+			$table->mediumText('default_value');
 			$table->boolean('is_file')->default(false);
 			$table->timestamps();
 		});

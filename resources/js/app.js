@@ -2,6 +2,9 @@ try {
 	// Setting user language
 	window.lang = global.lang = (window.navigator.userLanguage || window.navigator.language);
 
+	// Lodash 4.17.21
+	require('./libs/lodash');
+
 	// jQuery 3.6
 	require('./libs/jQuery');
 

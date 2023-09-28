@@ -40,10 +40,7 @@ mix
 	.js('resources/js/libs/swal.js', 'public/js/libs')
 	
 	// JS Utilities
-	.js('resources/js/util/disable-on-submit.js', 'public/js/util')
-	.js('resources/js/util/fallback-image.js', 'public/js/util')
-	.js('resources/js/util/image-input.js', 'public/js/util')
-	.js('resources/js/util/text-counter.js', 'public/js/util')
+	.copy('resources/js/util/', 'public/js/util')
 
 	// SASS
 	.sass('resources/scss/app.scss', 'public/css')

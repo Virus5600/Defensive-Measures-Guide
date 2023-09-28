@@ -93,4 +93,33 @@ class SettingsController extends Controller
 			->route('admin.settings')
 			->with('flash_success', 'Successfully updated settings');
 	}
+
+	protected function reset(Request $req, string $type) {
+		$success = true;
+		$msg = "Successfully reset {$type}";
+
+		try {
+			DB::beginTransaction();
+
+			if ($type == 'web-logo') {
+				$settings = Settings::where('name', '=', $type)->first();
+
+				$settings->value = $settings->default_value;
+				$sett9ings->save();
+			}
+
+			DB::commit();
+		} catch (Exception $e) {
+			DB::rollback();
+			Log::error($e);
+
+			$success = false;
+			$msg = "Something went wrong, please try again later";
+		}
+		
+		return response()
+			->json([
+				"success" => $success
+			]);
+	}
 }
