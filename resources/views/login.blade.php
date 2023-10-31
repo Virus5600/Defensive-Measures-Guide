@@ -66,7 +66,7 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 				{{-- BACKGROUND LEFT --}}
 				<div class="w-100 w-md-75 unblur" id="left-hemisphere" style="--bg-img: url('{{ asset("images/home/Defensive Measures Banner.png") }}');">
 				</div>
-				
+
 				{{-- BACKGROUND RIGHT --}}
 				<div class="d-none d-md-block" id="right-hemisphere">
 				</div>
@@ -78,7 +78,7 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 					<div class="card-header text-center">
 						<h3 class="card-title d-flex flex-row position-relative">
 							<span class="m-auto">LOGIN</span>
-							
+
 							{{-- LOCK/UNLOCK VIEW --}}
 							<span id="lock-view" class="position-absolute posabs-vertical-middle posabs-outerright fs-5 ms-auto my-auto unlocked">
 								<i class="fas fa-lock-open" data-bs-title="Toggle to lock view" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="dma-tooltip"></i>
@@ -135,7 +135,7 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 		</div>
 
 		{{-- SCRIPTS --}}
-		<script>
+		<script nonce="{{ csp_nonce() }}">
 			$(document).ready(() => {
 				$('[data-bs-toggle="tooltip"]').tooltip();
 			});
@@ -144,7 +144,7 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 		@include('includes.swal-flash')
 
 		@if (Session::has('flash_error'))
-		<script type="text/javascript" id="for-removal">
+		<script type="text/javascript" id="for-removal" nonce="{{ csp_nonce() }}">
 			$(document).ready(() => {
 				setTimeout(() => {
 					$(`#lock-view`)[0].click();

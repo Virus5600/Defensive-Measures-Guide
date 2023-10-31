@@ -30,11 +30,11 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 		<meta name="twitter:image" content="{{ asset('uploads/settings/meta-banner.png') }}">
 
 		{{-- OG META --}}
-		<meta name="og:url" content="{{ Request::url() }}">
-		<meta name="og:type" content="website">
-		<meta name="og:title" content="{{ $webName }}">
-		<meta name="og:description" content="{{ $webDesc }}">
-		<meta name="og:image" content="{{ asset('uploads/settings/meta-banner.png') }}">
+		<meta property="og:url" name="og:url" content="{{ Request::url() }}">
+		<meta property="og:type" name="og:type" content="website">
+		<meta property="og:title" name="og:title" content="{{ $webName }}">
+		<meta property="og:description" name="og:description" content="{{ $webDesc }}">
+		<meta property="og:image" name="og:image" content="{{ asset('uploads/settings/meta-banner.png') }}">
 
 		{{-- FAVICON --}}
 		<link rel="icon" href="{{ $webLogo }}">

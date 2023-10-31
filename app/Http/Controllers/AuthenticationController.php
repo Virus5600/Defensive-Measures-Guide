@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Laravel\Sanctum\Sanctum;
+
 use App\Jobs\AccountNotification;
 
 use App\Models\PasswordReset;
@@ -41,29 +43,39 @@ class AuthenticationController extends Controller
 
 		// Designate the next action depending on the authentication result
 		if ($authenticated) {
-			try {
-				DB::beginTransaction();
+			if ($user) {
+				try {
+					DB::beginTransaction();
 
-				activity('authentication')
-					->byAnonymous()
-					->on($user)
-					->event('login-success')
-					->withProperties([
-						'timestamp' => now()->timezone('Asia/Manila'),
-						'login_attempts' => $user->login_attempts,
-						'previous_auth' => $user->last_auth,
-					])
-					->log("User {$user->username} successfully logged in.");
+					activity('authentication')
+						->byAnonymous()
+						->on($user)
+						->event('login-success')
+						->withProperties([
+							'timestamp' => now()->timezone('Asia/Manila'),
+							'login_attempts' => $user->login_attempts,
+							'previous_auth' => $user->last_auth,
+						])
+						->log("User {$user->username} successfully logged in.");
 
-				$user->login_attempts = 0;
-				$user->last_auth = now()->timezone('Asia/Manila');
-				$user->save();
+					$user->login_attempts = 0;
+					$user->last_auth = now()->timezone('Asia/Manila');
+					$user->save();
 
-				DB::commit();
-			} catch (Exception $e) {
-				DB::rollback();
-				Log::error($e);
+					DB::commit();
+				} catch (Exception $e) {
+					DB::rollback();
+					Log::error($e);
+				}
 			}
+
+			$token = $user->createToken('authenticated');
+			if ($expiration = config('sanctum.expiration')) {
+				$model = Sanctum::$personalAccessTokenModel;
+				$model::where('created_at', '<', now()->subMinutes($expiration))->delete();
+			}
+
+			session(["bearer" => $token->plainTextToken]);
 
 			return redirect()
 				->intended(route('admin.dashboard'))
@@ -166,6 +178,10 @@ class AuthenticationController extends Controller
 	protected function logout(Request $req) {
 		if (auth()->check()) {
 			$user = auth()->user();
+
+			$token = $user->currentAccessToken();
+			if ($token != null)
+				$token->delete();
 
 			auth()->logout();
 			session()->flush();

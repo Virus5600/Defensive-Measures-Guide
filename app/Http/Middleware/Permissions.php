@@ -5,6 +5,10 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Carbon\Carbon;
+
+use Laravel\Sanctum\PersonalAccessToken;
+
 use Closure;
 use Log;
 
@@ -21,8 +25,31 @@ class Permissions
 			return redirect()->intended();
 
 		$user = auth()->user();
+		$sanctum = false;
 
-		if ($user->hasPermission($permissions)) {
+		if (in_array('sanctum', $permissions)) {
+			if ($user->tokens()->count() <= 0) {
+				return $this->logSanctumActivity($user);
+			}
+			else {
+				$token = PersonalAccessToken::findToken(session()->get('bearer'));
+
+				if ($token == null) {
+					return $this->logSanctumActivity($user);
+				}
+				else {
+					$expiration = config('sanctum.expiration');
+
+					if (Carbon::parse($token->created_at)->lte(now()->subMinutes($expiration)))
+						return $this->logSanctumActivity($user);
+					else {
+						$sanctum = true;
+					}
+				}
+			}
+		}
+
+		if ($user->hasPermission($permissions) || $sanctum) {
 			return $next($req);
 		}
 		else {
@@ -47,5 +74,30 @@ class Permissions
 		}
 
 		return $next($req);
+	}
+
+	private function logSanctumActivity($user) {
+		activity('middleware')
+			->byAnonymous()
+			->on($user)
+			->event('logged-out')
+			->withProperties([
+				'first_name' => $user->first_name,
+				'middle_name' => $user->middle_name,
+				'last_name' => $user->last_name,
+				'suffix' => $user->suffix,
+				'is_avatar_link' => $user->is_avatar_link,
+				'avatar' => $user->avatar,
+				'email' => $user->email,
+				'type_id' => $user->type,
+				'last_auth' => $user->last_auth
+			])
+			->log("User {$user->email} was logged out due to missing PAT");
+
+		if (auth()->check())
+			auth()->guard('web')->logout();
+		session()->flush();
+
+		return redirect()->route("login");
 	}
 }

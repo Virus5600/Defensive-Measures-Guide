@@ -18,16 +18,19 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 	////////////////////////
 	// AUTHENTICATED SIDE //
 	////////////////////////
-	Route::group(['middleware' => ['auth']], function() {
+	Route::group(['middleware' => ['auth:sanctum']], function() {
 		////////////////
 		// ADMIN SIDE //
 		////////////////
 		Route::group(['prefix' => 'admin'], function() {
 			// SETTINGS
 			Route::group(['prefix' => 'settings', 'middleware' => ['permissions:settings_tab_access']], function() {
-				// RESET
-				Route::group(['prefix' => 'reset', 'middleware' => ['permissions:settings_tab_edit']], function() {
-					Route::patch('/{type}', 'SettingsController@reset')->name('admin.settings.reset.favicon');
+				Route::group(['middleware' => ['permissions:settings_tab_edit']], function() {
+					// RESET
+					Route::patch('/reset', 'SettingsController@reset')->name('admin.settings.reset');
+
+					// GET SUPPORTED WEBSITES LIST
+					Route::get('/supported-websites', 'SettingsController@getSupportedWebsites')->name('admin.settings.supported-websites');
 				});
 			});
 		});

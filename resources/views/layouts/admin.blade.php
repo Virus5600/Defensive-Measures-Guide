@@ -45,9 +45,12 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 		<link rel="apple-touch-icon" href="{{ $webLogo }}">
 		<link rel="mask-icon" href="{{ $webLogo }}">
 
+		@yield('meta')
+
 		{{-- COMMON LIBS --}}
 		<link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ mix('css/general.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ mix('css/util/animations.css') }}">
 		<script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
 
 		{{-- CUSTOM STYLES --}}
@@ -84,10 +87,10 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 			</main>
 		</div>
 
-		<script type="text/javascript" src="{{ mix('js/util/confirm-leave.js') }}"></script>
-		<script type="text/javascript" src="{{ mix('js/util/dirty-form.js') }}"></script>
-		<script type="text/javascript" src="{{ mix('js/util/disable-on-submit.js') }}"></script>
-		<script type="text/javascript" src="{{ mix('js/util/fallback-image.js') }}"></script>
+		<script type="text/javascript" src="{{ mix('js/util/confirm-leave.js') }}" defer></script>
+		<script type="text/javascript" src="{{ mix('js/util/dirty-form.js') }}" defer></script>
+		<script type="text/javascript" src="{{ mix('js/util/disable-on-submit.js') }}" defer></script>
+		<script type="text/javascript" src="{{ mix('js/util/fallback-image.js') }}" defer></script>
 		<script type="text/javascript" src="{{ mix('js/util/swal-flash.js') }}"></script>
 		<script type="text/javascript" src="{{ mix('js/util/text-counter.js') }}"></script>
 

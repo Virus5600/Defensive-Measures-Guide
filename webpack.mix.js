@@ -15,6 +15,11 @@ const path = require('path');
 // START
 mix
 	// Configurations
+	.options({
+		postCss: [
+			require('autoprefixer')
+		]
+	})
 	.webpackConfig({
 		resolve: {
 			alias: {
@@ -29,7 +34,7 @@ mix
 
 	// JavaScript
 	.js('resources/js/app.js', 'public/js')
-	
+
 	.js('resources/js/custom/components/login-page.js', 'public/js/custom/components')
 	.js('resources/js/custom/components/navbar-dynamic.js', 'public/js/custom/components')
 
@@ -38,7 +43,7 @@ mix
 	.js('resources/js/libs/slick.js', 'public/js/libs')
 	.js('resources/js/libs/summernote.js', 'public/js/libs')
 	.js('resources/js/libs/swal.js', 'public/js/libs')
-	
+
 	// JS Utilities
 	.copy('resources/js/util/', 'public/js/util')
 
@@ -52,6 +57,7 @@ mix
 	.sass('resources/scss/libs/swal.scss', 'public/css/libs')
 
 	// SASS Utilities
+	.sass('resources/scss/util/animations.scss', 'public/css/util')
 	.sass('resources/scss/util/image-input.scss', 'public/css/util')
 	.sass('resources/scss/util/text-counter.scss', 'public/css/util')
 
@@ -75,5 +81,10 @@ mix
 	// Login Page
 	.js('resources/js/views/login.js', 'public/views/login')
 	.sass('resources/scss/views/login.scss', 'public/views/login')
+
+	// ADMIN VIEWS
+	// Settings Page
+	.js('resources/js/views/admin/settings.js', 'public/views/admin/settings')
+
 	// ENDING
 	;

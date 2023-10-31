@@ -1,4 +1,4 @@
-$(document).ready(() => {
+$(() => {
 	// All resizing events
 	$(window).on('resize', (e) => {
 		let win = $(e.target);

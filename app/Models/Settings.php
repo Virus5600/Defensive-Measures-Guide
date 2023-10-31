@@ -38,7 +38,7 @@ class Settings extends Model
 
 		if ($setting == null)
 			return null;
-		return $setting->value;
+		return $setting->value ?? $setting->default_value;
 	}
 
 	public static function getFile($key=0) {

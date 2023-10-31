@@ -14,7 +14,7 @@ return new class extends Migration
 		Schema::create('settings', function (Blueprint $table) {
 			$table->id();
 			$table->string('name')->unique();
-			$table->mediumText('value');
+			$table->mediumText('value')->nullable();
 			$table->mediumText('default_value');
 			$table->boolean('is_file')->default(false);
 			$table->timestamps();

@@ -1,0 +1,23 @@
+@use "sass:list";
+
+@import "./breakpoints";
+
+$styles: dotted, dashed, solid, double, groove, ridge, inset, outset, none, hidden;
+
+@each $bp, $px in $sizes {
+	@each $sv in $styles {
+		@if $bp == "xs" {
+			.border-style-#{$sv},
+			.border-style-#{$bp}-#{$sv} {
+				border-style: #{$sv}!important;
+			}
+		}
+		@else {
+			@media (min-width: $px) {
+				.border-style-#{$bp}-#{$sv} {
+					border-style: #{$sv}!important;
+				}
+			}
+		}
+	}
+}

@@ -1,21 +1,30 @@
-@use "sass:list";
-@use "sass:string";
-
 @import "node_modules/@fortawesome/fontawesome-free/scss/brands";
 @import "node_modules/@fortawesome/fontawesome-free/scss/regular";
 @import "node_modules/@fortawesome/fontawesome-free/scss/solid";
 
 $fonts: (
-	"Minecraftia": url("/fonts/Minecraftia.ttf"),
+	fas: "Font Awesome 6 Free",
+	far: "Font Awesome 6 Regular",
+	fab: "Font Awesome 6 Brands"
 );
 
-@each $fontName, $fontUrl in $fonts {
+$unregisteredFonts: (
+	minecraftia: url("/fonts/Minecraftia.ttf"),
+);
+
+@each $type, $font in $fonts {
+	.font-#{$type} {
+		font-family: $font;
+	}
+}
+
+@each $type, $font in $unregisteredFonts {
 	@font-face {
-		font-family: $fontName;
-		src: $fontUrl;
+		font-family: $type;
+		src: $font;
 	}
 
-	.font-#{to-lower-case($fontName)} {
-		font-family: $fontName;
+	.font-#{$type} {
+		font-family: $type;
 	}
 }

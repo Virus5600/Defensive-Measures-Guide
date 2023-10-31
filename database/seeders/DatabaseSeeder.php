@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
 	{
 		$this->call([
 			SettingsTableSeeder::class,
+			SocialLinksTableSeeder::class,
 			PermissionsTableSeeder::class,
 			UserTypesTableSeeder::class,
 			UserTypePermissionsTableSeeder::class,

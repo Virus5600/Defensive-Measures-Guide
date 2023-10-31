@@ -1,8 +1,9 @@
-$(document).ready(() => {
+$(() => {
 	// LOCK/UNLOCK VIEW
 	const loginWrapper = $(`.login-card`);
 	const lockView = $(`.login-card #lock-view`);
 	const loginCard = $(`#login-form`);
+	const loginCardComp = loginCard.find("*");
 
 	lockView.on('click', (e) => {
 		let obj = $(e.currentTarget);
@@ -22,13 +23,20 @@ $(document).ready(() => {
 
 	// BLUR CONTROLLER
 	let leftHemi = $(`#left-hemisphere`);
-
 	loginCard.on(`mouseover focus`, () => {
 		if (!loginCard.hasClass(`show`))
 			leftHemi.removeClass(`unblur`);
 	}).on(`mouseleave blur`, () => {
 		if (!loginCard.hasClass(`show`))
 			leftHemi.addClass(`unblur`);
+	});
+
+	loginCardComp.on(`focus`, () => {
+		loginWrapper.addClass(`show`);
+		loginCard.addClass(`show`);
+	}).on(`blur`, () => {
+		loginWrapper.removeClass(`show`);
+		loginCard.removeClass(`show`);
 	});
 
 	lockView.on(`classChange`, (e) => {

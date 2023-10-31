@@ -17,7 +17,7 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 	///////////////
 	// USER SIDE //
 	///////////////
-	
+
 	// Home Page
 	Route::get('/', 'PageController@index')->name('home');
 
@@ -50,10 +50,10 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 	////////////////////////
 	// AUTHENTICATED SIDE //
 	////////////////////////
-	Route::group(['middleware' => ['auth']], function() {
+	Route::group(['middleware' => ['auth', 'auth:sanctum']], function() {
 		// LOGOUT
 		Route::post('/logout', 'AuthenticationController@logout')->name('logout');
-		
+
 		////////////////
 		// ADMIN SIDE //
 		////////////////

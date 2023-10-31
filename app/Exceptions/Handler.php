@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Session\TokenMismatchException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -26,5 +27,27 @@ class Handler extends ExceptionHandler
 		$this->reportable(function (Throwable $e) {
 			//
 		});
+	}
+
+	/**
+	 * Render an exception into an HTTP response.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \Throwable  $exception
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 *
+	 * @throws \Throwable
+	 */
+	public function render($request, Throwable $exception)
+	{
+		if ($exception instanceof TokenMismatchException) {
+			return redirect()
+				->back()
+				->withInput($request->except('_token'))
+				->with('flash_message', "Oops! Seems you couldn't submit the form for a long time. Please try again.")
+				->with('has_icon', 'true');
+		}
+
+		return parent::render($request, $exception);
 	}
 }

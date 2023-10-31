@@ -3,10 +3,10 @@
 @import "./breakpoints";
 
 $thickness: (
-	25: 0.625px,
-	50: 1.25px,
-	75: 1.875px,
-	100: 2.5px
+	25: 1.375px,
+	50: 1.750px,
+	75: 2.125px,
+	100: 2.500px
 );
 
 @each $bp, $px in $sizes {
@@ -15,14 +15,12 @@ $thickness: (
 			.hr-thick-#{$tk},
 			.hr-thick-#{$bp}-#{$tk} {
 				border-width: #{$tv}!important;
-				border-top-width: #{$tv}!important;
 			}
 		}
 		@else {
 			@media (min-width: $px) {
 				.hr-thick-#{$bp}-#{$tk} {
 					border-width: #{$tv}!important;
-					border-top-width: #{$tv}!important;
 				}
 			}
 		}

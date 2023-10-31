@@ -17,5 +17,7 @@ yarn-error.log
 /.idea
 /.vscode
 
+/storage/debugbar
+
 db-management.sh
 *.sql

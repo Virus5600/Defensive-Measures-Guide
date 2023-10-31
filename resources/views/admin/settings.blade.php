@@ -1,9 +1,3 @@
-@php
-use App\Models\Settings;
-
-$editSettingsPerm = auth()->user()->hasPermission('settings_tab_edit');
-@endphp
-
 @extends('layouts.admin')
 
 @section('title', 'Settings')
@@ -20,7 +14,7 @@ $editSettingsPerm = auth()->user()->hasPermission('settings_tab_edit');
 			</div>
 		</div>
 	</div>
-	
+
 	<hr class="border-3 my-4">
 
 	<div class="card shadow-lg py-2 px-3 mb-3" id="inner-content">
@@ -41,16 +35,16 @@ $editSettingsPerm = auth()->user()->hasPermission('settings_tab_edit');
 					<div class="image-input-scope h-100" id="web-logo-scope" data-settings="#image-input-settings" data-fallback-img="{{ asset('uploads/settings/default.png') }}">
 						{{-- FILE IMAGE --}}
 						<div class="h-100 pb-3 pb-lg-0 text-center image-input collapse show avatar_holder" id="web-logo-image-input-wrapper">
-							<div class="h-100 row border rounded border-secondary-light py-2 mx-1">
+							<div class="h-100 row border rounded py-2 mx-1">
 								<div class="col-12 col-lg-6 justify-content-start">
 									<div class="hover-cam mx-auto input-avatar rounded overflow-hidden border border-lg-0">
-										<img src="{{ Settings::getInstance('web-logo')->getImage(!Settings::getInstance('web-logo')->is_file) }}" class="hover-zoom img-fluid input-avatar" id="web-logo-container" alt="Website Logo" data-default-src="{{ asset('uploads/settings/default.png') }}">
+										<img src="{{ $webLogo }}" class="hover-zoom img-fluid input-avatar" id="web-logo-container" alt="Website Logo" data-default-src="{{ asset('uploads/settings/default.png') }}">
 										<span class="icon text-center image-input-float" id="web-logo" tabindex="0">
 											<i class="fas fa-camera text-white hover-icon-2x"></i>
 										</span>
 									</div>
 									<input type="file" name="web-logo" class="d-none" accept=".jpg,.jpeg,.png,.webp" data-role="image-input" data-target-image-container="#web-logo-container" data-target-name-container="#web-logo-name" >
-									<h6 id="web-logo-name" class="text-truncate w-50 mx-auto text-center" data-default-name="{{ Settings::getInstance('web-logo')->getImage(!Settings::getInstance('web-logo')->is_file, false) }}">{{ Settings::getInstance('web-logo')->getImage(!Settings::getInstance('web-logo')->is_file, false) }}</h6>
+									<h6 id="web-logo-name" class="text-truncate w-50 mx-auto text-center" data-default-name="{{ $webLogoName }}">{{ $webLogoName }}</h6>
 								</div>
 
 								<div class="col-12 col-lg-6 text-lg-start">
@@ -67,7 +61,7 @@ $editSettingsPerm = auth()->user()->hasPermission('settings_tab_edit');
 
 					{{-- LOGO ERROR --}}
 					<div class="text-center">
-						<span class="text-danger small">{{$errors->first('web-logo')}}</span>
+						<span class="text-danger small">{{ $errors->first('web-logo') }}</span>
 					</div>
 				</div>
 
@@ -75,22 +69,112 @@ $editSettingsPerm = auth()->user()->hasPermission('settings_tab_edit');
 					{{-- APP NAME --}}
 					<div class="form-group">
 						<label class="form-label">Website Name</label>
-						<input type="text" name="web-name" class="form-control" value="{{ Settings::getValue('web-name') == null ? 'Party Color' : Settings::getValue('web-name') }}" required />
-						<span class="text-danger small">{{$errors->first('web-name')}}</span>
+						<input type="text" name="web-name" class="form-control" value="{{ $webName }}" required />
+						<span class="text-danger small">{{ $errors->first('web-name') }}</span>
 					</div>
 
 					{{-- APP DESCRIPTION --}}
 					<div class="form-group text-counter-parent">
 						<label for="web-desc" class="form-label">Website Description</label>
-						<textarea name="web-desc" id="web-desc" class="form-control not-resizable text-counter-input" rows="5" data-max="255" data-warn-at="10" required>{{ Settings::getValue('web-desc') == null ? 'The official website of Taytay Municipal' : Settings::getValue('web-desc') }}</textarea>
+						<textarea name="web-desc" id="web-desc" class="form-control not-resizable text-counter-input" rows="5" data-max="255" data-warn-at="10" required>{{ $webDesc }}</textarea>
 						<span class="text-counter small">255</span>
-						<span class="text-danger small">{{$errors->first('web-desc')}}</span>
+						<span class="text-danger small">{{ $errors->first('web-desc') }}</span>
 					</div>
 				</div>
+			</div>
+
+			{{-- DIVIDER --}}
+			<hr class="hr-thick-100 my-5">
+
+			<h3 class="text-center fw-bold mb-5">Reaching Out</h3>
+
+			{{-- SOCIAL LINKS --}}
+			<div class="row">
+				<div class="col-12 text-start" id="socialLinks">
+					<div class="border rounded table-responsive-container">
+						<div class="table-responsive">
+							<table class="table table-striped table-hover table-sm my-2">
+								<thead>
+									<tr>
+										<th class="p-3" scope="col"></th>
+										<th class="p-3" scope="col">Website</th>
+										<th class="p-3" scope="col">URL</th>
+									</tr>
+								</thead>
+
+								<tbody class="table-group-divider" id="socialLinkList">
+									@php
+									$i = 0;
+									@endphp
+
+									@forelse ($socialLinks as $sl)
+									<tr class="slideFromLeft delay-animation opacity-0" style="--anim-delay: {{ $i }}s;">
+										{{-- REMOVE --}}
+										<td class="align-middle p-3">
+											<div class="d-flex w-100 h-100 justify-content-center align-items-center">
+												<i class="fas fa-circle-minus fa-xs btn btn-outline-danger btn-sm p-1 rounded-circle remove-sl"></i>
+											</div>
+										</td>
+
+										{{-- WEBSITE --}}
+										<td class="align-middle p-3">
+											<div class="input-group flex-nowrap">
+												<span class="input-group-text">
+													{!! $sl->drawIcon() !!}
+												</span>
+
+												<select class="form-select form-control w-auto" name="website[]" autocomplete="off">
+													@foreach ($sites as $site => $siteName)
+														<option data-icon="fab fa-{{ $site }}" value="{{ $siteName }}" {{ $sl->isSelected($site) ? "selected" : "" }}>{{ $siteName }}</option>
+													@endforeach
+													<option data-icon="fas fa-globe" value="Other" {{ $sl->isSelected("Other") ? "selected" : "" }}>Other</option>
+												</select>
+											</div>
+										</td>
+
+										{{-- URL --}}
+										<td class="align-middle p-3">
+											<input type="text" class="form-control small" name="url[]" value="{{ $sl->url }}">
+										</td>
+									</tr>
+									@php
+									$i += .25;
+									@endphp
+									@empty
+									<tr colspan="3">
+										Nothing to show <i class="fas fa-wind"></i>
+									</tr>
+									@endforelse
+								</tbody>
+
+								{{-- ADD BUTTON --}}
+								<tfoot>
+									<tr>
+										<td colspan="3" class="text-center border-bottom-0">
+											<button class="btn btn-outline-secondary border-style-dashed border-3 w-75 mx-auto my-2" type="button" id="addSocialLink">
+												<i class="fas fa-circle-plus"></i>
+											</button>
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="d-flex justify-content-center my-3">
+				<button type="submit" class="btn btn-success mx-3">Submit</button>
+				<button type="button" class="btn btn-danger mx-3" id="revert">Revert to Default</button>
 			</div>
 		</form>
 	</div>
 </div>
+@endsection
+
+@section('meta')
+<meta name="bearer" content="{{ session('bearer') }}">
+<meta name="xsrf" content="{{ csrf_token() }}">
 @endsection
 
 @section('css')
@@ -99,30 +183,18 @@ $editSettingsPerm = auth()->user()->hasPermission('settings_tab_edit');
 @endsection
 
 @section('scripts')
-<script type="text/javascript" src="{{ mix('js/util/image-input.js') }}"></script>
-<script type="text/javascript">
+<script type="text/javascript" src="{{ mix('views/admin/settings/settings.js') }}" defer></script>
+<script type="text/javascript" src="{{ mix('js/util/image-input.js') }}" defer></script>
+@if (!$editSettingsPerm)
+<script type="text/javascript" nonce="{{ csp_nonce() }}" data-remove-script>
 	$(document).ready(() => {
-		$(document).on('beforeunload', (e) => {
-			let p = prompt("You sure");
-
-			if (!p) {
-				e.preventDefault();
-				e.stopPropagation();
-			}
-		});
-
-		@if ($editSettingsPerm)
-		$('#revert').on('click', (e) => {
-			location.reload();
-		});
-		@else
 		$.each($('form').find('input, textarea'), (k, v) => {
 			$(v).prop('readonly', true);
 		});
-		$('div.tag .tag-i').remove();
-		@endif
 	});
 </script>
+@endif
+<script type="text/javascript" src="{{ mix('js/util/remove-script.js') }}" data-remove-script defer></script>
 @endsection
 
 @php

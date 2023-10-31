@@ -1,4 +1,4 @@
-<div class="sidebar collapse-horizontal bg-dark shadow-lg position-absolute position-lg-relative w-lg-auto" id="sidebar" aria-labelledby="sidebar-toggler" aria-expanded="false">
+<div class="sidebar collapse-horizontal bg-dark shadow-lg w-lg-auto" id="sidebar" aria-labelledby="sidebar-toggler" aria-expanded="false">
 	{{-- Navigatiopn Bar (SIDE) --}}
 	<div class="sidebar-content d-flex flex-column py-3 px-0 overflow-y-auto bg-body-secondary bg-opacity-50">
 		{{-- DASHBOARD --}}

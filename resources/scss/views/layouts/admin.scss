@@ -28,12 +28,16 @@ body {
 	}
 }
 
+.header {
+	position: sticky;
+	top: 0;
+	z-index: 500;
+}
+
 .content {
 	max-width: 100vw;
-	max-height: calc(100vh - var(--navbar-height));
-	overflow-y: auto;
 	overflow-x: hidden;
-	
+
 	-webkit-transition: width 0.5s cubic-bezier(0.25, 0.45, 0.45, 1);
 	-moz-transition: width 0.5s cubic-bezier(0.25, 0.45, 0.45, 1);
 	-ms-transition: width 0.5s cubic-bezier(0.25, 0.45, 0.45, 1);
@@ -47,10 +51,12 @@ body {
 	min-height: calc(100vh - var(--navbar-height));
 	width: 0;
 	height: 100%;
-	
+
 	overflow-y: auto;
 	overflow-x: hidden;
 	white-space: nowrap;
+
+	position: fixed;
 	z-index: 500;
 
 	display: flex;
@@ -81,7 +87,7 @@ body {
 				color: var(--bs-dark);
 			}
 		}
-		
+
 		& > a {
 			transition: 0.25s;
 
@@ -101,27 +107,6 @@ body {
 	}
 }
 /* サイドバールエンドー */
-
-/* ADMIN SEARCH */
-@keyframes slideInLeft {
-	from {
-		opacity: 0;
-		transform: translateX(-6.25%);
-		-o-transform: translateX(-6.25%);
-		-ms-transform: translateX(-6.25%);
-		-moz-transform: translateX(-6.25%);
-		-webkit-transform: translateX(-6.25%);
-	}
-
-	to {
-		opacity: 1;
-		transform: translateX(0%);
-		-o-transform: translateX(0%);
-		-ms-transform: translateX(0%);
-		-moz-transform: translateX(0%);
-		-webkit-transform: translateX(0%);
-	}
-}
 
 /* Extra small devices (landscape phones, 0px and up) */
 @include media-breakpoint-up(xs) {
@@ -151,9 +136,11 @@ body {
 		width: 15rem!important;
 		overflow-y: auto;
 
+		position: sticky;
+		top: var(--navbar-height);
+
 		&~ .content {
 			max-width: 100%;
-			max-height: calc(100vh - var(--navbar-height));
 		}
 
 		& > * > span,
@@ -163,7 +150,7 @@ body {
 			padding-left: 1rem;
 			padding-right: 1rem;
 		}
-		
+
 		& > * > a:hover {
 			background-color: #EAEAEA;
 		}

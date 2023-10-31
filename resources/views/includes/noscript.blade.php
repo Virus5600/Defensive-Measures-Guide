@@ -1,9 +1,9 @@
 {{-- Removes the code that shows up when script is disabled/not allowed/blocked --}}
-<script type="text/javascript" id="for-js-disabled-js">$('head').append('<style id="for-js-disabled">#js-disabled { display: none; }</style>');$(document).ready(function() {$('#js-disabled').remove();$('#for-js-disabled').remove();$('#for-js-disabled-js').remove();});</script>
+<script type="text/javascript" id="for-js-disabled-js" nonce="{{ csp_nonce() }}">$('head').append('<style id="for-js-disabled">#js-disabled { display: none; }</style>');$(document).ready(function() {$('#js-disabled').remove();$('#for-js-disabled').remove();$('#for-js-disabled-js').remove();});</script>
 
 {{-- SHOWS THIS INSTEAD WHEN JAVASCRIPT IS DISABLED --}}
 <div style="position: absolute; height: 100vh; width: 100vw; background-color: #ccc;" id="js-disabled">
-	<style type="text/css">
+	<style type="text/css" nonce="{{ csp_nonce() }}">
 		/* Make the element disappear if JavaScript isn't allowed */
 		.js-only {
 			display: none!important;

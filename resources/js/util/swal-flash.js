@@ -60,12 +60,12 @@ window.addEventListener('flash_error', (e) => {
 		timer: 10000,
 		background: `#dc3545`,
 		customClass: {
-			title: `text-white`,
-			content: `text-white`,
+			title: `text-white text-center`,
+			content: `text-white text-center`,
 			popup: `px-3`
 		},
 	}
-	
+
 	Swal.fire(__setSwalFlashOptions(options, flash, 'error'));
 });
 
@@ -79,8 +79,8 @@ window.addEventListener('flash_info', (e) => {
 		timer: 10000,
 		background: `#17a2b8`,
 		customClass: {
-			title: `text-white`,
-			content: `text-white`,
+			title: `text-white text-center`,
+			content: `text-white text-center`,
 			popup: `px-3`
 		},
 	}
@@ -98,8 +98,8 @@ window.addEventListener('flash_success', (e) => {
 		timer: 10000,
 		background: `#28a745`,
 		customClass: {
-			title: `text-white`,
-			content: `text-white`,
+			title: `text-white text-center`,
+			content: `text-white text-center`,
 			popup: `px-3`
 		},
 	}
@@ -119,7 +119,7 @@ const __setSwalFlashOptions = (options, flash, type) => {
 
 	if (flash.is_toast != undefined)
 		options["toast"] = flash.is_toast;
-	
+
 	if (flash.has_timer != undefined)
 		if (flash.has_timer)
 			options['timer'] = flash.duration != undefined ? flash.duration : 10000;
