@@ -11,7 +11,7 @@ $(() => {
 			}
 		});
 
-		$.get("https://dma-guide.test/api/admin/settings/supported-websites", (response) => {
+		$.get(API.sites, (response) => {
 			if (response.success) {
 				let sites = JSON.parse(response.websites);
 
@@ -19,7 +19,7 @@ $(() => {
 					websiteOptions += `<option data-icon="fa-brands fa-${site}" value="${sites[site]}">${sites[site]}</option>`;
 
 				const template = `
-				<tr class="slideInLeft">
+				<tr class="slideFromLeft">
 					<td class="align-middle p-3">
 						<div class="d-flex w-100 h-100 justify-content-center align-items-center">
 							<i class="fas fa-circle-minus fa-xs btn btn-outline-danger btn-sm p-1 rounded-circle remove-sl"></i>
@@ -32,15 +32,17 @@ $(() => {
 								<i class="fas fa-globe"></i>
 							</span>
 
-							<select class="form-select" name="website[]" autocomplete="off">
+							<select class="form-select form-control w-auto website-input" autocomplete="off">
 								${websiteOptions}
 								<option data-icon="fas fa-globe" value="Other" selected>Other</option>
 							</select>
+
+							<input type="text" class="form-control small w-auto website-input-alt" name="website[]" value="Other">
 						</div>
 					</td>
 
 					<td class="align-middle p-3">
-						<input type="text" class="form-control" name="url[]"></input>
+						<input type="text" class="form-control w-auto w-lg-100" name="url[]"></input>
 					</td>
 				</tr>
 				`;
@@ -61,7 +63,7 @@ $(() => {
 
 		Swal.fire({
 			title: "Are you sure?",
-			text: "This action is irreversible unless you refresh the page, of course... but that would also remove all your changes. LMAO.",
+			text: "This action is irreversible unless you refresh the page, of course... but that would also remove all your changes.",
 			icon: "warning",
 			showCancelButton: true,
 			showDenyButton: false,
@@ -81,12 +83,32 @@ $(() => {
 		});
 	});
 
-	// SOCIAL LINK ICON CHANGE HANDLER
-	$(document).on(`change`, `select[name="website[]"]`, (e) => {
+	// SOCIAL LINK ICON AND WEBSITE INPUT CHANGE HANDLER
+	$(document).on(`change`, `select.website-input`, (e) => {
 		let target = $(e.target);
 		let icon = target.find(`option:selected`).attr(`data-icon`);
 
-		target.closest(`td`).find(`span`).html(`<i class="${icon}"></i>`);
+		if (icon == "fas fa-globe") {
+			target.removeAttr(`name`)
+				.closest(`td`)
+				.find(`.website-input-alt`)
+				.attr(`name`, `website[]`)
+				.removeClass(`d-none`);
+		}
+		else {
+			target.attr(`name`, `website[]`)
+				.closest(`td`)
+				.find(`.website-input-alt`)
+				.removeAttr(`name`)
+				.addClass(`d-none`);
+		}
+
+		target.closest(`td`)
+			.find(`span`)
+			.html(`<i class="${icon}"></i>`)
+		.closest(`td`)
+			.find(`.website-input-alt`)
+			.val(target.val());
 	});
 
 	// ANIMATION HANDLER
@@ -105,7 +127,7 @@ $(() => {
 	// REVERT CHANGES HANDLER
 	$(`#revert`).on(`click`, (e) => {
 		$.ajax({
-			url: "https://dma-guide.test/api/admin/settings/reset",
+			url: API.reset,
 			type: "POST",
 			dataType: "json",
 			headers: {
@@ -125,7 +147,7 @@ $(() => {
 							target.val("")
 								.parent()
 								.find("img")
-								.attr("src", `https://dma-guide.test/uploads/settings/${setting.value}`);
+								.attr("src", `${API.home}/uploads/settings/${setting.value}`);
 						}
 						else {
 							if (target.length > 0) {

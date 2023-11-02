@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use awizemann\metascraper\Facades\MetaScraper;
-
 use App\Models\Settings;
 use App\Models\SocialLinks;
 
@@ -18,11 +16,12 @@ use Validator;
 class SettingsController extends Controller
 {
 	protected function index() {
+		$settings = Settings::get(["name", "value"])->keyBy("name")->toArray();
 		// META DATA
 		$webLogo = Settings::getInstance("web-logo")->getImage(!Settings::getInstance("web-logo")->is_file);
-		$webLogoName = Settings::getValue("web-logo");
-		$webName = Settings::getValue("web-name");
-		$webDesc = Settings::getValue("web-desc");
+		$webLogoName = $settings["web-logo"]["value"];
+		$webName = $settings["web-name"]["value"];
+		$webDesc = $settings["web-desc"]["value"];
 
 		// PERM DATA
 		$editSettingsPerm = auth()->user()->hasPermission("settings_tab_edit");
@@ -59,7 +58,7 @@ class SettingsController extends Controller
 			"website" => ['sometimes', 'required', 'array'],
 			"website.*" => ['sometimes', 'required', 'string', 'max:255'],
 			"url" => ['sometimes', 'required', 'array'],
-			"url.*" => ['sometimes', 'required', 'string', 'max:255'],
+			"url.*" => ['sometimes', 'required', 'string', 'max:255', 'regex:/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)/i'],
 		], [
 			"web-name.required" => "Website Name is required",
 			"web-name.string" => "Website Name should be a string of characters",
@@ -69,6 +68,17 @@ class SettingsController extends Controller
 			"web-desc.max" => "Website Description should not exceed 16,777,215 characters",
 			"web-logo.max" => "Image should be below 5MB",
 			"web-logo.mimes" => "Selected file doesn\'t match the allowed image formats",
+			"website.required" => "A website entry is required",
+			"website.array" => "Please refrain from tampering the website's input",
+			"website.*.required" => "A website name is required",
+			"website.*.string" => "Website name should be a string of characters",
+			"website.*.max" => "Website name should not exceed 255 characters",
+			"url.required" => "A URL entry is required",
+			"url.array" => "Please refrain from tampering the URL's input",
+			"url.*.required" => "A URL is required",
+			"url.*.string" => "URL should be a string of characters",
+			"url.*.max" => "URL should not exceed 255 characters",
+			"url.*.regex" => "URL should be a valid URL",
 		]);
 
 		if ($validator->fails()) {
@@ -81,11 +91,9 @@ class SettingsController extends Controller
 		try {
 			DB::beginTransaction();
 
-			foreach ($req->except("_token") as $k => $v) {
-				if ($k == "contacts" || $k == "emails" || $k == "day-schedule") {
-					$v = implode(",", $v);
-				}
-				else if ($k == "web-logo") {
+			// SETTINGS UPDATE
+			foreach ($req->except(["_token", "_method", "website", "url"]) as $k => $v) {
+				if ($k == "web-logo") {
 					if ($req->has($k)) {
 						$setting = Settings::where("name", "=", $k)->first();
 
@@ -108,6 +116,35 @@ class SettingsController extends Controller
 					$setting->save();
 				}
 			}
+
+			// SOCIAL LINKS UPDATE
+
+			$icons = SocialLinks::getSupportedWebsites();
+			$iconValues = array_values($icons);
+
+			for ($i = 0; $i < count($req->website); $i++) {
+				$website = $req->website[$i];
+				$url = $req->url[$i];
+				$icon = in_array($website, $iconValues) ? array_keys($icons, $website)[0] : "globe";
+
+				SocialLinks::updateOrCreate([
+					'url' => $url,
+				], [
+					'website' => $website,
+					'icon' => $icon,
+				]);
+			}
+
+			$old = SocialLinks::get(["url"])->toArray();
+			$new = $req->url;
+			$removed = [];
+			foreach ($old as $o) {
+				if (!in_array($o["url"], $new)) {
+					array_push($removed, $o["url"]);
+				}
+			}
+
+			SocialLinks::whereIn("url", $removed)->delete();
 
 			DB::commit();
 		} catch (Exception $e) {

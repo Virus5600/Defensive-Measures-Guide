@@ -50,7 +50,7 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 	////////////////////////
 	// AUTHENTICATED SIDE //
 	////////////////////////
-	Route::group(['middleware' => ['auth', 'auth:sanctum']], function() {
+	Route::group(['middleware' => ['auth', 'auth:sanctum', 'permissions:sanctum']], function() {
 		// LOGOUT
 		Route::post('/logout', 'AuthenticationController@logout')->name('logout');
 

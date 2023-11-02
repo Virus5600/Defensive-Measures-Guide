@@ -40,11 +40,9 @@ class SocialLinks extends Model
 
 	public function isSelected($website): bool
 	{
-		$website = strtolower($website);
-
-		if (strtolower($website) == "other")
-			return !in_array($this->website, static::$supportedWebsites);
-		return $website == strtolower($this->website);
+		if (in_array($website, array_keys(static::$supportedWebsites)))
+			return static::$supportedWebsites[$website] === $this->website;
+		return false;
 	}
 
 	public static function getSupportedWebsites(): array

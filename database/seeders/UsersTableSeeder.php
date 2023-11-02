@@ -16,14 +16,14 @@ class UsersTableSeeder extends Seeder
 	{
 		// Master Admin User - Owner
 		User::create([
-			'username' => 'Virus5600',
-			'first_name' => 'Karl Satchi',
-			'middle_name' => 'Esguerra',
-			'last_name' => 'Navida',
-			'email' => 'satchi5600@gmail.com',
+			'username' => config('master-admin.username'),
+			'first_name' => config('master-admin.first_name'),
+			'middle_name' => config('master-admin.middle_name'),
+			'last_name' => config('master-admin.last_name'),
+			'email' => config('master-admin.email'),
 			'avatar' => 'virus5600.png',
-			'user_type_id' => '1',
-			'password' => '$2y$10$5n6JGWWiBfHR.bgLHUiWb.1jElQdAqT.P0QK1QD.ERvbM3KE48SfC'
+			'user_type_id' => config('master-admin.user_type_id'),
+			'password' => config('master-admin.password'),
 		]);
 	}
 }

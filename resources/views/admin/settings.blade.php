@@ -123,18 +123,22 @@
 													{!! $sl->drawIcon() !!}
 												</span>
 
-												<select class="form-select form-control w-auto" name="website[]" autocomplete="off">
+												<select class="form-select form-control w-auto website-input {{ $errors->has("website." . ($i * 4)) ? 'is-invalid' : '' }}" {{ $sl->isSelected("Other") ? '' : 'name=website[]' }} autocomplete="off" title="Website">
 													@foreach ($sites as $site => $siteName)
 														<option data-icon="fab fa-{{ $site }}" value="{{ $siteName }}" {{ $sl->isSelected($site) ? "selected" : "" }}>{{ $siteName }}</option>
 													@endforeach
 													<option data-icon="fas fa-globe" value="Other" {{ $sl->isSelected("Other") ? "selected" : "" }}>Other</option>
 												</select>
+
+												{{-- Invisible input for when the selected website is "Others" --}}
+												<input type="text" class="form-control small w-auto {{ $sl->isSelected("Other") ? '' : 'd-none' }} website-input-alt {{ $errors->has("website." . ($i * 4)) ? 'is-invalid' : '' }}" {{ $sl->isSelected("Other") ? 'name=website[]' : '' }} value="{{ $sl->website }}">
 											</div>
 										</td>
 
 										{{-- URL --}}
 										<td class="align-middle p-3">
-											<input type="text" class="form-control small" name="url[]" value="{{ $sl->url }}">
+											<input type="text" class="form-control w-auto w-lg-100 {{ $errors->has("url." . ($i * 4)) ? 'is-invalid' : '' }}" name="url[]" value="{{ $sl->url }}">
+											<span class="text-danger small d-block">{{ $errors->first("url." . ($i * 4)) }}</span>
 										</td>
 									</tr>
 									@php
@@ -147,17 +151,14 @@
 									@endforelse
 								</tbody>
 
-								{{-- ADD BUTTON --}}
-								<tfoot>
-									<tr>
-										<td colspan="3" class="text-center border-bottom-0">
-											<button class="btn btn-outline-secondary border-style-dashed border-3 w-75 mx-auto my-2" type="button" id="addSocialLink">
-												<i class="fas fa-circle-plus"></i>
-											</button>
-										</td>
-									</tr>
-								</tfoot>
 							</table>
+						</div>
+
+						{{-- ADD BUTTON --}}
+						<div class="d-flex">
+							<button class="btn btn-outline-secondary border-style-dashed border-3 w-75 mx-auto my-2" type="button" id="addSocialLink">
+								<i class="fas fa-circle-plus"></i>
+							</button>
 						</div>
 					</div>
 				</div>
@@ -185,15 +186,21 @@
 @section('scripts')
 <script type="text/javascript" src="{{ mix('views/admin/settings/settings.js') }}" defer></script>
 <script type="text/javascript" src="{{ mix('js/util/image-input.js') }}" defer></script>
-@if (!$editSettingsPerm)
 <script type="text/javascript" nonce="{{ csp_nonce() }}" data-remove-script>
-	$(document).ready(() => {
+	@if ($editSettingsPerm)
+	const API = {
+		home: `{{ route("home") }}`,
+		reset: `{{ route("api.admin.settings.reset") }}`,
+		sites: `{{ route("api.admin.settings.supported-websites") }}`,
+	}
+	@else
+	$(() => {
 		$.each($('form').find('input, textarea'), (k, v) => {
 			$(v).prop('readonly', true);
 		});
 	});
+	@endif
 </script>
-@endif
 <script type="text/javascript" src="{{ mix('js/util/remove-script.js') }}" data-remove-script defer></script>
 @endsection
 

@@ -10,7 +10,6 @@ use Carbon\Carbon;
 use Laravel\Sanctum\PersonalAccessToken;
 
 use Closure;
-use Log;
 
 class Permissions
 {
@@ -21,8 +20,9 @@ class Permissions
 	 */
 	public function handle(Request $req, Closure $next, ...$permissions): Response
 	{
-		if (!auth()->check())
+		if (!auth()->check()) {
 			return redirect()->intended();
+		}
 
 		$user = auth()->user();
 		$sanctum = false;
@@ -98,6 +98,9 @@ class Permissions
 			auth()->guard('web')->logout();
 		session()->flush();
 
-		return redirect()->route("login");
+		return redirect()->route("login")
+			->with("flash_error", "Token expired or missing, please login again")
+			->with('has_timer', true)
+			->with('duration', '5000');
 	}
 }

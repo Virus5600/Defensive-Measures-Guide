@@ -27,10 +27,10 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 			Route::group(['prefix' => 'settings', 'middleware' => ['permissions:settings_tab_access']], function() {
 				Route::group(['middleware' => ['permissions:settings_tab_edit']], function() {
 					// RESET
-					Route::patch('/reset', 'SettingsController@reset')->name('admin.settings.reset');
+					Route::patch('/reset', 'SettingsController@reset')->name('api.admin.settings.reset');
 
 					// GET SUPPORTED WEBSITES LIST
-					Route::get('/supported-websites', 'SettingsController@getSupportedWebsites')->name('admin.settings.supported-websites');
+					Route::get('/supported-websites', 'SettingsController@getSupportedWebsites')->name('api.admin.settings.supported-websites');
 				});
 			});
 		});

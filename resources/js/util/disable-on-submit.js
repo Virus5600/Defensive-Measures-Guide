@@ -52,16 +52,16 @@ $(document).ready(() => {
 				let btnLabel = btn.attr('data-dos-disabled-label');
 				let isHTML = btn.attr('data-dos-is-html');
 
-				if (typeof btnLabel === undefined)
+				if (typeof btnLabel === "undefined")
 					btn.html(`<div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only"></span></div> Submitting...`);
 				else {
-					if (btnLabel === 'true')
+					if (btnLabel)
 						btn.html(btnLabel);
 					else
 						btn.html(`<div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only"></span></div> ${btnLabel}...`);
 				}
 			}
-			
+
 			btn.addClass(`disabled cursor-default`);
 			btn.attr('data-clicked', 'true');
 		}
@@ -96,7 +96,7 @@ $(document).ready(() => {
 				.closest(".form-control:not(.bootstrap-select > select)")
 				.addClass("is-valid")
 				.removeClass("is-invalid");
-			
+
 			parentForm.removeClass(".was-validated")
 				.find(".dont-validate")
 				.removeClass("is-valid is-invalid")
