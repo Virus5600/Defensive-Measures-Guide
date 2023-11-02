@@ -1,3 +1,9 @@
+// GENERAL ANIMATION CLASSES
+.delay-animation {
+	opacity: 0;
+	animation-delay: var(--anim-delay, 0);
+}
+
 $animations: (
 	"slide": (
 		FromLeft: (
@@ -196,9 +202,4 @@ $animations: (
 // ANIMATION & KEYFRAME CLASSES
 @each $anim, $attr in $animations {
 	@include createAnim($anim, $attr);
-}
-
-// GENERAL ANIMATION CLASSES
-.delay-animation {
-	animation-delay: var(--anim-delay, 0);
 }

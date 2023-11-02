@@ -64,7 +64,7 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 		<div class="d-flex flex-column min-vh-100 js-only position-relative">
 			<div class="d-flex flex-row flex-grow-1 h-100">
 				{{-- BACKGROUND LEFT --}}
-				<div class="w-100 w-md-75 unblur" id="left-hemisphere" style="--bg-img: url('{{ asset("images/home/Defensive Measures Banner.png") }}');">
+				<div class="w-100 w-md-75 unblur" id="left-hemisphere" style="--bg-img: url('{{ asset("images/home/Defensive Measures Banner - No Title.png") }}');">
 				</div>
 
 				{{-- BACKGROUND RIGHT --}}

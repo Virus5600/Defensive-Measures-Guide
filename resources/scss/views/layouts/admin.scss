@@ -131,6 +131,7 @@ body {
 		--navbar-height: 68px;
 
 		max-width: 15rem;
+		min-width: 15rem;
 		max-height: calc(100vh - var(--navbar-height));
 		min-height: calc(100vh - var(--navbar-height));
 		width: 15rem!important;

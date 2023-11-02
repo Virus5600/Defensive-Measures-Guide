@@ -87,12 +87,13 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 			</main>
 		</div>
 
+		<script type="text/javascript" src="{{ mix('js/util/animation.js') }}"></script>
 		<script type="text/javascript" src="{{ mix('js/util/confirm-leave.js') }}" defer></script>
 		<script type="text/javascript" src="{{ mix('js/util/dirty-form.js') }}" defer></script>
 		<script type="text/javascript" src="{{ mix('js/util/disable-on-submit.js') }}" defer></script>
 		<script type="text/javascript" src="{{ mix('js/util/fallback-image.js') }}" defer></script>
 		<script type="text/javascript" src="{{ mix('js/util/swal-flash.js') }}"></script>
-		<script type="text/javascript" src="{{ mix('js/util/text-counter.js') }}"></script>
+		<script type="text/javascript" src="{{ mix('js/util/text-counter.js') }}" defer></script>
 
 		<script type="text/javascript" src="{{ mix('views/layouts/admin/admin.js') }}"></script>
 		@yield('scripts')

@@ -90,7 +90,7 @@
 
 			{{-- SOCIAL LINKS --}}
 			<div class="row">
-				<div class="col-12 text-start" id="socialLinks">
+				<div class="col-12" id="socialLinks">
 					<div class="border rounded table-responsive-container">
 						<div class="table-responsive">
 							<table class="table table-striped table-hover table-sm my-2">
@@ -108,7 +108,7 @@
 									@endphp
 
 									@forelse ($socialLinks as $sl)
-									<tr class="slideFromLeft delay-animation opacity-0" style="--anim-delay: {{ $i }}s;">
+									<tr class="slideFromLeft delay-animation" style="--anim-delay: {{ $i }}s;">
 										{{-- REMOVE --}}
 										<td class="align-middle p-3">
 											<div class="d-flex w-100 h-100 justify-content-center align-items-center">

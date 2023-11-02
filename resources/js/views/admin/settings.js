@@ -111,19 +111,6 @@ $(() => {
 			.val(target.val());
 	});
 
-	// ANIMATION HANDLER
-	$(document).on(`animationstart`, `.slideFromLeft`, (e) => {
-		let obj = $(e.target);
-		obj.removeClass(`opacity-0`);
-	});
-
-	$(document).on(`animationend`, `.slideFromLeft`, (e) => {
-		let obj = $(e.target);
-		obj.removeClass(`slideFromLeft delay-animation`)
-			.removeAttr(`style`)
-			.removeProp(`style`);
-	});
-
 	// REVERT CHANGES HANDLER
 	$(`#revert`).on(`click`, (e) => {
 		$.ajax({

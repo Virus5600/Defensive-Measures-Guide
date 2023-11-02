@@ -42,6 +42,8 @@ class SocialLinks extends Model
 	{
 		if (in_array($website, array_keys(static::$supportedWebsites)))
 			return static::$supportedWebsites[$website] === $this->website;
+		else if ($website == "Other" && !in_array($this->website, array_values(static::$supportedWebsites)))
+			return true;
 		return false;
 	}
 

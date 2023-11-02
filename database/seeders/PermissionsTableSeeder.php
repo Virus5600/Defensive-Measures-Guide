@@ -14,6 +14,30 @@ class PermissionsTableSeeder extends Seeder
 	 */
 	public function run(): void
 	{
+		// UPDATES
+		$updatesPerm = Permission::create([
+			'name' => 'Updates Tab Access',
+			'slug' => 'updates_tab_access'
+		]);
+
+		Permission::create([
+			'parent_permission' => $updatesPerm->id,
+			'name' => 'Updates Tab Create',
+			'slug' => 'updates_tab_create'
+		]);
+
+		Permission::create([
+			'parent_permission' => $updatesPerm->id,
+			'name' => 'Updates Tab Edit',
+			'slug' => 'updates_tab_edit'
+		]);
+
+		Permission::create([
+			'parent_permission' => $updatesPerm->id,
+			'name' => 'Updates Tab Delete',
+			'slug' => 'updates_tab_delete'
+		]);
+
 		// SETTINGS
 		$settingsPerm = Permission::create([
 			'name' => 'Settings Tab Access',
