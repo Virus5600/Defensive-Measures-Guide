@@ -39,7 +39,7 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 	//////////////////
 	// AUTH RELATED //
 	//////////////////
-	Route::group(['middleware' => ['guest']], function() {
+	Route::group(['middleware' => ['guest', 'check.admin']], function() {
 		// Login
 		Route::get('/login', 'AuthenticationController@login')->name('login');
 
@@ -50,7 +50,7 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 	////////////////////////
 	// AUTHENTICATED SIDE //
 	////////////////////////
-	Route::group(['middleware' => ['auth', 'auth:sanctum', 'permissions:sanctum']], function() {
+	Route::group(['middleware' => ['auth', 'check.admin', 'permissions:sanctum']], function() {
 		// LOGOUT
 		Route::post('/logout', 'AuthenticationController@logout')->name('logout');
 
@@ -59,6 +59,7 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 		////////////////
 		Route::group(['prefix' => 'admin'], function() {
 			// Dashboard
+			Route::permanentRedirect('/', '/dashboard')->name('admin.dashboard');
 			Route::get('/dashboard', 'PageController@dashboard')->name('admin.dashboard');
 
 			/// WRITER'S AREA ///

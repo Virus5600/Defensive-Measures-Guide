@@ -29,8 +29,10 @@ class MasterAdminExists
 			->where('user_type_id', '=', config('master-admin.user_type_id'))
 			->first();
 
+		$response = $next($request);
+
 		if (!$user) {
-			session('flash_info', 'Master Admin account does not exist so a new one is created.');
+			session()->flash('flash_info', 'Master Admin account does not exist so a new one is created.');
 
 			User::create([
 				'username' => config('master-admin.username'),
@@ -43,6 +45,6 @@ class MasterAdminExists
 			]);
 		}
 
-        return $next($request);
+        return $response;
     }
 }

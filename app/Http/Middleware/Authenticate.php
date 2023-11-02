@@ -13,7 +13,7 @@ class Authenticate extends Middleware
 	protected function redirectTo(Request $request): ?string
 	{
 		if ($request->expectsJson()) {
-			session("flash_error", "You need to be logged in to access this page.");
+			session()->flash("flash_error", "You need to be logged in to access this page.");
 			return route('login');
 		}
 

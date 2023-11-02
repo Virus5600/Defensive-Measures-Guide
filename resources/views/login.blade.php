@@ -143,7 +143,7 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 		<script type="text/javascript" src="{{ mix('js/util/disable-on-submit.js') }}"></script>
 		@include('includes.swal-flash')
 
-		@if (Session::has('flash_error'))
+		@if (Session::has('flash_error') || Session::has('flash_info'))
 		<script type="text/javascript" id="for-removal" nonce="{{ csp_nonce() }}">
 			$(document).ready(() => {
 				setTimeout(() => {
