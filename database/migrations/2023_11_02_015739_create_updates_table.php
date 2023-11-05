@@ -24,6 +24,7 @@ return new class extends Migration
 			$table->json('bedrock_link')->nullable();
 			$table->json('java_link')->nullable();
 			$table->string('banner')->default('default.webp');
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}

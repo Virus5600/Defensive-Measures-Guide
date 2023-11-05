@@ -30,7 +30,7 @@ class Settings extends Model
 		foreach (preg_split("/\,\s*/", $setting->value) as $v)
 			array_push($toRet, array("value" => trim($v)));
 
-		return jason_encode($toRet);
+		return json_encode($toRet);
 	}
 
 	public static function getValue($key) {

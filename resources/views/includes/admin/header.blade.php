@@ -18,7 +18,7 @@
 							{{ auth()->user()->getName() }}
 						</a>
 
-						<div class="dropdown-menu dropdown-menu-end text-end">
+						<div class="dropdown-menu dropdown-menu-end text-end" style="z-index: 1001;">
 							<a href="{{ route('home') }}" class="dropdown-item">View Home Page</a>
 							<div class="dropdown-divider"></div>
 							<form action="{{ route('logout') }}" method="POST" class="dropdown-item">

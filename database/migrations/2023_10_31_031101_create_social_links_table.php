@@ -16,6 +16,7 @@ return new class extends Migration
 			$table->string('website');
 			$table->string('url');
 			$table->string('icon');
+			$table->softDeletes();
             $table->timestamps();
         });
     }

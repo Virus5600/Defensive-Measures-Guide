@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Models\Updates;
 
+use DB;
+use Exception;
+use Log;
+use Validator;
+
 class UpdatesController extends Controller
 {
 	protected function index(Request $req) {
@@ -16,21 +21,37 @@ class UpdatesController extends Controller
 		if ($req->has('type')) {
 			$num = intval($req->type);
 			if ($num < 0 || $num > count($types)-1) {
-				$req->merge(['type' => 0]);
+				$req->merge(['type' => [0]]);
 			}
 		}
-
-		$typeIndex = $req->type ?? 0;
-		$type = ucwords($types[$typeIndex]);
 
 		// FETCH UPDATES (VERSIONS)
 		$updates = Updates::query();
 
-		if ($typeIndex > 0) {
-			$updates->where('release_type', '=', $type);
+		// Version filter
+		$typeIndex = $req->type ?? [0];
+		$selectedTypes = [];
+		foreach ($typeIndex as $i) {
+			array_push($selectedTypes, $types[$i]);
 		}
 
-		$updates = $updates->get();
+		if (!in_array('all', $selectedTypes)) {
+			$updates->whereIn('version', $selectedTypes);
+		}
+
+
+		// Search filter
+		if ($req->has('search')) {
+			$search = $req->search;
+			$updates->where(function($q) use ($search) {
+				$q->where('version', 'like', "%$search%")
+					->orWhere('description', 'like', "%$search%")
+					->orWhereConcat(['v', 'major_version', '.', 'minor_version', '.', 'patch_version', '-', 'version'], 'like', "%$search%");
+			});
+		}
+
+		$updates = $updates->paginate(10)
+			->withQueryString();
 
 		// PERM DATA
 		$user = auth()->user();
@@ -41,10 +62,16 @@ class UpdatesController extends Controller
 			'delete' => $user->hasPermission("updates_tab_delete"),
 		];
 
+		// Filters
+		$filters = (object) [
+			'search' => $req->search ?? ''
+		];
+
 		return view('admin.updates.index', [
-			'type' => $type,
+			'types' => $types,
 			'perms' => $permissions,
 			'updates' => $updates,
+			'filters' => $filters,
 		]);
 	}
 }

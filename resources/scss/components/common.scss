@@ -50,3 +50,29 @@ textarea {
 		resize: none !important;
 	}
 }
+
+.table-responsive-container {
+	padding: 1px;
+	position: relative;
+
+	& .table-responsive {
+		padding-bottom: .5rem;
+		position: relative;
+		z-index: 2;
+
+		& * {
+			position: relative;
+		}
+
+		& table {
+			margin: 0 0 1rem 0;
+			z-index: 1;
+
+			& tr:last-child {
+				& td, & th {
+					border-bottom: none;
+				}
+			}
+		}
+	}
+}

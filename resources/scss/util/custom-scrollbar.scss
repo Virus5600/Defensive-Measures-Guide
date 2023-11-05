@@ -1,0 +1,57 @@
+/* CUSTOM SCROLLER */
+.custom-scrollbar {
+	/* Width */
+	&::-webkit-scrollbar {
+		width: 10px;
+		height: 10px;
+	}
+
+	/* Button */
+	&::-webkit-scrollbar-button {
+		background: rgb(255, 255, 255);
+	}
+
+	/* Handle */
+	&::-webkit-scrollbar-thumb {
+		background: rgb(102, 102, 102);
+		opacity: 0.75;
+		border-radius: 10px;
+		transition: .5s;
+	}
+
+	/* Handle on hover */
+	&::-webkit-scrollbar-thumb:hover {
+		background: rgb(100, 100, 100);
+		opacity: 0.5;
+	}
+
+	&.apply-to-all {
+		& * {
+			/* Width */
+			&::-webkit-scrollbar {
+				width: 10px;
+				height: 10px;
+			}
+
+			/* Button */
+			&::-webkit-scrollbar-button {
+				background: rgb(255, 255, 255);
+			}
+
+			/* Handle */
+			&::-webkit-scrollbar-thumb {
+				background: rgb(102, 102, 102);
+				opacity: 0.75;
+				border-radius: 10px;
+				transition: .5s;
+			}
+
+			/* Handle on hover */
+			&::-webkit-scrollbar-thumb:hover {
+				background: rgb(100, 100, 100);
+				opacity: 0.5;
+			}
+		}
+	}
+}
+/* CUSTOM SCROLLER END */

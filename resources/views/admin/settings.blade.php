@@ -145,8 +145,10 @@
 									$i += .25;
 									@endphp
 									@empty
-									<tr colspan="3">
-										Nothing to show <i class="fas fa-wind"></i>
+									<tr>
+										<td colspan="3">
+											Nothing to show <i class="fas fa-wind"></i>
+										</td>
 									</tr>
 									@endforelse
 								</tbody>

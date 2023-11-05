@@ -58,6 +58,8 @@ mix
 
 	// SASS Utilities
 	.sass('resources/scss/util/animations.scss', 'public/css/util')
+	.sass('resources/scss/util/custom-scrollbar.scss', 'public/css/util')
+	.sass('resources/scss/util/custom-switch.scss', 'public/css/util')
 	.sass('resources/scss/util/image-input.scss', 'public/css/util')
 	.sass('resources/scss/util/text-counter.scss', 'public/css/util')
 

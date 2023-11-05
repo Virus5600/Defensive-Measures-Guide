@@ -11,7 +11,7 @@ body {
 	font-family: 'Minecraftia';
 }
 
-/* サイドバールタート */
+/* サイドバースタート */
 .sidebar-toggler {
 	color: rgba(0,0,0,.5);
 	border-color: rgba(0,0,0,.1);
@@ -106,7 +106,7 @@ body {
 		width: auto;
 	}
 }
-/* サイドバールエンドー */
+/* サイドバーエーンドー */
 
 /* Extra small devices (landscape phones, 0px and up) */
 @include media-breakpoint-up(xs) {
@@ -141,7 +141,7 @@ body {
 		top: var(--navbar-height);
 
 		&~ .content {
-			max-width: 100%;
+			max-width: calc(100vw - 15rem);
 		}
 
 		& > * > span,
@@ -156,7 +156,7 @@ body {
 			background-color: #EAEAEA;
 		}
 	}
-	/* サイドバーエンドー */
+	/* サイドバーエーンドー */
 }
 
 /* Extra large devices (large desktops, 1200px and up) */

@@ -51,6 +51,7 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 		<link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ mix('css/general.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ mix('css/util/animations.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ mix('css/util/custom-scrollbar.css') }}">
 		<script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
 
 		{{-- CUSTOM STYLES --}}
@@ -61,7 +62,7 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 		<title>{{ $webName }} | @yield('title')</title>
 	</head>
 
-	<body>
+	<body class="custom-scrollbar apply-to-all">
 		{{-- NOSCRIPT --}}
 		@include('includes.noscript')
 
