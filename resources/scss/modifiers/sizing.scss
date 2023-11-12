@@ -1,64 +1,15 @@
 @import "./base";
 
-$widths: map-get(
-	map-get($utilities, "width"),
-	"values"
+$utilities: map-merge(
+	$utilities,
+	(
+		"width": map-merge(
+			map-get($utilities, "width"),
+			(responsive: true)
+		),
+		"height": map-merge(
+			map-get($utilities, "height"),
+			(responsive: true)
+		)
+	)
 );
-$heights: map-get(
-	map-get($utilities, "height"),
-	"values"
-);
-
-@each $bpn, $bpv in $grid-breakpoints {
-	@each $wk, $wv in $widths {
-		@if ($bpn == 'xs') {
-			.min-w-#{$wk} {
-				min-width: #{$wv} !important;
-			}
-
-			.max-w-#{$wk} {
-				max-width: #{$wv} !important;
-			}
-		}
-
-		@include media-breakpoint-up($bpn) {
-			.w-#{$bpn}-#{$wk} {
-				width: #{$wv} !important;
-			}
-
-			.min-w-#{$bpn}-#{$wk} {
-				min-width: #{$wv} !important;
-			}
-
-			.max-w-#{$bpn}-#{$wk} {
-				max-width: #{$wv} !important;
-			}
-		}
-	}
-
-	@each $hk, $hv in $heights {
-		@if ($bpn == 'xs') {
-			.min-h-#{$hk} {
-				min-height: #{$hv} !important;
-			}
-
-			.max-h-#{$hk} {
-				max-height: #{$hv} !important;
-			}
-		}
-		
-		@include media-breakpoint-up($bpn) {
-			.h-#{$bpn}-#{$hk} {
-				height: #{$hv} !important;
-			}
-
-			.min-h-#{$bpn}-#{$hk} {
-				min-height: #{$hv} !important;
-			}
-
-			.max-h-#{$bpn}-#{$hk} {
-				max-height: #{$hv} !important;
-			}
-		}
-	}
-}

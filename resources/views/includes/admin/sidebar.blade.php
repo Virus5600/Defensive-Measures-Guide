@@ -14,13 +14,13 @@
 		<hr>
 		<small class="ms-3"><small>Writer's Area</small></small>
 
-		{{-- Updates --}}
-		@if (Request::is('admin/updates'))
-		<span class="bg-secondary"><i class="fas fa-cloud-arrow-up me-2 col-2"></i>Updates</span>
-		@elseif (Request::is('admin/updates*'))
-		<a class="text-decoration-none bg-secondary aria-link" href="{{ route('admin.updates.index') }}" aria-hidden="false" aria-label="Items"><i class="fa fa-cloud-arrow-up me-2 col-2"></i>Updates</a>
+		{{-- Versions --}}
+		@if (Request::is('admin/versions'))
+		<span class="bg-secondary"><i class="fas fa-code-pull-request me-2 col-2"></i>Versions</span>
+		@elseif (Request::is('admin/versions*'))
+		<a class="text-decoration-none bg-secondary aria-link" href="{{ route('admin.versions.index') }}" aria-hidden="false" aria-label="Items"><i class="fa fa-code-pull-request me-2 col-2"></i>Versions</a>
 		@else
-		<a class="text-decoration-none aria-link" href="{{ route('admin.updates.index') }}" aria-hidden="false" aria-label="Items"><i class="fa fa-cloud-arrow-up me-2 col-2"></i>Updates</a>
+		<a class="text-decoration-none aria-link" href="{{ route('admin.versions.index') }}" aria-hidden="false" aria-label="Items"><i class="fa fa-code-pull-request me-2 col-2"></i>Versions</a>
 		@endif
 
 		{{-- DM CONTENT CONTROLS --}}

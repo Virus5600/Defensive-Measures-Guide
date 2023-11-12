@@ -176,7 +176,7 @@ class VersionsController extends Controller
 			]);
 			unset($cleanData->bedrockRD);
 			unset($cleanData->javaRD);
-
+// dd($cleanData);
 			Versions::create([
 				'banner' => $cleanData->banner,
 				'version' => $cleanData->devVersion,

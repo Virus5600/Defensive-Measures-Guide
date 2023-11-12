@@ -1,16 +1,11 @@
 @import "./base";
 
-$positions: map-get(
-	map-get($utilities, "position"),
-	"values"
+$utilities: map-merge(
+	$utilities,
+	(
+		"position": map-merge(
+			map-get($utilities, "position"),
+			(responsive: true)
+		)
+	)
 );
-
-@each $bpn, $bpv in $grid-breakpoints {
-	@each $pos in $positions {
-		@include media-breakpoint-up($bpn) {
-			.position-#{$bpn}-#{$pos} {
-				position: #{$pos} !important;
-			}
-		}
-	}
-}

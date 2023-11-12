@@ -85,6 +85,10 @@ mix
 	.sass('resources/scss/views/login.scss', 'public/views/login')
 
 	// ADMIN VIEWS
+	// Versions Pages
+	.js('resources/js/views/admin/versions/index.js', 'public/views/admin/versions')
+	.js('resources/js/views/admin/versions/create.js', 'public/views/admin/versions')
+
 	// Settings Page
 	.js('resources/js/views/admin/settings.js', 'public/views/admin/settings')
 
