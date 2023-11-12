@@ -79,11 +79,11 @@
 
 						<div class="dropdown-divider"></div>
 
-						{{-- VERSIONS --}}
-						<a href="{{ route('admin.versions.index') }}" class="dropdown-item">Versions</a>
+						{{-- UPDATES --}}
+						<a href="{{ route('admin.dashboard') }}" class="dropdown-item">Updates</a>
 
 						<div class="dropdown-divider"></div>
-
+						
 						{{-- LOGOUT --}}
 						<form action="{{ route('logout') }}" method="POST" class="dropdown-item">
 							@csrf

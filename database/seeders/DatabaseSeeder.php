@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
 			UserTypesTableSeeder::class,
 			UserTypePermissionsTableSeeder::class,
 			UsersTableSeeder::class,
-			VersionsTableSeeder::class,
+			UpdatesTableSeeder::class,
 		]);
 	}
 }

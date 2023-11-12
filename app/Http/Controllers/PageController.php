@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Versions;
 use Illuminate\Http\Request;
 
 use Facebook\Facebook;
 use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Exceptions\FacebookResponseException;
 
-use DB;
 use Exception;
 use Log;
 
@@ -72,6 +70,7 @@ class PageController extends Controller
 				->data;
 
 			$videos = collect($videos)->sortByDesc("created_time")->chunk(3)[0];
+
 		} catch (FacebookSDKException $e) {
 			Log::error($e);
 		} catch (FacebookResponseException $e) {
@@ -79,17 +78,8 @@ class PageController extends Controller
 		} catch (Exception $e) {
 			Log::error($e);
 		}
-
-		///////////////////////////////////
-		// ALL OTHER UNCOMPLICATED TASKS //
-		///////////////////////////////////
-
-		// Fetch the latest version...
-		$latestVersion = Versions::latest()
-			->first();
-
+		
 		return view('index', [
-			'latestVersion' => $latestVersion,
 			'videos' => $videos
 		]);
 	}

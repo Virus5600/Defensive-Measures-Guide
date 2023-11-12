@@ -9,8 +9,6 @@
     "/views/layouts/admin/admin.js": "/views/layouts/admin/admin.js",
     "/views/index/index.js": "/views/index/index.js",
     "/views/login/login.js": "/views/login/login.js",
-    "/views/admin/versions/index.js": "/views/admin/versions/index.js",
-    "/views/admin/versions/create.js": "/views/admin/versions/create.js",
     "/views/admin/settings/settings.js": "/views/admin/settings/settings.js",
     "/css/libs/swal.css": "/css/libs/swal.css",
     "/css/libs/summernote.css": "/css/libs/summernote.css",
@@ -25,7 +23,6 @@
     "/css/util/text-counter.css": "/css/util/text-counter.css",
     "/css/util/image-input.css": "/css/util/image-input.css",
     "/css/util/custom-switch.css": "/css/util/custom-switch.css",
-    "/css/util/custom-scrollbar.css": "/css/util/custom-scrollbar.css",
     "/css/util/animations.css": "/css/util/animations.css",
     "/js/util/animation.js": "/js/util/animation.js",
     "/js/util/confirm-leave.js": "/js/util/confirm-leave.js",
@@ -35,5 +32,6 @@
     "/js/util/image-input.js": "/js/util/image-input.js",
     "/js/util/remove-script.js": "/js/util/remove-script.js",
     "/js/util/swal-flash.js": "/js/util/swal-flash.js",
-    "/js/util/text-counter.js": "/js/util/text-counter.js"
+    "/js/util/text-counter.js": "/js/util/text-counter.js",
+    "/css/util/custom-scrollbar.css": "/css/util/custom-scrollbar.css"
 }

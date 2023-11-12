@@ -1,11 +1,23 @@
 @import "./base";
 
-$utilities: map-merge(
-	$utilities,
-	(
-		"border": map-merge(
-			map-get($utilities, "border"),
-			(responsive: true)
-		)
-	)
+$borders: map-get(
+	map-get($utilities, "border"),
+	"values"
 );
+
+@each $bpn, $bpv in $grid-breakpoints {
+	@each $bk, $bv in $borders {
+		@include media-breakpoint-up($bpn) {
+			@if ($bpn == 'null') {
+				.border-#{$bk} {
+					border: #{$bv} !important;
+				}
+			}
+			@else {
+				.border-#{$bpn}-#{$bk} {
+					border: #{$bv} !important;
+				}
+			}
+		}
+	}
+}

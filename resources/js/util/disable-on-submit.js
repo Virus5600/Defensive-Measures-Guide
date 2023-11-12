@@ -1,4 +1,4 @@
-$(() => {
+$(document).ready(() => {
 	// Change submit to either "Updating" or "Submitting" after click
 	$('[type=submit], [data-action]').on('click', (e) => {
 		let btn = $(e.currentTarget);
@@ -10,13 +10,6 @@ $(() => {
 			// if there's none, add the class
 			parentForm.addClass('needs-validation');
 		}
-
-		// Makes all the form elements visible
-		parentForm.find(`select, input, textarea`)
-			.attr('style', (i, s) => {
-				return (s || '') + 'visibility: visible!important; opacity: 1!important; display: block!important;';
-			})
-			.data('dos-invisible', 'true');
 
 		// Checks if there's a novalidate prop
 		if (typeof parentForm[0].novalidate == 'undefined' || typeof parentForm[0].formnovalidate == 'undefined') {
@@ -54,18 +47,15 @@ $(() => {
 				btn.html(`<div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only"></span></div> Logging in...`);
 			else if (action == 'submit')
 				btn.html(`<div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only"></span></div> Submitting...`);
-			else if (action == 'icon-search')
-				btn.html(`<div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only"></span></div>`);
-
 			// Used when the button does not have an action or does not match anything from above.
 			else {
-				let btnLabel = btn.attr('data-dos-disabled-label') ?? btn.attr('data-dos-label');
-				let isHTML = btn.attr('data-dos-is-html') ?? false;
+				let btnLabel = btn.attr('data-dos-disabled-label');
+				let isHTML = btn.attr('data-dos-is-html');
 
 				if (typeof btnLabel === "undefined")
 					btn.html(`<div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only"></span></div> Submitting...`);
 				else {
-					if (isHTML)
+					if (btnLabel)
 						btn.html(btnLabel);
 					else
 						btn.html(`<div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only"></span></div> ${btnLabel}...`);
@@ -80,14 +70,13 @@ $(() => {
 		if (parentForm.attr("data-continuous-validation") == 'true')
 			parentForm.addClass('was-validated');
 
-		// Check if form is valid or not. Enter the if scope if it isn't valid
+		// Check if form is valid
 		if (!document.forms[parentForm.attr('id')].reportValidity()) {
-			console.log("Form is not valid");
 			e.preventDefault();
 			e.stopPropagation();
 
 			// If not, proceed to redo the earlier changes so button can be used to submit again
-			btn.html(`${btn.data("dos-prev")}`)
+			btn.html(`${btn.data("data-dos-prev")}`)
 				.removeClass(`disabled cursor-default`)
 				.attr('data-clicked', 'false')
 				.attr('data-dos-prev');
@@ -114,18 +103,7 @@ $(() => {
 				.closest(".form-control")
 				.removeClass("is-valid is-invalid");
 		}
-
-		// Makes all the form elements visible
-		parentForm.trigger('dos-done')
-			.find(`select, input, textarea`)
-			.css('visibility', '')
-			.css('opacity', '')
-			.css('display', '')
-			.removeAttr('data-dos-invisible');
 	});
 
-	$('form').on('submit', (e) => {
-		$(this).find('[type=submit]')
-			.trigger('click');
-	});
+	$('form').on('submit', (e) => {$(this).find('[type=submit]').trigger('click');});
 });

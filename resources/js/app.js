@@ -16,9 +16,6 @@ try {
 
 	// Fontawesome 6
 	require('./libs/fontawesome');
-
-	// Toat UI - Editor
-	require('./libs/editor');
 } catch (ex) {
 	console.error(ex);
 }
@@ -93,7 +90,7 @@ try {
 	// Navbar
 	const setNavbarTheme = (isDarkMode) => {
 		const navbar = document.querySelector('#mainNavbar');
-
+		
 		if (navbar != null) {
 			if (isDarkMode) {
 				navbar.classList.add('bg-body-tertiary');

@@ -1,10 +1,3 @@
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/variables-dark";
-@import "bootstrap/scss/maps";
-@import "bootstrap/scss/mixins";
-@import "bootstrap/scss/utilities";
-
 .card {
 	&.floating-header {
 		margin-top: 1.5rem;
@@ -13,34 +6,11 @@
 		.card-header {
 			position: absolute;
 			transform: translate(1rem, -50%);
-			transition: .5s ease;
-
 			background: color-mix(in srgb, var(--bs-card-bg) 100%, var(--bs-card-cap-bg) 50%);
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			max-width: 90%;
 			overflow: hidden;
-
-			@each $breakpoint in map-keys($grid-breakpoints) {
-				@include media-breakpoint-up($breakpoint) {
-					$infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-
-					&.header#{$infix}-start {
-						left: 0;
-						transform: translate(1rem, -50%);
-					}
-
-					&.header#{$infix}-center {
-						left: 50%;
-						transform: translate(-50%, -50%);
-					}
-
-					&.header#{$infix}-end {
-						right: 0;
-						transform: translate(-1rem, -50%);
-					}
-				}
-			}
 		}
 
 		.card-body {
@@ -48,5 +18,3 @@
 		}
 	}
 }
-
-// TODO: Implement responsive header positioning
