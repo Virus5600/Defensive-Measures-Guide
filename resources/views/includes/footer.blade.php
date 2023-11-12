@@ -3,12 +3,20 @@
 	<div class="row py-3 bg-body-tertiary">
 		<div class="col-12 col-md-3 text-center">
 			<div class="d-flex flex-column">
-				<a href="{{ route('home') }}" class="fw-bold text-decoration-none btn btn-outline-dark text-light-emphasis border-0 bg-transparent">Home</a>
+				<h5 class="fw-bold mb-3 text-dark-emphasis">Site Pages</h5>
+				<a href="{{ route('home') }}" class="small my-1 text-decoration-none link-body-emphasis">Home</a>
+				<a href="{{ route('home') }}" class="small my-1 text-decoration-none link-body-emphasis">Downloads</a>
+				<a href="{{ route('home') }}" class="small my-1 text-decoration-none link-body-emphasis">Installations</a>
+				<a href="{{ route('home') }}" class="small my-1 text-decoration-none link-body-emphasis">Contents</a>
 			</div>
 		</div>
-		
+
 		<div class="col-12 col-md-3 text-center">
-			COL 2
+			<div class="d-flex flex-column">
+				<h6 class="fw-bold mb-3 text-dark-emphasis">Technical Stuff</h6>
+				<a href="{{ route('home') }}" class="small my-1 text-decoration-none link-body-emphasis">Privacy Policy</a>
+				<a href="{{ route('home') }}" class="small my-1 text-decoration-none link-body-emphasis">About</a>
+			</div>
 		</div>
 
 		<div class="col-12 col-md-6">

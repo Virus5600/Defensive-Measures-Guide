@@ -59,13 +59,18 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 		////////////////
 		Route::group(['prefix' => 'admin'], function() {
 			// Dashboard
-			Route::permanentRedirect('/', '/dashboard')->name('admin.dashboard');
+			Route::permanentRedirect('/', '/admin/dashboard')->name('admin.dashboard');
 			Route::get('/dashboard', 'PageController@dashboard')->name('admin.dashboard');
 
 			/// WRITER'S AREA ///
-			Route::group(['prefix' => 'updates'], function() {
+			Route::group(['prefix' => 'versions'], function() {
 				// Index
-				Route::get('/', 'UpdatesController@index')->name('admin.updates.index');
+				Route::get('/', 'VersionsController@index')->name('admin.versions.index');
+
+				// Create
+				Route::get('/create', 'VersionsController@create')->name('admin.versions.create');
+				// Store
+				Route::post('/store', 'VersionsController@store')->name('admin.versions.store');
 			});
 
 			/// DM CONTENTS ///

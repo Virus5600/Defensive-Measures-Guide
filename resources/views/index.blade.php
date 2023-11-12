@@ -33,7 +33,7 @@
 			<div class="row">
 				<div class="col">
 					<p class="my-3">
-						Defensive Measures is an add-on (Bedrock) or mod (Java) that allows players to place defensive turrets and traps to protect 
+						Defensive Measures is an add-on (Bedrock) or mod (Java) that allows players to place defensive turrets and traps to protect
 						themselves, their creations, positions, and so on. The add-on/mod adds Towers, Traps, Entities, Structures, Villager Variants, and
 						Items to the game, which opens a lot of new capabilities, ideas, and creative imaginations for the players to explore.
 					</p>
@@ -57,15 +57,19 @@
 	<div class="row">
 		<div class="col">
 			<h2>What's New</h2>
-			<h4>@{{ $latest_version->version }}</h4>
-			<div>@{!! $latest_version->description !!}</div>
+			<h4>{{ $latestVersion->version }}</h4>
+			<div class="my-5">{!! Str::of($latestVersion->description)->markdown() !!}</div>
 
-			<div class="text-center">
-				<img src="@{{ $latest_version->banner }}" alt="@{{ $latest_version->version }} Banner" class="version-banner">
+			<div class="text-center my-3">
+				<img src="{{ $latestVersion->getBanner() }}" alt="{{ $latestVersion->version }} Banner" class="version-banner img-thumbnail">
+			</div>
+
+			<div class="my-3 d-flex justify-content-center">
+				<a href="{{ route('home') }}" class="btn btn-outline-primary">See More...</a>
 			</div>
 		</div>
 	</div>
-	
+
 	<hr class="bg-light hr-thick-100 my-3 my-lg-5">
 
 	{{-- RECENT FACEBOOK VIDEOS --}}
@@ -75,7 +79,7 @@
 
 			@forelse($videos as $v)
 			<div class="row my-5">
-				<dic class="col">
+				<div class="col">
 					<div class="card floating-header rounded">
 						<h4 class="card-header">
 							@if (isset($v->title) || property_exists($v, 'title'))
@@ -103,7 +107,7 @@
 							</p>
 						</div>
 					</div>
-				</dic>
+				</div>
 			</div>
 			@empty
 			<div class="row my-3">

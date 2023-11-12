@@ -76,6 +76,7 @@ body {
 
 		& > span,
 		& > a {
+			transition: 0.25s;
 			color: white;
 
 			padding-top: 0.5rem;
@@ -83,16 +84,13 @@ body {
 			padding-left: 1rem;
 			padding-right: 1rem;
 
-			&:hover:not(span) {
-				color: var(--bs-dark);
-			}
-		}
-
-		& > a {
-			transition: 0.25s;
-
 			&:hover {
 				background-color: #EAEAEA;
+
+				&:not(span) {
+					background-color: var(--bs-light) !important;
+					color: var(--bs-dark);
+				}
 			}
 		}
 	}
