@@ -1,5 +1,5 @@
 if (!Swal)
-	throw Error('Sweetalert2 not instantiated. Please include the said library (https://sweetalert2.github.io/).');
+	throw Error('Sweetalert2 not instantiated. Please include the said library (https://sweetalert2.github.io/). Currently testing for `Swal` keyword.');
 
 class SwalFlash {
 	constructor() {

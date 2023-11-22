@@ -87,7 +87,7 @@ class Versions extends Model
 	 * @param bool $isUrl Whether to return the banner as a URL or as an <img> tag.
 	 * @param string $customClasses Custom CSS classes to add to the <img> tag.
 	 *
-	 * @return string The banner of the version. If $isUrl is true, it will return the URL of the banner. Otherwise, it will return the <img> tag.
+	 * @return string The banner of the version. If `$isUrl` is true, it will return the URL of the banner. Otherwise, it will return the `<img>` tag.
 	 */
 	public function getBanner($useDefault=false, $getFull=true, $isUrl=true, $customClasses=""): string
 	{

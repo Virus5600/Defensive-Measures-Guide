@@ -63,6 +63,7 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 			Route::get('/dashboard', 'PageController@dashboard')->name('admin.dashboard');
 
 			/// WRITER'S AREA ///
+			// VERSIONS
 			Route::group(['prefix' => 'versions'], function() {
 				// Index
 				Route::get('/', 'VersionsController@index')->name('admin.versions.index');
@@ -71,6 +72,11 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 				Route::get('/create', 'VersionsController@create')->name('admin.versions.create');
 				// Store
 				Route::post('/store', 'VersionsController@store')->name('admin.versions.store');
+
+				// Edit
+				Route::get('/edit/{id}', 'VersionsController@edit')->name('admin.versions.edit');
+				// Update
+				Route::put('/update/{id}', 'VersionsController@update')->name('admin.versions.update');
 			});
 
 			/// DM CONTENTS ///

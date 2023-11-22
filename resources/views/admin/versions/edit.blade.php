@@ -1,19 +1,20 @@
 @extends('layouts.admin')
 
-@section('title', 'Create Version')
+@section('title', 'Edit Version')
 
 @section('content')
 <div class="card floating-header rounded my-5">
 	{{-- HEADER --}}
 	<h2 class="card-header header-center header-lg-start border border-secondary bg-body rounded">
 		<button type="button" data-return="{{ route('admin.versions.index') }}" class="remove-button-style text-light">
-			<i class="fas fa-share fa-flip-horizontal me-3"></i>Add Version
+			<i class="fas fa-share fa-flip-horizontal me-3"></i>Edit Version
 		</button>
 	</h2>
 
 	{{-- FORM --}}
-	<form action="{{ route('admin.versions.store') }}" method="POST" class="card-body needs-validation" enctype="multipart/form-data" id="form-content">
+	<form action="{{ route('admin.versions.update', [$version->id]) }}" method="PUT" class="card-body needs-validation" enctype="multipart/form-data" id="form-content">
 		@csrf
+		@method('PUT')
 
 		{{-- VERSION GROUP --}}
 		<div class="card floating-header rounded my-5 border">
@@ -29,21 +30,21 @@
 						<span class="input-group-text">v</span>
 
 						{{-- MAJOR VERSION --}}
-						<input type="number" min="0" class="form-control" id="majorVersion" name="majorVersion" value="{{ old('majorVersion') }}" required>
+						<input type="number" min="0" class="form-control" id="majorVersion" name="majorVersion" value="{{ $version->major_version }}" required>
 						<span class="input-group-text">.</span>
 
 						{{-- MINOR VERSION --}}
-						<input type="number" min="0" class="form-control" id="minorVersion" name="minorVersion" value="{{ old('minorVersion') }}" required>
+						<input type="number" min="0" class="form-control" id="minorVersion" name="minorVersion" value="{{ $version->minor_version }}" required>
 						<span class="input-group-text">.</span>
 
 						{{-- PATCH VERSION --}}
-						<input type="number" min="0" class="form-control" id="patchVersion" name="patchVersion" value="{{ old('patchVersion') }}" required>
+						<input type="number" min="0" class="form-control" id="patchVersion" name="patchVersion" value="{{ $version->patch_version }}" required>
 						<span class="input-group-text">-</span>
 
 						{{-- DEV VERSION --}}
 						<select class="form-select d-inline-block w-auto" id="devVersion" name="devVersion" required>
-							@foreach ($devVersions as $v)
-							<option value="{{ $v }}" {{ old('devVersion') == $v ? 'selected' : '' }}>{{ $v }}</option>
+							@foreach ($devVersions as $dv)
+							<option value="{{ $dv }}" {{ $version->version == $dv ? 'selected' : '' }}>{{ $dv }}</option>
 							@endforeach
 						</select>
 					</div>
@@ -63,7 +64,7 @@
 			<div class="card-body">
 				{{-- BANNER --}}
 				<div class="form-group">
-					@php($banner = old('banner') ?? $defaultBanner)
+					@php($banner = $version->getBanner() ?? $defaultBanner)
 
 					{{-- IMAGE INPUT --}}
 					<div class="card floating-header rounded my-5 border">
@@ -82,7 +83,7 @@
 												</span>
 											</div>
 											<input type="file" name="banner" class="d-none" accept=".jpg,.jpeg,.png,.webp" data-role="image-input" data-target-image-container="#banner-container" data-target-name-container="#banner-name" >
-											<h6 id="banner-name" class="text-truncate w-100 w-lg-50 mx-auto text-center" data-default-name="Banner">Banner</h6>
+											<h6 id="banner-name" class="text-truncate w-100 w-lg-50 mx-auto text-center" data-default-name="Banner">{{ $version->banner }}</h6>
 										</div>
 
 										{{-- BANNER REQUIREMENTS --}}
@@ -111,7 +112,7 @@
 				{{-- DESCRIPTION --}}
 				<div class="form-group">
 					<label for="description" class="form-label required">Description</label>
-					<textarea name="description" id="description_hidden" class="form-control not-resizable d-block d-lg-none" required>{{ old('description') }}</textarea>
+					<textarea name="description" id="description_hidden" class="form-control not-resizable d-block d-lg-none" required>{{ $version->description }}</textarea>
 					<div id="description" class="form-control font-minecraftia d-none d-lg-block"></div>
 
 					{{-- DESCRIPTION ERROR MESSAGE --}}

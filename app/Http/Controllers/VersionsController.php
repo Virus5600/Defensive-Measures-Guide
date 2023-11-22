@@ -176,7 +176,7 @@ class VersionsController extends Controller
 			]);
 			unset($cleanData->bedrockRD);
 			unset($cleanData->javaRD);
-// dd($cleanData);
+
 			Versions::create([
 				'banner' => $cleanData->banner,
 				'version' => $cleanData->devVersion,
@@ -206,5 +206,19 @@ class VersionsController extends Controller
 		return redirect()
 			->route('admin.versions.index')
 			->with('flash_success', 'Version created successfully!');
+	}
+
+	protected function edit($id) {
+		$version = Versions::findOrFail($id);
+
+		$devVer = Versions::getReleaseTypes();
+
+		$defaultBanner = Versions::getDefaultBanner();
+
+		return view('admin.versions.edit', [
+			'version' => $version,
+			'devVersions' => $devVer,
+			'defaultBanner' => $defaultBanner,
+		]);
 	}
 }

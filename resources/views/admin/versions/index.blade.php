@@ -138,7 +138,7 @@
 											<ul class="dropdown-menu dropdown-menu-end">
 												{{-- EDIT --}}
 												<li>
-													<a href="#" class="dropdown-item">
+													<a href="{{ route('admin.versions.edit', [$version->id]) }}" class="dropdown-item">
 														<i class="fas fa-pen-to-square me-2 col-2"></i>Edit
 													</a>
 												</li>
