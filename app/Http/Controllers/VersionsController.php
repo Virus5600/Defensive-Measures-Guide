@@ -64,6 +64,34 @@ class VersionsController extends Controller
 			else if ($inactive) $versions->onlyTrashed();
 		}
 
+		// Sort by filter
+		$sortDefault = true;
+		if ($req->has('sortBy')) {
+			$sort = $req->sortBy ?? 'version';
+			$dir = $req->sortDir ?? 'desc';
+			$sortDefault = false;
+
+			if ($sort === 'version') {
+				$sortDefault = true;
+			}
+			else if ($sort === 'java_release_date' || $sort === 'bedrock_release_date') {
+				$platform = explode('_', $sort)[0];
+				$versions->orderBy("release_date->{$platform}", $dir);
+			}
+			else if ($sort === 'website_release_date') {
+				$versions->orderBy('created_at', $dir);
+			}
+			else {
+				$sortDefault = true;
+			}
+		}
+
+		if ($sortDefault) {
+			$dir = $req->sortDir ?? 'desc';
+			$sort = ['version', '-', 'major_version', '.', 'minor_version', '.', 'patch_version'];
+			$versions->orderByConcat($sort, $dir);
+		}
+
 		$versions = $versions->paginate(10)
 			->withQueryString();
 
@@ -81,6 +109,8 @@ class VersionsController extends Controller
 			'search' => $req->search ?? '',
 			'type' => $req->type ?? [],
 			'stat' => $req->stat ?? [],
+			'sortBy' => $req->sortBy ?? 'version',
+			'sortDir' => $req->sortDir ?? 'desc',
 		];
 
 		return view('admin.versions.index', [

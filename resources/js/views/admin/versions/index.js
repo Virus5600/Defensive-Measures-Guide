@@ -21,6 +21,14 @@ $(() => {
 			.removeProp(`value`)
 			.val(``);
 
+		// Sort By Handler
+		obj.find(`[name=sort_by]`)
+			.val(`version`);
+
+		// Sort Order Handler
+		obj.find(`[name=sort_order]`)
+			.val(`desc`);
+
 		// History handler
 		window.history.pushState(
 			{"content": $(`#inner-content`).html()},

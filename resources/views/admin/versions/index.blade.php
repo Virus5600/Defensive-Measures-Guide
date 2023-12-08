@@ -91,10 +91,49 @@
 								</div>
 							</div>
 						</div>
+
+						{{-- SORT BY --}}
+						<div class="col-1 pe-0"><hr></div>
+						<label class="col-3 px-0 fs-2xs d-flex justify-content-center align-items-center" for="sort_by">Sort By</label>
+						<div class="col-8 ps-0"><hr></div>
+
+						<div class="col-12 my-2">
+							<div class="form-group">
+								<select name="sortBy" id="sort_by" class="form-select">
+									<option value="version" {{ $filters->sortBy == 'version' ? 'selected' : '' }}>Version</option>
+									<option value="java_release_date" {{ $filters->sortBy == 'java_release_date' ? 'selected' : '' }}>Java Release Date</option>
+									<option value="bedrock_release_date" {{ $filters->sortBy == 'bedrock_release_date' ? 'selected' : '' }}>Bedrock Release Date</option>
+									<option value="website_release_date" {{ $filters->sortBy == 'website_release_date' ? 'selected' : '' }}>Website Release Date</option>
+								</select>
+							</div>
+						</div>
+
+						{{-- SORT DIRECTION --}}
+						<div class="col-1 pe-0"><hr></div>
+						<label class="col-5 px-0 fs-2xs d-flex justify-content-center align-items-center" for="sort_dir">Sort Direction</label>
+						<div class="col-6 ps-0"><hr></div>
+
+						<div class="col-12 my-2">
+							{{-- ASCENDING --}}
+							<div class="form-group d-inline-block">
+								<div class="form-check">
+									<input type="radio" class="form-check-input" name="sortDir" id="asc" autocomplete="off" {{ $filters->sortDir == 'asc' ? 'checked' : ''}} value="asc">
+									<label class="form-check-label" for="asc">Oldest</label>
+								</div>
+							</div>
+
+							{{-- DESCENDING --}}
+							<div class="form-group d-inline-block">
+								<div class="form-check">
+									<input type="radio" class="form-check-input" name="sortDir" id="dsc" autocomplete="off" {{ $filters->sortDir == 'desc' ? 'checked' : ''}} value="desc">
+									<label class="form-check-label" for="dsc">Latest</label>
+								</div>
+							</div>
+						</div>
 					</div>
 
 					{{-- SUBMIT/RESET BUTTONS --}}
-					<div class="d-flex justify-content-center mt-auto">
+					<div class="d-flex justify-content-center my-3 mt-lg-auto mb-lg-0">
 						<button type="submit" class="btn btn-primary me-2">Filter</button>
 						<button type="reset" class="btn btn-secondary">Reset</button>
 					</div>

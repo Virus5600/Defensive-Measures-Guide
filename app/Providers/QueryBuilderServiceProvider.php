@@ -7,6 +7,7 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Support\ServiceProvider;
 
 use App\Database\Macros\WhereConcat;
+use App\Database\Macros\OrderByConcat;
 
 class QueryBuilderServiceProvider extends ServiceProvider
 {
@@ -16,6 +17,7 @@ class QueryBuilderServiceProvider extends ServiceProvider
 	public function register(): void
 	{
 		$this->registerWhereConcat();
+		$this->registerOrderByConcat();
 	}
 
 	/**
@@ -46,6 +48,27 @@ class QueryBuilderServiceProvider extends ServiceProvider
 
 		EloquentBuilder::macro('orWhereConcat', function ($columns, $operator = '=', $value = null) {
 			return WhereConcat::orWhereConcat($this, $columns, $operator, $value);
+		});
+	}
+
+	/**
+	 * Register the rankings method for collections
+	 */
+	private function registerOrderByConcat() {
+		Builder::macro('orderByConcat', function ($columns, $direction = 'asc') {
+			return OrderByConcat::orderByConcat($this, $columns, $direction);
+		});
+
+		Builder::macro('orderByDescConcat', function ($columns) {
+			return OrderByConcat::orderByDescConcat($this, $columns);
+		});
+
+		EloquentBuilder::macro('orderByConcat', function ($columns, $direction = 'asc') {
+			return OrderByConcat::orderByConcat($this, $columns, $direction);
+		});
+
+		EloquentBuilder::macro('orderByDescConcat', function ($columns) {
+			return OrderByConcat::orderByDescConcat($this, $columns);
 		});
 	}
 }
