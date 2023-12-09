@@ -12,7 +12,7 @@
 	</h2>
 
 	{{-- FORM --}}
-	<form action="{{ route('admin.versions.store') }}" method="POST" class="card-body needs-validation" enctype="multipart/form-data" id="form-content">
+	<form action="{{ route('admin.versions.store') }}" method="POST" class="card-body px-3 px-lg-4 needs-validation" enctype="multipart/form-data" id="form-content" data-dos-show-validity>
 		@csrf
 
 		{{-- VERSION GROUP --}}
@@ -127,16 +127,16 @@
 						<div class="card floating-header rounded my-5 border">
 							<h5 class="card-header border-0 bg-body"><i class="fas fa-circle text-success me-2"></i>Added</h5>
 
-							<div class="card-body" id="add">
+							<div class="card-body px-3" id="add">
 								@foreach (old('add') ?? [] as $k => $v)
-								<div class="row my-3">
-									<div class="col-2 d-flex justify-content-center align-items-center">
+								<div class="row my-3 justify-content-center">
+									<div class="col-1 d-flex justify-content-center align-items-center">
 										<button type="button" class="remove-button-style log-remover" title="Remove Entry">
 											<i class="fas fa-circle-minus text-danger"></i>
 										</button>
 									</div>
 
-									<div class="col-9">
+									<div class="col-10">
 										<input type="text" class="form-control" name="add[]" value="{{ $v }}" required>
 									</div>
 
@@ -163,16 +163,16 @@
 						<div class="card floating-header rounded my-5 border">
 							<h5 class="card-header border-0 bg-body"><i class="fas fa-circle text-warning me-2"></i>Updates & Fixes</h5>
 
-							<div class="card-body" id="mod">
+							<div class="card-body px-3" id="mod">
 								@foreach (old('mod') ?? [] as $k => $v)
-								<div class="row my-3">
-									<div class="col-2 d-flex justify-content-center align-items-center">
+								<div class="row my-3 justify-content-center">
+									<div class="col-1 d-flex justify-content-center align-items-center">
 										<button type="button" class="remove-button-style log-remover" title="Remove Entry">
 											<i class="fas fa-circle-minus text-danger"></i>
 										</button>
 									</div>
 
-									<div class="col-9">
+									<div class="col-10">
 										<input type="text" class="form-control" name="mod[]" value="{{ $v }}" required>
 									</div>
 
@@ -199,16 +199,16 @@
 						<div class="card floating-header rounded my-5 border">
 							<h5 class="card-header border-0 bg-body"><i class="fas fa-circle text-danger me-2"></i>Removed</h5>
 
-							<div class="card-body" id="rem">
+							<div class="card-body px-3" id="rem">
 								@foreach (old('rem') ?? [] as $k => $v)
-								<div class="row my-3">
-									<div class="col-2 d-flex justify-content-center align-items-center">
+								<div class="row my-3 justify-content-center">
+									<div class="col-1 d-flex justify-content-center align-items-center">
 										<button type="button" class="remove-button-style log-remover" title="Remove Entry">
 											<i class="fas fa-circle-minus text-danger"></i>
 										</button>
 									</div>
 
-									<div class="col-9">
+									<div class="col-10">
 										<input type="text" class="form-control" name="rem[]" value="{{ $v }}" required>
 									</div>
 
@@ -456,6 +456,7 @@
 @endsection
 
 @section('scripts')
-<script type="text/javascript" src="{{ mix('views/admin/versions/create.js') }}" defer></script>
+<script type="text/javascript" src="{{ mix('js/util/reloaded.js') }}" defer></script>
 <script type="text/javascript" src="{{ mix('js/util/image-input.js') }}" defer></script>
+<script type="text/javascript" src="{{ mix('views/admin/versions/create.js') }}" defer></script>
 @endsection

@@ -2,7 +2,6 @@
     "/js/app.js": "/js/app.js",
     "/js/custom/components/login-page.js": "/js/custom/components/login-page.js",
     "/js/custom/components/navbar-dynamic.js": "/js/custom/components/navbar-dynamic.js",
-    "/js/libs/popperjs.js": "/js/libs/popperjs.js",
     "/js/libs/slick.js": "/js/libs/slick.js",
     "/js/libs/summernote.js": "/js/libs/summernote.js",
     "/js/libs/swal.js": "/js/libs/swal.js",
@@ -35,5 +34,6 @@
     "/js/util/image-input.js": "/js/util/image-input.js",
     "/js/util/remove-script.js": "/js/util/remove-script.js",
     "/js/util/swal-flash.js": "/js/util/swal-flash.js",
-    "/js/util/text-counter.js": "/js/util/text-counter.js"
+    "/js/util/text-counter.js": "/js/util/text-counter.js",
+    "/js/util/reloaded.js": "/js/util/reloaded.js"
 }

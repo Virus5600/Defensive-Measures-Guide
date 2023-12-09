@@ -66,6 +66,22 @@ class Versions extends Model
 		);
 	}
 
+	protected function bedrock_link(): Attribute
+	{
+		return Attribute::make(
+			get: fn ($value) => json_decode($value, true),
+			set: fn ($value) => json_encode($value)
+		);
+	}
+
+	protected function java_link(): Attribute
+	{
+		return Attribute::make(
+			get: fn ($value) => json_decode($value, true),
+			set: fn ($value) => json_encode($value)
+		);
+	}
+
 	// CUSTOM METHODS
 	/**
 	 * Retrieves the semantic formatted version of this version entry.

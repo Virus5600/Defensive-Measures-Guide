@@ -1,6 +1,6 @@
 $(() => {
 	// Change submit to either "Updating" or "Submitting" after click
-	$('[type=submit], [data-action]').on('click', (e) => {
+	$(document).on('click', '[type=submit], [data-action]', (e) => {
 		let btn = $(e.currentTarget);
 		let action = btn.attr('data-action');
 		let parentForm = btn.closest("form");
@@ -35,7 +35,7 @@ $(() => {
 		}
 
 		// If this button is already clicked
-		if (btn.attr('data-clicked') == 'true') {
+		if (btn.attr('data-dos-clicked') == 'true') {
 			// Prevent the event from being triggered once more
 			e.preventDefault();
 			e.stopPropagation();
@@ -73,7 +73,7 @@ $(() => {
 			}
 
 			btn.addClass(`disabled cursor-default`);
-			btn.attr('data-clicked', 'true');
+			btn.attr('data-dos-clicked', 'true');
 		}
 
 		// If continuous validation, uses the pseudo selectors, otherwise, uses the classes
@@ -81,15 +81,19 @@ $(() => {
 			parentForm.addClass('was-validated');
 
 		// Check if form is valid or not. Enter the if scope if it isn't valid
-		if (!document.forms[parentForm.attr('id')].reportValidity()) {
-			console.log("Form is not valid");
+		showValidity = parentForm.attr('data-dos-show-validity') ?? false;
+		showValidity = showValidity == 'true' || showValidity == '' ? true : false;
+		if (!document.forms[parentForm.attr('id')].reportValidity() || showValidity) {
+			if (!document.forms[parentForm.attr('id')].reportValidity())
+				console.log("Form is not valid");
+
 			e.preventDefault();
 			e.stopPropagation();
 
 			// If not, proceed to redo the earlier changes so button can be used to submit again
 			btn.html(`${btn.data("dos-prev")}`)
 				.removeClass(`disabled cursor-default`)
-				.attr('data-clicked', 'false')
+				.attr('data-dos-clicked', 'false')
 				.attr('data-dos-prev');
 
 			parentForm.find(":invalid")
@@ -125,7 +129,8 @@ $(() => {
 	});
 
 	$('form').on('submit', (e) => {
-		$(this).find('[type=submit]')
-			.trigger('click');
+		if (!e.target.reportValidity())
+			$(e.target).find('[type=submit]')
+				.trigger('click');
 	});
 });

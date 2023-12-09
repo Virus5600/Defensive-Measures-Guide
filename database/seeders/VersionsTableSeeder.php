@@ -26,8 +26,8 @@ class VersionsTableSeeder extends Seeder
 					\"Added Cannon Turret\",
 					\"Added Cannon Turret related items\"
 				],
-				\"update\": [],
-				\"remove\": []
+				\"mod\": [],
+				\"rem\": []
 			}",
 			'compatibility' => "{
 				\"bedrock\": [\"1.16.100\"],
@@ -59,12 +59,12 @@ class VersionsTableSeeder extends Seeder
 					\"Cannon Turret fully functional\",
 					\"Added Turret Remover\"
 				],
-				\"update\": [
+				\"mod\": [
 					\"Cannon Turret now has PFX and SFX\",
 					\"Cannon Turret now has a crafting recipe (so you can now acquire it in Survival).\",
 					\"Some optimization in the animations\"
 				],
-				\"remove\": []
+				\"rem\": []
 			}",
 			'compatibility' => "{
 				\"bedrock\": [\"1.16.100\"]
@@ -96,8 +96,8 @@ class VersionsTableSeeder extends Seeder
 					\"Added MG Turret crafting recipe so peeps can use them in their survival worlds!\",
 					\"Added Arrowhead trap block which damages anyone who steps on it! Cheap but weak damage~\"
 				],
-				\"update\": [],
-				\"remove\": []
+				\"mod\": [],
+				\"rem\": []
 			}",
 			'compatibility' => "{
 				\"bedrock\": [\"1.16.100\"],
@@ -128,10 +128,10 @@ class VersionsTableSeeder extends Seeder
 			'description' => "Server compatibility patch. This allows the mod to be played within servers or even on multiplayer LAN games. This also fixes the issue where the mod is not working on servers.",
 			'changelog' => "{
 				\"add\": [],
-				\"update\": [
+				\"mod\": [
 					\"\"
 				],
-				\"remove\": []
+				\"rem\": []
 			}",
 			'compatibility' => "{
 				\"bedrock\": [\"1.16.100\", \"1.17\", \"1.18\", \"1.19\", \"1.20\"],
@@ -164,10 +164,10 @@ class VersionsTableSeeder extends Seeder
 				\"add\": [
 					\"Added sound events for when the turrets are fixed (healed).\"
 				],
-				\"update\": [
+				\"mod\": [
 					\"Fixed a bug where an item won't get consumed and tools used to repair the turrets won't get damaged.\"
 				],
-				\"remove\": []
+				\"rem\": []
 			}",
 			'compatibility' => "{
 				\"java\": [\"1.19.2\"]

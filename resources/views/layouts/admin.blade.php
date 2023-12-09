@@ -88,6 +88,9 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 			</main>
 		</div>
 
+		@include('includes.swal-flash')
+
+		{{-- COMMON LIBS --}}
 		<script type="text/javascript" src="{{ mix('js/util/animation.js') }}"></script>
 		<script type="text/javascript" src="{{ mix('js/util/confirm-leave.js') }}" defer></script>
 		<script type="text/javascript" src="{{ mix('js/util/dirty-form.js') }}" defer></script>

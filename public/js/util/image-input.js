@@ -30,24 +30,24 @@ $($('.image-input-scope input[type=file]').attr('data-target-image-container')).
 	$(obj).attr("src", $(obj).attr('data-default-src'));
 });
 
-$(document).ready(function() {
+$(function() {
 	// Profile Image Changing
-	$(".image-input-scope .image-input-float").on("click", function(e) {
+	$(document).on("click", ".image-input-scope .image-input-float", function(e) {
 		openInput($(this));
 	});
 
-	$(".image-input-scope .image-input-float").on("keydown", function(e) {
+	$(document).on("keydown", ".image-input-scope .image-input-float", function(e) {
 		if (e.keyCode == 32) {
 			e.preventDefault();
 			openInput($(this));
 		}
 	});
 
-	$(".image-input-scope .image-input input[type=file]").on("change", function(e) {
+	$(document).on("change", ".image-input-scope .image-input input[type=file]", function(e) {
 		swapImgFile(this);
 	});
 
-	$(".image-input-scope .image-input input[type=text]").on("change, keyup", function(e) {
+	$(document).on("change, keyup", ".image-input-scope .image-input input[type=text]", function(e) {
 		let obj = $(e.currentTarget);
 
 		if (obj.val().length == 0) {

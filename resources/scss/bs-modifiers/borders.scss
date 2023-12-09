@@ -1,0 +1,11 @@
+@import "./base";
+
+$utilities: map-merge(
+	$utilities,
+	(
+		"border": map-merge(
+			map-get($utilities, "border"),
+			(responsive: true)
+		)
+	)
+);

@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
@@ -45,6 +46,13 @@ class Handler extends ExceptionHandler
 				->back()
 				->withInput($request->except('_token'))
 				->with('flash_message', "Oops! Seems you couldn't submit the form for a long time. Please try again.")
+				->with('has_icon', 'true');
+		}
+		else if ($exception instanceof ModelNotFoundException) {
+			return redirect()
+				->back()
+				->withInput($request->except('_token'))
+				->with('flash_error', "The item either does not exists or is already deleted")
 				->with('has_icon', 'true');
 		}
 

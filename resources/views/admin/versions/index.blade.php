@@ -160,7 +160,7 @@
 									<th class="align-middle p-3 text-nowrap" scope="row">{{ $version->getVersion() }}</th>
 									<td class="align-middle p-3 text-nowrap d-none d-lg-table-cell">
 										<div class="text-truncate">
-											{{ Str::limit($version->description, 35) }}
+											{!! Str::limit(strip_tags(Str::markdown($version->description)), 35) !!}
 										</div>
 									</td>
 									<td class="align-middle p-3 text-nowrap">
