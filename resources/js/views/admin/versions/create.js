@@ -1,5 +1,6 @@
 $(() => {
 	const editor = {};
+	const state = {original: history.state?.original ?? $(`form#form-content`).html()};
 
 	// Description MD Editor
 	let desc = $(`#description`);
@@ -17,8 +18,7 @@ $(() => {
 			}
 		}
 	});
-	$(`#description_hidden`).on(`blur`, (e) => {
-		console.log(e.currentTarget.value);
+	$(document).on(`blur`, `#description_hidden`, (e) => {
 		editor.description.setMarkdown(e.currentTarget.value);
 	});
 	if ($(`#description_hidden`).val().length > 0) {
@@ -29,7 +29,7 @@ $(() => {
 		.addClass(`font-minecraftia`);
 
 	// Submit Handler
-	$('form [type=submit]').on('click', (e) => {
+	$(document).on('click', 'form#form-content [type=submit]', (e) => {
 		e.preventDefault();
 		let target = $(`#description_hidden`);
 		target.removeClass(`d-none`);
@@ -54,41 +54,52 @@ $(() => {
 		target.addClass(`d-none`);
 	});
 
-	$(`form`).on(`dos-done`, (e) => {
+	$(document).on(`dos-done`, `form#form-content`, (e) => {
 		let form = $(e.currentTarget);
 
+		$(`#description_hidden`).addClass(`d-none`);
+
+		// Stores the current state of the form...
+		state.content = form.html();
+		window.history.replaceState(
+			state,
+			"",
+			window.location.href
+		);
+
+		// Submit the form if it is valid
 		if (form[0].reportValidity()) {
 			form.trigger('submit');
 		}
 	});
 
 	// Return Handler
-	$('[data-return]').on('click', (e) => {
+	$(document).on('click', '[data-return]', (e) => {
 		let target = $(e.currentTarget).data('return');
 		confirmLeave(target);
 	});
 
 	// Reset Handler
-	$('[type=reset]').on('click', (e) => {
+	$(document).on('click', '[type=reset]', (e) => {
 		editor.description.setMarkdown('');
 		SwalFlash.info("Form reset!");
 	});
 
 	// Changelog Handler
-	$(`#addAdd, #addMod, #addRem`).on('click', (e) => {
+	$(document).on('click', `#addAdd, #addMod, #addRem`, (e) => {
 		let obj = $(e.currentTarget);
 		let log = obj.attr('id').substring(3).toLowerCase();
 		let target = $(`#${log}`);
 
 		let html = `
-		<div class="row my-3">
-			<div class="col-2 d-flex justify-content-center align-items-center">
+		<div class="row my-3 justify-content-center">
+			<div class="col-1 d-flex justify-content-center align-items-center">
 				<button type="button" class="remove-button-style log-remover" title="Remove Entry">
 					<i class="fas fa-circle-minus text-danger"></i>
 				</button>
 			</div>
 
-			<div class="col-9">
+			<div class="col-10">
 				<input type="text" class="form-control" name="${log}[]" required>
 			</div>
 		</div>
@@ -103,7 +114,7 @@ $(() => {
 	});
 
 	// Compatibility Handler
-	$(`#addBedrock, #addJava`).on('click', (e) => {
+	$(document).on('click', `#addBedrock, #addJava`, (e) => {
 		let obj = $(e.currentTarget);
 		let ver = obj.attr('id').substring(3).toLowerCase();
 		let target = $(`#${ver}`);
@@ -129,7 +140,7 @@ $(() => {
 	});
 
 	// Download Link Handler
-	$(`#addBedrockLink, #addJavaLink`).on('click', (e) => {
+	$(document).on('click', `#addBedrockLink, #addJavaLink`, (e) => {
 		let obj = $(e.currentTarget);
 		let ver = obj.attr('id').substring(3).toLowerCase();
 			ver = ver.substring(0, ver.indexOf('link'));
@@ -159,5 +170,38 @@ $(() => {
 	// Download Link Remover Handler
 	$(document).on('click', `.link-remover`, (e) => {
 		$(e.currentTarget).closest('.row').remove();
+	});
+
+	// Restores the form to its original state if refreshed. If not,
+	// it restores the recent state of the form. Very useful for when
+	// the user clicks the back button.
+	if (isPageRefreshed() && history.state?.original) {
+		state.content = history.state.original;
+		$(`form#form-content`).html(state.content);
+		window.history.replaceState(
+			state,
+			"",
+			window.location.href
+		);
+	}
+	else if (history.state?.content) {
+		$(`form#form-content`).html(history.state.content);
+	}
+
+	// Hide all hidden forms once more if they were hidden before
+	$(`form#form-content`).find(`select, input, textarea`)
+			.css('visibility', '')
+			.css('opacity', '')
+			.css('display', '')
+			.removeAttr('data-dos-invisible');
+
+	// Enables all disabled buttons...
+	$(`[data-dos-clicked=true]`).each((k, v) => {
+		let btn = $(v);
+
+		btn.html(`${btn.data("dos-prev")}`)
+			.removeClass(`disabled cursor-default`)
+			.attr('data-dos-clicked', 'false')
+			.attr('data-dos-prev');
 	});
 });

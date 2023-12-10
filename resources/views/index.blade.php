@@ -20,7 +20,7 @@
 
 								<div class="modal-body">
 									<div class="d-flex flex-column h-100">
-										<img src="{{ asset("images/home/Defensive Measures Guide Banner.png") }}" alt="Banner" class="my-auto" width="100%" draggable="false">
+										<img src="{{ asset("images/home/Defensive Measures Guide Banner.png") }}" alt="Banner" class="my-auto" width="100%">
 									</div>
 								</div>
 							</div>
@@ -57,11 +57,11 @@
 	<div class="row">
 		<div class="col">
 			<h2>What's New</h2>
-			<h4>{{ $latestVersion->version }}</h4>
+			<h4>{{ $latestVersion->getVersion() }}</h4>
 			<div class="my-5">{!! Str::of($latestVersion->description)->markdown() !!}</div>
 
 			<div class="text-center my-3">
-				<img src="{{ $latestVersion->getBanner() }}" alt="{{ $latestVersion->version }} Banner" class="version-banner img-thumbnail">
+				<img src="{{ $latestVersion->getBanner() }}" alt="{{ $latestVersion->version }} Banner" class="version-banner img-thumbnail" draggable="false">
 			</div>
 
 			<div class="my-3 d-flex justify-content-center">

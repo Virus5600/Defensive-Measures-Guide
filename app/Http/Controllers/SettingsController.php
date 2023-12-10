@@ -118,7 +118,6 @@ class SettingsController extends Controller
 			}
 
 			// SOCIAL LINKS UPDATE
-
 			$icons = SocialLinks::getSupportedWebsites();
 			$iconValues = array_values($icons);
 

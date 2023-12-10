@@ -35,8 +35,10 @@ $(() => {
 		loginWrapper.addClass(`show`);
 		loginCard.addClass(`show`);
 	}).on(`blur`, () => {
-		loginWrapper.removeClass(`show`);
-		loginCard.removeClass(`show`);
+		if (!lockView.hasClass(`locked`)) {
+			loginWrapper.removeClass(`show`);
+			loginCard.removeClass(`show`);
+		}
 	});
 
 	lockView.on(`classChange`, (e) => {

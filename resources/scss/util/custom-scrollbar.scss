@@ -1,57 +1,186 @@
-/* CUSTOM SCROLLER */
+$color: rgb(128, 128, 128);
+$hover: rgba(lighten($color, 10%), .99);
+$active: rgba(darken($color, 10%), .99);
+
+/* CUSTOM SCROLLBAR */
 .custom-scrollbar {
 	/* Width */
 	&::-webkit-scrollbar {
-		width: 10px;
-		height: 10px;
+		width: 16px;
+		height: 16px;
+
+		background-color: rgb(50, 50, 50);
 	}
 
 	/* Button */
 	&::-webkit-scrollbar-button {
-		background: rgb(255, 255, 255);
+
+		&:single-button  {
+			display: block;
+			background-size: 10px;
+			background-repeat: no-repeat;
+			background-position: center;
+
+			width: 16px;
+			height: 16px;
+
+			&:vertical {
+				&:increment {
+					background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$color}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$color}' points='50,75 12.5,12.5 87.5,12.5'/></svg>");
+
+					&:hover {
+						background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$hover}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$hover}' points='50,75 12.5,12.5 87.5,12.5'/></svg>");
+					}
+					&:active {
+						background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$active}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$active}' points='50,75 12.5,12.5 87.5,12.5'/></svg>");
+					}
+				}
+
+				&:decrement {
+					background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$color}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$color}' points='50,25 12.5,87.5 87.5,87.5'/></svg>");
+
+					&:hover {
+						background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$hover}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$hover}' points='50,25 12.5,87.5 87.5,87.5'/></svg>");
+					}
+					&:active {
+						background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$active}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$active}' points='50,25 12.5,87.5 87.5,87.5'/></svg>");
+					}
+				}
+			}
+
+			&:horizontal {
+				&:increment {
+					background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$color}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$color}' points='75,50 12.5,87.5 12.5,12.5'/></svg>");
+
+					&:hover {
+						background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$hover}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$hover}' points='75,50 12.5,87.5 12.5,12.5'/></svg>");
+					}
+					&:active {
+						background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$active}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$active}' points='75,50 12.5,87.5 12.5,12.5'/></svg>");
+					}
+				}
+
+				&:decrement {
+					background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$color}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$color}' points='25,50 87.5,12.5 87.5,87.5'/></svg>");
+
+					&:hover {
+						background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$hover}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$hover}' points='25,50 87.5,12.5 87.5,87.5'/></svg>");
+					}
+					&:active {
+						background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$active}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$active}' points='25,50 87.5,12.5 87.5,87.5'/></svg>");
+					}
+				}
+			}
+		}
 	}
 
 	/* Handle */
 	&::-webkit-scrollbar-thumb {
-		background: rgb(102, 102, 102);
-		opacity: 0.75;
+		background: $color;
+		background-clip: padding-box;
+
 		border-radius: 10px;
-		transition: .5s;
+		border: 4px solid transparent;
+
+		/* Handle on hover */
+		&:hover {
+			background-color: $hover;
+		}
+		/* Handle on active */
+		&:active {
+			background-color: $active;
+		}
 	}
 
-	/* Handle on hover */
-	&::-webkit-scrollbar-thumb:hover {
-		background: rgb(100, 100, 100);
-		opacity: 0.5;
-	}
+	/* APPLYING CUSTOM SB TO ALL */
+	&.apply-to-all * {
+		/* Width */
+		&::-webkit-scrollbar {
+			width: 16px;
+			height: 16px;
 
-	&.apply-to-all {
-		& * {
-			/* Width */
-			&::-webkit-scrollbar {
-				width: 10px;
-				height: 10px;
-			}
+			background-color: rgb(50, 50, 50);
+		}
 
-			/* Button */
-			&::-webkit-scrollbar-button {
-				background: rgb(255, 255, 255);
-			}
+		/* Button */
+		&::-webkit-scrollbar-button {
 
-			/* Handle */
-			&::-webkit-scrollbar-thumb {
-				background: rgb(102, 102, 102);
-				opacity: 0.75;
-				border-radius: 10px;
-				transition: .5s;
+			&:single-button  {
+				display: block;
+				background-size: 10px;
+				background-repeat: no-repeat;
+				background-position: center;
+
+				width: 16px;
+				height: 16px;
+
+				&:vertical {
+					&:increment {
+						background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$color}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$color}' points='50,75 12.5,12.5 87.5,12.5'/></svg>");
+
+						&:hover {
+							background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$hover}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$hover}' points='50,75 12.5,12.5 87.5,12.5'/></svg>");
+						}
+						&:active {
+							background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$active}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$active}' points='50,75 12.5,12.5 87.5,12.5'/></svg>");
+						}
+					}
+
+					&:decrement {
+						background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$color}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$color}' points='50,25 12.5,87.5 87.5,87.5'/></svg>");
+
+						&:hover {
+							background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$hover}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$hover}' points='50,25 12.5,87.5 87.5,87.5'/></svg>");
+						}
+						&:active {
+							background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$active}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$active}' points='50,25 12.5,87.5 87.5,87.5'/></svg>");
+						}
+					}
+				}
+
+				&:horizontal {
+					&:increment {
+						background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$color}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$color}' points='75,50 12.5,87.5 12.5,12.5'/></svg>");
+
+						&:hover {
+							background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$hover}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$hover}' points='75,50 12.5,87.5 12.5,12.5'/></svg>");
+						}
+						&:active {
+							background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$active}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$active}' points='75,50 12.5,87.5 12.5,12.5'/></svg>");
+						}
+					}
+
+					&:decrement {
+						background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$color}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$color}' points='25,50 87.5,12.5 87.5,87.5'/></svg>");
+
+						&:hover {
+							background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$hover}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$hover}' points='25,50 87.5,12.5 87.5,87.5'/></svg>");
+						}
+						&:active {
+							background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#{$active}'><polygon stroke-linejoin='round' stroke-width='12.5' stroke='#{$active}' points='25,50 87.5,12.5 87.5,87.5'/></svg>");
+						}
+					}
+				}
 			}
+		}
+
+		/* Handle */
+		&::-webkit-scrollbar-thumb {
+			background: $color;
+			background-clip: padding-box;
+
+			border-radius: 10px;
+			border: 4px solid transparent;
 
 			/* Handle on hover */
-			&::-webkit-scrollbar-thumb:hover {
-				background: rgb(100, 100, 100);
-				opacity: 0.5;
+			&:hover {
+				background-color: $hover;
+			}
+			/* Handle on active */
+			&:active {
+				background-color: $active;
 			}
 		}
 	}
 }
-/* CUSTOM SCROLLER END */
+/* CUSTOM SCROLLBAR END */

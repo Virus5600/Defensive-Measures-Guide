@@ -66,6 +66,22 @@ class Versions extends Model
 		);
 	}
 
+	protected function bedrock_link(): Attribute
+	{
+		return Attribute::make(
+			get: fn ($value) => json_decode($value, true),
+			set: fn ($value) => json_encode($value)
+		);
+	}
+
+	protected function java_link(): Attribute
+	{
+		return Attribute::make(
+			get: fn ($value) => json_decode($value, true),
+			set: fn ($value) => json_encode($value)
+		);
+	}
+
 	// CUSTOM METHODS
 	/**
 	 * Retrieves the semantic formatted version of this version entry.
@@ -87,7 +103,7 @@ class Versions extends Model
 	 * @param bool $isUrl Whether to return the banner as a URL or as an <img> tag.
 	 * @param string $customClasses Custom CSS classes to add to the <img> tag.
 	 *
-	 * @return string The banner of the version. If $isUrl is true, it will return the URL of the banner. Otherwise, it will return the <img> tag.
+	 * @return string The banner of the version. If `$isUrl` is true, it will return the URL of the banner. Otherwise, it will return the `<img>` tag.
 	 */
 	public function getBanner($useDefault=false, $getFull=true, $isUrl=true, $customClasses=""): string
 	{
@@ -127,10 +143,14 @@ class Versions extends Model
 
 	/**
 	 * Fetches the default banner.
+	 *
+	 * @param bool $asAsset Whether to return the banner as an asset or not.
+	 *
+	 * @return string The default banner. It could be a URL or an asset depending on the value of `$asAsset`.
 	 */
-	public static function getDefaultBanner(): string
+	public static function getDefaultBanner($asAsset = true): string
 	{
-		return asset('/uploads/versions/default.webp');
+		return $asAsset ? asset('/uploads/versions/default.webp') : 'default.webp';
 	}
 
 	/**

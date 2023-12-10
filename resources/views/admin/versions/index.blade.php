@@ -31,7 +31,7 @@
 		<div class="row">
 			{{-- FILTERS --}}
 			<div class="col-12 col-lg-3 d-flex flex-column">
-				<form class="my-2 d-flex flex-column flex-grow-1" id="filters">
+				<form class="my-2 d-flex flex-column flex-grow-1" id="filters" data-dos-not-affected>
 					<div class="row">
 						{{-- SEARCH --}}
 						<div class="col-12 my-2">
@@ -91,16 +91,56 @@
 								</div>
 							</div>
 						</div>
+
+						{{-- SORT BY --}}
+						<div class="col-1 pe-0"><hr></div>
+						<label class="col-3 px-0 fs-2xs d-flex justify-content-center align-items-center" for="sort_by">Sort By</label>
+						<div class="col-8 ps-0"><hr></div>
+
+						<div class="col-12 my-2">
+							<div class="form-group">
+								<select name="sortBy" id="sort_by" class="form-select">
+									<option value="version" {{ $filters->sortBy == 'version' ? 'selected' : '' }}>Version</option>
+									<option value="java_release_date" {{ $filters->sortBy == 'java_release_date' ? 'selected' : '' }}>Java Release Date</option>
+									<option value="bedrock_release_date" {{ $filters->sortBy == 'bedrock_release_date' ? 'selected' : '' }}>Bedrock Release Date</option>
+									<option value="website_release_date" {{ $filters->sortBy == 'website_release_date' ? 'selected' : '' }}>Website Release Date</option>
+								</select>
+							</div>
+						</div>
+
+						{{-- SORT DIRECTION --}}
+						<div class="col-1 pe-0"><hr></div>
+						<label class="col-5 px-0 fs-2xs d-flex justify-content-center align-items-center" for="sort_dir">Sort Direction</label>
+						<div class="col-6 ps-0"><hr></div>
+
+						<div class="col-12 my-2">
+							{{-- ASCENDING --}}
+							<div class="form-group d-inline-block">
+								<div class="form-check">
+									<input type="radio" class="form-check-input" name="sortDir" id="asc" autocomplete="off" {{ $filters->sortDir == 'asc' ? 'checked' : ''}} value="asc">
+									<label class="form-check-label" for="asc">Oldest</label>
+								</div>
+							</div>
+
+							{{-- DESCENDING --}}
+							<div class="form-group d-inline-block">
+								<div class="form-check">
+									<input type="radio" class="form-check-input" name="sortDir" id="dsc" autocomplete="off" {{ $filters->sortDir == 'desc' ? 'checked' : ''}} value="desc">
+									<label class="form-check-label" for="dsc">Latest</label>
+								</div>
+							</div>
+						</div>
 					</div>
 
 					{{-- SUBMIT/RESET BUTTONS --}}
-					<div class="d-flex justify-content-center mt-auto">
+					<div class="d-flex justify-content-center my-3 mt-lg-auto mb-lg-0">
 						<button type="submit" class="btn btn-primary me-2">Filter</button>
 						<button type="reset" class="btn btn-secondary">Reset</button>
 					</div>
 				</form>
 			</div>
 
+			{{-- BODY --}}
 			<div class="col-12 col-lg-9">
 				<div class="border rounded table-responsive-container">
 					<div class="table-responsive">
@@ -114,6 +154,7 @@
 								</tr>
 							</thead>
 
+							{{-- CONTENTS --}}
 							<tbody class="table-group-divider">
 								@php($i = 0)
 								@forelse ($versions as $version)
@@ -121,7 +162,7 @@
 									<th class="align-middle p-3 text-nowrap" scope="row">{{ $version->getVersion() }}</th>
 									<td class="align-middle p-3 text-nowrap d-none d-lg-table-cell">
 										<div class="text-truncate">
-											{{ Str::limit($version->description, 35) }}
+											{!! Str::limit(strip_tags(Str::markdown($version->description)), 35) !!}
 										</div>
 									</td>
 									<td class="align-middle p-3 text-nowrap">
@@ -138,29 +179,39 @@
 											<ul class="dropdown-menu dropdown-menu-end">
 												{{-- EDIT --}}
 												<li>
-													<a href="#" class="dropdown-item">
+													<a href="{{ route('admin.versions.edit', [$version->id]) }}" class="dropdown-item">
 														<i class="fas fa-pen-to-square me-2 col-2"></i>Edit
 													</a>
 												</li>
 
 												{{-- ARCHIVE/UNARCHIVE --}}
 												<li>
-													@if ($version->trashed())
-													<a href="#" class="dropdown-item">
-														<i class="fas fa-eye me-2 col-2"></i>Unarchive
-													</a>
-													@else
-													<a href="#" class="dropdown-item">
-														<i class="fas fa-eye-slash me-2 col-2"></i>Archive
-													</a>
-													@endif
+													<form action="{{ route('admin.versions.' . ($version->trashed() ? 'unarchive' : 'archive'), [$version->id]) }}" method="POST" data-dos-not-affected>
+														@csrf
+														@method('patch')
+
+														@if ($version->trashed())
+														<button type="submit" class="dropdown-item">
+															<i class="fas fa-eye me-2 col-2"></i>Unarchive
+														</button>
+														@else
+														<button type="submit" class="dropdown-item">
+															<i class="fas fa-eye-slash me-2 col-2"></i>Archive
+														</button>
+														@endif
+													</form>
 												</li>
 
 												{{-- DELETE --}}
 												<li>
-													<a href="#" class="dropdown-item">
-														<i class="fas fa-trash me-2 col-2"></i>Delete
-													</a>
+													<form action="{{ route('admin.versions.delete', [$version->id]) }}" method="POST" data-dos-not-affected data-cl-form data-cl-form-title="Delete {{ $version->getVersion() }}" data-cl-form-msg="Are you sure you want to permanently delete this version ({{ $version->getVersion() }})?">
+														@csrf
+														@method('delete')
+
+														<button type="submit" class="dropdown-item">
+															<i class="fas fa-trash me-2 col-2"></i>Delete
+														</button>
+													</form>
 												</li>
 											</ul>
 										</div>

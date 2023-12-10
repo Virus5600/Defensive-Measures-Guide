@@ -39,7 +39,6 @@ mix
 	.js('resources/js/custom/components/navbar-dynamic.js', 'public/js/custom/components')
 
 	// JS Libs
-	.js('resources/js/libs/popperjs.js', 'public/js/libs')
 	.js('resources/js/libs/slick.js', 'public/js/libs')
 	.js('resources/js/libs/summernote.js', 'public/js/libs')
 	.js('resources/js/libs/swal.js', 'public/js/libs')
@@ -72,8 +71,8 @@ mix
 	.sass('resources/scss/views/layouts/public.scss', 'public/views/layouts/public')
 
 	// Admin Layout
-	.sass('resources/scss/views/layouts/admin.scss', 'public/views/layouts/admin')
 	.js('resources/js/views/layouts/admin.js', 'public/views/layouts/admin')
+	.sass('resources/scss/views/layouts/admin.scss', 'public/views/layouts/admin')
 
 	// VIEWS
 	// Index (Home) Page
