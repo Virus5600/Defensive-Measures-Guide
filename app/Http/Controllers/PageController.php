@@ -9,7 +9,6 @@ use Facebook\Facebook;
 use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Exceptions\FacebookResponseException;
 
-use DB;
 use Exception;
 use Log;
 
@@ -70,7 +69,6 @@ class PageController extends Controller
 			// Finally, fetch the page's videos
 			$videos = json_decode($this->fb->get("/{$vl_id}/videos?fields=embed_html,title,created_time,description")->getBody())
 				->data;
-
 			$videos = collect($videos)->sortByDesc("created_time")->chunk(3)[0];
 		} catch (FacebookSDKException $e) {
 			Log::error($e);
@@ -85,7 +83,9 @@ class PageController extends Controller
 		///////////////////////////////////
 
 		// Fetch the latest version...
-		$latestVersion = Versions::latest()
+		$sort = $sort = ['version', '-', 'major_version', '.', 'minor_version', '.', 'patch_version'];
+		$latestVersion = Versions::orderByConcat($sort, 'desc')
+			->where("deleted_at", "=", null)
 			->first();
 
 		return view('index', [

@@ -6,35 +6,57 @@ $(() => {
 		window.location.href
 	);
 
+	// Filters submit handler
+	$(document).on(`submit`, `#filters`, (e) => {
+		e.preventDefault();
+		e.stopPropagation();
+
+		let form = $(e.currentTarget);
+
+		$.ajax({
+			"url": form.attr(`action`),
+			"type": form.attr(`method`),
+			"data": form.serialize(),
+			"success": (data) => {
+				data = new DOMParser().parseFromString(data, `text/html`);
+				data = data.querySelector(`#inner-content`);
+
+				$(`#inner-content`).html(data.innerHTML);
+
+				// History handler
+				window.history.pushState(
+					{"content": $(`#inner-content`).html()},
+					"",
+					window.location.href + "?" + form.serialize()
+				);
+			}
+		});
+	});
+
 	// Reset handler
-	$(`#filters`).on(`reset`, (e) => {
+	$(document).on(`reset`, `#filters`, (e) => {
 		let obj = $(e.currentTarget);
 
-		// Checkbox handler
-		obj.find(`[type=checkbox]`)
-			.removeAttr(`checked`)
-			.removeProp(`checked`);
+		$.ajax({
+			"url": obj.attr(`action`) ?? window.location.href.split("?")[0],
+			"type": obj.attr(`method`),
+			"success": (data) => {
+				data = new DOMParser().parseFromString(data, `text/html`);
 
-		// Text handler
-		obj.find(`[type=text], textarea`)
-			.removeAttr(`value`)
-			.removeProp(`value`)
-			.val(``);
+				data = data.querySelector(`#inner-content`);
+				filters = data.querySelector(`#filters`);
 
-		// Sort By Handler
-		obj.find(`[name=sort_by]`)
-			.val(`version`);
+				$(`#inner-content`).html(data.innerHTML);
+				$(`#filters`).html(filters.innerHTML);
 
-		// Sort Order Handler
-		obj.find(`[name=sort_order]`)
-			.val(`desc`);
-
-		// History handler
-		window.history.pushState(
-			{"content": $(`#inner-content`).html()},
-			"",
-			window.location.href.split("?")[0]
-		);
+				// History handler
+				window.history.pushState(
+					{"content": $(`#inner-content`).html()},
+					"",
+					window.location.href.split("?")[0]
+				);
+			}
+		});
 	});
 
 	// Popstate handler

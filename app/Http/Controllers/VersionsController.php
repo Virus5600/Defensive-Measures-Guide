@@ -276,7 +276,7 @@ class VersionsController extends Controller
 			$hasBanner = $req->has('banner');
 			if ($hasBanner) {
 				// OLD BANNER DELETION
-				if ($version->banner != Versions::getDefaultBanner())
+				if ($version->banner != Versions::getDefaultBanner(false))
 					File::delete(public_path() . "/uploads/versions/{$version->banner}");
 
 				$bannerName = "v{$cleanData->majorVersion}.{$cleanData->minorVersion}.{$cleanData->patchVersion}-{$cleanData->devVersion}.webp";
@@ -362,5 +362,36 @@ class VersionsController extends Controller
 
 		return redirect()->route('admin.versions.index')
 			->with('flash_success', 'Version updated successfully!');
+	}
+
+	protected function archive($id) {
+		$version = Versions::findOrFail($id);
+
+		$version->delete();
+
+		return redirect()->back()
+			->with('flash_success', 'Version archived successfully!');
+	}
+
+	protected function unarchive($id) {
+		$version = Versions::onlyTrashed()->findOrFail($id);
+
+		$version->restore();
+
+		return redirect()->back()
+			->with('flash_success', 'Version activated successfully!');
+	}
+
+	protected function delete($id) {
+		$version = Versions::withTrashed()->findOrFail($id);
+
+		// OLD BANNER DELETION
+		if ($version->banner != Versions::getDefaultBanner(false))
+			File::delete(public_path() . "/uploads/versions/{$version->banner}");
+
+		$version->forceDelete();
+
+		return redirect()->back()
+			->with('flash_success', 'Version deleted successfully!');
 	}
 }

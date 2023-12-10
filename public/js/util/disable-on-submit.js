@@ -1,6 +1,6 @@
 $(() => {
 	// Change submit to either "Updating" or "Submitting" after click
-	$(document).on('click', '[type=submit], [data-action]', (e) => {
+	$(document).on('click', 'form:not([data-dos-not-affected]) [type=submit], form:not([data-dos-not-affected]) [data-action]', (e) => {
 		let btn = $(e.currentTarget);
 		let action = btn.attr('data-action');
 		let parentForm = btn.closest("form");
@@ -13,10 +13,14 @@ $(() => {
 
 		// Makes all the form elements visible
 		parentForm.find(`select, input, textarea`)
-			.attr('style', (i, s) => {
-				return (s || '') + 'visibility: visible!important; opacity: 1!important; display: block!important;';
-			})
-			.data('dos-invisible', 'true');
+			.each((k, v) => {
+				v = $(v);
+				v.data('dos-style', v.attr('style'))
+					.attr('style', (i, s) => {
+						return (s || '') + 'visibility: visible!important; opacity: 1!important; display: block!important;';
+					})
+					.data('dos-invisible', 'true');
+			});
 
 		// Checks if there's a novalidate prop
 		if (typeof parentForm[0].novalidate == 'undefined' || typeof parentForm[0].formnovalidate == 'undefined') {
@@ -81,56 +85,61 @@ $(() => {
 			parentForm.addClass('was-validated');
 
 		// Check if form is valid or not. Enter the if scope if it isn't valid
-		showValidity = parentForm.attr('data-dos-show-validity') ?? false;
+		let showValidity = parentForm.attr('data-dos-show-validity') ?? false;
 		showValidity = showValidity == 'true' || showValidity == '' ? true : false;
-		if (!document.forms[parentForm.attr('id')].reportValidity() || showValidity) {
-			if (!document.forms[parentForm.attr('id')].reportValidity())
+		let isValid = document.forms[parentForm.attr('id')].reportValidity()
+		if (!isValid || showValidity) {
+			if (!isValid) {
 				console.log("Form is not valid");
 
-			e.preventDefault();
-			e.stopPropagation();
+				e.preventDefault();
+				e.stopPropagation();
 
-			// If not, proceed to redo the earlier changes so button can be used to submit again
-			btn.html(`${btn.data("dos-prev")}`)
-				.removeClass(`disabled cursor-default`)
-				.attr('data-dos-clicked', 'false')
-				.attr('data-dos-prev');
+				// If not, proceed to redo the earlier changes so button can be used to submit again
+				btn.html(`${btn.data("dos-prev")}`)
+					.removeClass(`disabled cursor-default`)
+					.attr('data-dos-clicked', 'false')
+					.attr('data-dos-prev');
 
-			parentForm.find(":invalid")
-				.not(".dont-validate")
-				.addClass("is-invalid")
-				.removeClass("is-valid")
-				.closest(".form-control:not(.bootstrap-select > select)")
-				.addClass("is-invalid")
-				.removeClass("is-valid");
+				parentForm.find(":invalid")
+					.not(".dont-validate")
+					.addClass("is-invalid")
+					.removeClass("is-valid")
+					.closest(".form-control:not(.bootstrap-select > select)")
+					.addClass("is-invalid")
+					.removeClass("is-valid");
 
-			parentForm.find(":valid")
-				.not(".dont-validate")
-				.addClass("is-valid")
-				.removeClass("is-invalid")
-				.closest(".form-control:not(.bootstrap-select > select)")
-				.addClass("is-valid")
-				.removeClass("is-invalid");
+				parentForm.find(":valid")
+					.not(".dont-validate")
+					.addClass("is-valid")
+					.removeClass("is-invalid")
+					.closest(".form-control:not(.bootstrap-select > select)")
+					.addClass("is-valid")
+					.removeClass("is-invalid");
 
-			parentForm.removeClass(".was-validated")
-				.find(".dont-validate")
-				.removeClass("is-valid is-invalid")
-				.closest(".form-control")
-				.removeClass("is-valid is-invalid");
+				parentForm.removeClass(".was-validated")
+					.find(".dont-validate")
+					.removeClass("is-valid is-invalid")
+					.closest(".form-control")
+					.removeClass("is-valid is-invalid");
+			}
 		}
 
 		// Makes all the form elements visible
 		parentForm.trigger('dos-done')
 			.find(`select, input, textarea`)
-			.css('visibility', '')
-			.css('opacity', '')
-			.css('display', '')
-			.removeAttr('data-dos-invisible');
+			.each((k, v) => {
+				v = $(v);
+				v.attr('style', v.data('dos-style'))
+					.removeAttr('data-dos-invisible')
+					.removeAttr('data-dos-style');
+			});
 	});
 
-	$('form').on('submit', (e) => {
-		if (!e.target.reportValidity())
+	$(document).on('submit', 'form:not([data-dos-not-affected])', (e) => {
+		if (!e.target.reportValidity()) {
 			$(e.target).find('[type=submit]')
 				.trigger('click');
+		}
 	});
 });

@@ -143,10 +143,14 @@ class Versions extends Model
 
 	/**
 	 * Fetches the default banner.
+	 *
+	 * @param bool $asAsset Whether to return the banner as an asset or not.
+	 *
+	 * @return string The default banner. It could be a URL or an asset depending on the value of `$asAsset`.
 	 */
-	public static function getDefaultBanner(): string
+	public static function getDefaultBanner($asAsset = true): string
 	{
-		return asset('/uploads/versions/default.webp');
+		return $asAsset ? asset('/uploads/versions/default.webp') : 'default.webp';
 	}
 
 	/**

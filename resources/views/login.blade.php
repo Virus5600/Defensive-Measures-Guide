@@ -101,7 +101,7 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 								{{-- USERNAME --}}
 								<div class="form-group">
 									<label for="username" class="form-label">Username</label>
-									<input id="username" type="text" name="username" class="form-control" value="{{ old('username') }}">
+									<input id="username" type="text" name="username" class="form-control" value="{{ old('username') }}" required>
 								</div>
 
 								{{-- PASSWORD --}}
@@ -109,7 +109,7 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 									<label for="password" class="form-label">Password</label>
 
 									<div class="input-group">
-										<input id="password" type="password" name="password" class="form-control border-end-0">
+										<input id="password" type="password" name="password" class="form-control border-end-0" required>
 										<button type="button" class="btn btn-secondary border-start-0" id="toggle-show-password" aria-label="Show Password" data-target="#password">
 											<i id="show" class="fas fa-eye d-none" title="Show"></i>
 											<i id="hide" class="fas fa-eye-slash" title="Hide"></i>

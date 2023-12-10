@@ -77,6 +77,14 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 				Route::get('/edit/{id}', 'VersionsController@edit')->name('admin.versions.edit');
 				// Update
 				Route::put('/update/{id}', 'VersionsController@update')->name('admin.versions.update');
+
+				// Archive
+				Route::patch('/archive/{id}', 'VersionsController@archive')->name('admin.versions.archive');
+				// Unarchive
+				Route::patch('/unarchive/{id}', 'VersionsController@unarchive')->name('admin.versions.unarchive');
+
+				// Delete
+				Route::delete('/delete/{id}', 'VersionsController@delete')->name('admin.versions.delete');
 			});
 
 			/// DM CONTENTS ///

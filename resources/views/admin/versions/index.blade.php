@@ -31,7 +31,7 @@
 		<div class="row">
 			{{-- FILTERS --}}
 			<div class="col-12 col-lg-3 d-flex flex-column">
-				<form class="my-2 d-flex flex-column flex-grow-1" id="filters">
+				<form class="my-2 d-flex flex-column flex-grow-1" id="filters" data-dos-not-affected>
 					<div class="row">
 						{{-- SEARCH --}}
 						<div class="col-12 my-2">
@@ -140,6 +140,7 @@
 				</form>
 			</div>
 
+			{{-- BODY --}}
 			<div class="col-12 col-lg-9">
 				<div class="border rounded table-responsive-container">
 					<div class="table-responsive">
@@ -153,6 +154,7 @@
 								</tr>
 							</thead>
 
+							{{-- CONTENTS --}}
 							<tbody class="table-group-divider">
 								@php($i = 0)
 								@forelse ($versions as $version)
@@ -184,22 +186,32 @@
 
 												{{-- ARCHIVE/UNARCHIVE --}}
 												<li>
-													@if ($version->trashed())
-													<a href="#" class="dropdown-item">
-														<i class="fas fa-eye me-2 col-2"></i>Unarchive
-													</a>
-													@else
-													<a href="#" class="dropdown-item">
-														<i class="fas fa-eye-slash me-2 col-2"></i>Archive
-													</a>
-													@endif
+													<form action="{{ route('admin.versions.' . ($version->trashed() ? 'unarchive' : 'archive'), [$version->id]) }}" method="POST" data-dos-not-affected>
+														@csrf
+														@method('patch')
+
+														@if ($version->trashed())
+														<button type="submit" class="dropdown-item">
+															<i class="fas fa-eye me-2 col-2"></i>Unarchive
+														</button>
+														@else
+														<button type="submit" class="dropdown-item">
+															<i class="fas fa-eye-slash me-2 col-2"></i>Archive
+														</button>
+														@endif
+													</form>
 												</li>
 
 												{{-- DELETE --}}
 												<li>
-													<a href="#" class="dropdown-item">
-														<i class="fas fa-trash me-2 col-2"></i>Delete
-													</a>
+													<form action="{{ route('admin.versions.delete', [$version->id]) }}" method="POST" data-dos-not-affected data-cl-form data-cl-form-title="Delete {{ $version->getVersion() }}" data-cl-form-msg="Are you sure you want to permanently delete this version ({{ $version->getVersion() }})?">
+														@csrf
+														@method('delete')
+
+														<button type="submit" class="dropdown-item">
+															<i class="fas fa-trash me-2 col-2"></i>Delete
+														</button>
+													</form>
 												</li>
 											</ul>
 										</div>
