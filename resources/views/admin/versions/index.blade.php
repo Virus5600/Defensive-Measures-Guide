@@ -155,7 +155,7 @@
 							</thead>
 
 							{{-- CONTENTS --}}
-							<tbody class="table-group-divider">
+							<tbody class="table-group-divider" id="table-content">
 								@php($i = 0)
 								@forelse ($versions as $version)
 								<tr class="slideFromLeft delay-animation" style="--anim-delay: {{ $i }}s;">
@@ -243,5 +243,6 @@
 @endsection
 
 @section('scripts')
+<script type="text/javascript" src="{{ mix('js/util/rt-loader.js') }}"></script>
 <script type="text/javascript" src="{{ mix('views/admin/versions/index.js') }}"></script>
 @endsection

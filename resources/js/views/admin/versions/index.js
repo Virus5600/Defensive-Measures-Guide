@@ -6,6 +6,22 @@ $(() => {
 		window.location.href
 	);
 
+	let form = $(`#filters`);
+	new RTLoader("filters", {
+		url: form.prop(`action`),
+		action: form.prop(`method`),
+		data: form.serialize(),
+		pushHistoryState: true,
+		success: (data) => {
+			data = new DOMParser().parseFromString(data, `text/html`);
+			filters = data.querySelector(`#filters`);
+			form = data.querySelector(`#table-content`);
+
+			$(`#filters`).html(filters.innerHTML);
+			$(`#table-content`).html(form.innerHTML);
+		}
+	});
+
 	// Filters submit handler
 	$(document).on(`submit`, `#filters`, (e) => {
 		e.preventDefault();
@@ -13,24 +29,24 @@ $(() => {
 
 		let form = $(e.currentTarget);
 
-		$.ajax({
-			"url": form.attr(`action`),
-			"type": form.attr(`method`),
-			"data": form.serialize(),
-			"success": (data) => {
-				data = new DOMParser().parseFromString(data, `text/html`);
-				data = data.querySelector(`#inner-content`);
+		// $.ajax({
+		// 	"url": form.attr(`action`),
+		// 	"type": form.attr(`method`),
+		// 	"data": form.serialize(),
+		// 	"success": (data) => {
+		// 		data = new DOMParser().parseFromString(data, `text/html`);
+		// 		data = data.querySelector(`#inner-content`);
 
-				$(`#inner-content`).html(data.innerHTML);
+		// 		$(`#inner-content`).html(data.innerHTML);
 
-				// History handler
-				window.history.pushState(
-					{"content": $(`#inner-content`).html()},
-					"",
-					window.location.href + "?" + form.serialize()
-				);
-			}
-		});
+		// 		// History handler
+		// 		window.history.pushState(
+		// 			{"content": $(`#inner-content`).html()},
+		// 			"",
+		// 			window.location.href + "?" + form.serialize()
+		// 		);
+		// 	}
+		// });
 	});
 
 	// Reset handler
@@ -38,16 +54,16 @@ $(() => {
 		let obj = $(e.currentTarget);
 
 		$.ajax({
-			"url": obj.attr(`action`) ?? window.location.href.split("?")[0],
-			"type": obj.attr(`method`),
+			"url": obj.prop(`action`) ?? window.location.href.split("?")[0],
+			"type": obj.prop(`method`),
 			"success": (data) => {
 				data = new DOMParser().parseFromString(data, `text/html`);
 
-				data = data.querySelector(`#inner-content`);
 				filters = data.querySelector(`#filters`);
+				form = data.querySelector(`#table-content`);
 
-				$(`#inner-content`).html(data.innerHTML);
 				$(`#filters`).html(filters.innerHTML);
+				$(`#table-content`).html(form.innerHTML);
 
 				// History handler
 				window.history.pushState(
@@ -61,6 +77,9 @@ $(() => {
 
 	// Popstate handler
 	$(window).on(`popstate`, (e) => {
-		$(`#inner-content`).html($(e.originalEvent.state.content));
+		let data = e.originalEvent.state.content;
+
+		$(`#filters`).html(filters.innerHTML);
+		$(`#table-content`).html(form.innerHTML);
 	});
 });

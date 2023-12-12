@@ -23,10 +23,16 @@ class RTLoader {
 	 * The default options for the component.
 	 */
 	static #defaultOptions = {
-		url:				window.location.href,
-		action:				"GET",
-		data:				"",
-		pushHistoryState:	false,
+		url:					window.location.href,
+		action:					"GET",
+		data:					"",
+		trigger:				"submit",
+		pushHistoryState:		false,
+		updateData:				true,
+		event: {
+			preventDefault:		true,
+			stopPropagation:	true,
+		},
 		// CALLBACKS
 		success: (data) => {
 			let el = new DOMParser().parseFromString(data, 'text/html')
@@ -38,15 +44,7 @@ class RTLoader {
 		error: (e) => {
 			console.error(e);
 		},
-		finally: () => {
-			if (this.options.pushHistoryState) {
-				window.history.pushState(
-					{"content": $(`#${this.elementID}`).html()},
-					"",
-					this.options.url
-				);
-			}
-		},
+		finally: (component) => {},
 	};
 
 	/**
@@ -71,6 +69,11 @@ class RTLoader {
 	#popstateEventFn;
 
 	/**
+	 * The event handler for the trigger event in this component.
+	 */
+	#triggerEventFn;
+
+	/**
 	 * Creates a new instance of {@linkcode RTLoader} and stores it in the
 	 * private `components` object. If the component already exists, an error
 	 * will be thrown.
@@ -88,17 +91,29 @@ class RTLoader {
 			throw new Error(`Element with id "${id}" not found.`);
 		}
 
-		this.#elementID = this.id;
+		this.#elementID = id;
 		this.#options = {
 			...RTLoader.defaultOptions,
 			...options
 		};
 
-		RTLoader.#components[querySelector] = this;
+		RTLoader.#components[this.#elementID] = this;
+
+		// Add the listener to the element.
+		this.#triggerEventFn = ((e) => {
+			if (this.#options.event.preventDefault)
+				e.preventDefault();
+
+			if (this.#options.event.stopPropagation)
+				e.stopPropagation();
+
+			this.#fetchData();
+		}).bind(this);
+		element.addEventListener(this.#options.trigger, this.#triggerEventFn);
 
 		// If popstate is enabled, add the event listener.
 		if (this.options.pushHistoryState)
-			enablePopstateEvent();
+			this.enablePopstateEvent();
 	}
 
 	/**
@@ -153,7 +168,11 @@ class RTLoader {
 	 * is created.
 	 */
 	dispose() {
-		this.disabledPopstateEvent();
+		this.disablePopstateEvent();
+
+		document.getElementById(this.elementID)
+			.removeEventListener(this.#options.trigger, this.#triggerEventFn);
+
 		delete RTLoader.#components[this.#elementID];
 	}
 
@@ -217,7 +236,7 @@ class RTLoader {
 	 * when the data is loaded. However, the component will still be able to load the
 	 * already pushed state into the component's element.
 	 */
-	disabledPopstateEvent() {
+	disablePopstateEvent() {
 		this.#options.pushHistoryState = false;
 
 		window.removeEventListener('popstate', this.#popstateEventFn);
@@ -244,13 +263,27 @@ class RTLoader {
 		// Sets the component's fetching state to true.
 		this.#isFetching = true;
 		// Check which data to use; the updated data or the original data, and sets it.
-		updatedData = updatedData ?? this.#options.data;
+		if (this.#options.updateData) {
+			let newParams = new URLSearchParams(Array.from(new FormData(document.getElementById(this.#elementID)))).toString();
+			updatedData = updatedData ?? newParams ?? this.#options.data;
+		}
+		this.#options.data = updatedData = updatedData ?? this.#options.data;
 
 		// Fetches the data from the server.
-		let response = await fetch(this.#options.url, {
-			method: this.#options.action,
-			body: this.#options.data
-		});
+		let response, newURL = this.#options.url;
+
+		if (this.#options.action.toUpperCase() == "GET") {
+			newURL = `${this.#options.url}?${this.#options.data}`;
+			response = await fetch(newURL, {
+				method: this.#options.action,
+			});
+		}
+		else {
+			response = await fetch(this.#options.url, {
+				method: this.#options.action,
+				body: this.#options.data
+			});
+		}
 
 		if (logData)
 			console.log("Response:\n", response);
@@ -273,8 +306,16 @@ class RTLoader {
 			this.#options.error(response);
 		}
 
+		// Pushes the current state into the history if the option is enabled.
+		if (this.#options.pushHistoryState) {
+			RTLoader.#pushState(
+				document.getElementById(this.#elementID).innerHTML,
+				newURL
+			);
+		}
+
 		// Calls the finally callback then sets the component's fetching state to false.
-		this.#options.finally();
+		this.#options.finally(this);
 		this.#isFetching = false;
 	}
 
@@ -310,10 +351,40 @@ class RTLoader {
 	}
 
 	/**
+	 * Pushes the current state into the history, allowing the user to navigate back
+	 * to the previous state.
+	 *
+	 * @param {object} content	The content to be pushed into the history.
+	 * @param {string} newUrl	The new URL that will be used by the pushed content.
+	 */
+	static #pushState(content, newURL) {
+		window.history.pushState(
+			{"content": content},
+			"",
+			newURL
+		);
+	}
+
+	/**
 	 * Retrieves a copy of the default options used by {@linkcode RTLoader}.
+	 *
+	 * The following are the options that are available for {@linkcode RTLoader}:
+	 * - **string** `url`: The URL to fetch the data from.
+	 * - **string** `action`: The HTTP method to use.
+	 * - **string** `data`: The data to be sent to the server.
+	 * - **boolean** `pushHistoryState`: Whether to push the current state into the history or not.
+	 * - **boolean** `updateData`: Whether to update the data or not.
+	 * - **object** `event`: The event object to be passed to the event listeners.
+	 * 	- **boolean** `preventDefault`: Whether to prevent the default behavior or not.
+	 * 	- **boolean** `stopPropagation`: Whether to stop the propagation or not.
+	 * - **function** `success`: The callback to be called when the request is successful.
+	 * - **function** `error`: The callback to be called when the request fails.
+	 * - **function** `finally`: The callback to be called when the request is finished.
 	 */
 	static get defaultOptions() {
-		return JSON.parse(JSON.stringify(RTLoader.#defaultOptions));
+		return {
+			...RTLoader.#defaultOptions
+		};
 	}
 
 	/**
@@ -323,7 +394,7 @@ class RTLoader {
 	 * @returns {object}	The component's options.
 	 */
 	get options() {
-		return JSON.parse(JSON.stringify(this.#options));
+		return {...this.#options};
 	}
 
 	/**
@@ -345,4 +416,4 @@ class RTLoader {
 	}
 }
 
-export const RTLoader = RTLoader;
+// TODO: Have a setter and option for popstateEventFN
