@@ -1,11 +1,3 @@
-@php
-use App\Models\Settings;
-
-$webName = Settings::getValue('web-name');
-$webDesc = Settings::getValue('web-desc');
-$webLogo = Settings::getInstance('web-logo')->getImage();
-@endphp
-
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 	<head>
@@ -46,11 +38,11 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 		<link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ mix('css/general.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ mix('views/layouts/public/public.css') }}">
-		<script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+		<script type="text/javascript" src="{{ mix('js/app.js') }}" nonce="{{ csp_nonce() }}"></script>
 
 		{{-- CUSTOM STYLES --}}
 		<link rel="stylesheet" type="text/css" href="{{ mix('views/login/login.css') }}">
-		<script type="text/javascript" src="{{ mix('views/login/login.js') }}"></script>
+		<script type="text/javascript" src="{{ mix('views/login/login.js') }}" nonce="{{ csp_nonce() }}"></script>
 		@yield('css')
 
 		{{-- TITLE --}}

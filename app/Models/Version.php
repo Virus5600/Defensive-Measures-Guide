@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Validation\Rule;
 
-class Versions extends Model
+class Version extends Model
 {
 	use HasFactory, SoftDeletes;
 

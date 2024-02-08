@@ -160,11 +160,13 @@
 								@forelse ($versions as $version)
 								<tr class="slideFromLeft delay-animation" style="--anim-delay: {{ $i }}s;">
 									<th class="align-middle p-3 text-nowrap" scope="row">{{ $version->getVersion() }}</th>
+
 									<td class="align-middle p-3 text-nowrap d-none d-lg-table-cell">
 										<div class="text-truncate">
 											{!! Str::limit(strip_tags(Str::markdown($version->description)), 35) !!}
 										</div>
 									</td>
+
 									<td class="align-middle p-3 text-nowrap">
 										@if ($version->trashed())
 										<i class="fas fa-circle text-danger me-2"></i>Inactive
@@ -172,11 +174,19 @@
 										<i class="fas fa-circle text-success me-2"></i>Active
 										@endif
 									</td>
+
 									<td class="align-middle p-3 text-nowrap">
 										<div class="dropdown">
 											<button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Actions</button>
 
 											<ul class="dropdown-menu dropdown-menu-end">
+												{{-- SHOW --}}
+												<li>
+													<a href="{{ route('admin.versions.show', [$version->id]) }}" class="dropdown-item">
+														<i class="fas fa-eye me-2 col-2"></i>View
+													</a>
+												</li>
+
 												{{-- EDIT --}}
 												<li>
 													<a href="{{ route('admin.versions.edit', [$version->id]) }}" class="dropdown-item">
@@ -243,6 +253,6 @@
 @endsection
 
 @section('scripts')
-<script type="text/javascript" src="{{ mix('js/util/rt-loader.js') }}"></script>
-<script type="text/javascript" src="{{ mix('views/admin/versions/index.js') }}"></script>
+<script type="text/javascript" src="{{ mix('js/util/rt-loader.js') }}" nonce="{{ csp_nonce() }}"></script>
+<script type="text/javascript" src="{{ mix('views/admin/versions/index.js') }}" nonce="{{ csp_nonce() }}"></script>
 @endsection

@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-use App\Models\Versions;
+use App\Models\Version;
 
 class VersionsTableSeeder extends Seeder
 {
@@ -15,7 +14,8 @@ class VersionsTableSeeder extends Seeder
 	public function run(): void
 	{
 		// v0.1.0-alpha
-		Versions::create([
+		Version::create([
+			'tag' => 'v0.1.0-alpha',
 			'version' => 'alpha',
 			'major_version' => 0,
 			'minor_version' => 1,
@@ -48,7 +48,8 @@ class VersionsTableSeeder extends Seeder
 		]);
 
 		// v0.2.0-alpha
-		Versions::create([
+		Version::create([
+			'tag' => 'v0.2.0-alpha',
 			'version' => 'alpha',
 			'major_version' => 0,
 			'minor_version' => 2,
@@ -80,7 +81,8 @@ class VersionsTableSeeder extends Seeder
 		]);
 
 		// v1.0.0-beta
-		Versions::create([
+		Version::create([
+			'tag' => 'v1.0.0-beta',
 			'version' => 'beta',
 			'major_version' => 1,
 			'minor_version' => 0,
@@ -120,7 +122,8 @@ class VersionsTableSeeder extends Seeder
 		]);
 
 		// v1.0.1-beta
-		Versions::create([
+		Version::create([
+			'tag' => 'v1.0.1-beta',
 			'version' => 'beta',
 			'major_version' => 1,
 			'minor_version' => 0,
@@ -154,7 +157,8 @@ class VersionsTableSeeder extends Seeder
 		]);
 
 		// v1.0.2-beta
-		Versions::create([
+		Version::create([
+			'tag' => 'v1.0.2-beta',
 			'version' => 'beta',
 			'major_version' => 1,
 			'minor_version' => 0,

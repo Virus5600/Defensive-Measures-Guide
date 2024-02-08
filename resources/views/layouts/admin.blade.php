@@ -1,11 +1,3 @@
-@php
-use App\Models\Settings;
-
-$webName = Settings::getValue('web-name');
-$webDesc = Settings::getValue('web-desc');
-$webLogo = Settings::getInstance('web-logo')->getImage();
-@endphp
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>

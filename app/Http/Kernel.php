@@ -21,6 +21,10 @@ class Kernel extends HttpKernel
 		\Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
 		\App\Http\Middleware\TrimStrings::class,
 		\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+
+		// CUSTOM MIDDLEWARES
+		\Spatie\Csp\AddCspHeaders::class,
+        \App\Http\Middleware\SecureHeaders::class,
 	];
 
 	/**
@@ -44,6 +48,9 @@ class Kernel extends HttpKernel
 			\Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
 			\Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
 			\Illuminate\Routing\Middleware\SubstituteBindings::class,
+
+			// CUSTOM MIDDLEWARES
+			\App\Http\Middleware\SecureHeaders::class,
 		],
 	];
 

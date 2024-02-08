@@ -174,6 +174,11 @@ return [
 		 * Custom Application Service Providers...
 		 */
 		App\Providers\QueryBuilderServiceProvider::class,
+
+		/**
+		 * Custom View Service Providers...
+		 */
+		App\Providers\ViewLayoutServiceProvider::class,
 	])->toArray(),
 
 	/*

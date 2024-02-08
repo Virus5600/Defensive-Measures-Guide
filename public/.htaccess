@@ -3,6 +3,21 @@
 		Options -MultiViews -Indexes
 	</IfModule>
 
+	<IfModule mod_headers.c>
+        # REMOVES UNWANTED HEADERS
+        Header unset X-Powered-By
+        Header unset Server
+        Header unset Access-Control-Allow-Origin
+
+        # APPLY FLAGS TO HEADERS
+        Header always edit Set-Cookie (.*) "$1; HTTPOnly"
+
+        # SETS NEEDED HEADERS
+        Header always set X-Content-Type-Options "nosniff"
+        Header set Strict-Transport-Security "max-age=7200; includeSubDomains; preload"
+        Header set Cache-Control "public; max-age=7200; immutable;"
+    </IfModule>
+
 	RewriteEngine On
 
 	# Handle Authorization Header
@@ -18,4 +33,16 @@
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteRule ^ index.php [L]
+
+	# Sets PHP max post size
+    <IfModule mod_php.c>
+        php_value upload_max_filesize 32M
+        php_value post_max_size 128M
+        php_value max_input_time 300
+        php_value max_execution_time 300
+    </IfModule>
 </IfModule>
+
+<Files ".user.ini">
+    Require all denied
+</Files>

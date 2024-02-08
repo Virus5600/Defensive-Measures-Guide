@@ -623,7 +623,7 @@
 @endsection
 
 @section('scripts')
-<script type="text/javascript" src="{{ mix('js/util/reloaded.js') }}" defer></script>
-<script type="text/javascript" src="{{ mix('js/util/image-input.js') }}" defer></script>
-<script type="text/javascript" src="{{ mix('views/admin/versions/create.js') }}" defer></script>
+<script type="text/javascript" src="{{ mix('js/util/reloaded.js') }}" nonce="{{ csp_nonce() }}" defer></script>
+<script type="text/javascript" src="{{ mix('js/util/image-input.js') }}" nonce="{{ csp_nonce() }}" defer></script>
+<script type="text/javascript" src="{{ mix('views/admin/versions/create.js') }}" nonce="{{ csp_nonce() }}" defer></script>
 @endsection

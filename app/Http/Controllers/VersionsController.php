@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Versions;
+use App\Models\Version;
 
 use DB;
 use Exception;
@@ -17,7 +17,7 @@ class VersionsController extends Controller
 {
 	protected function index(Request $req) {
 		// RELEASE FILTER HANDLER
-		$types = Versions::getReleaseTypes();
+		$types = Version::getReleaseTypes();
 		array_unshift($types, 'all');
 
 		if ($req->has('type')) {
@@ -28,7 +28,7 @@ class VersionsController extends Controller
 		}
 
 		// FETCH VERSIONS
-		$versions = Versions::query();
+		$versions = Version::query();
 
 		// Version filter
 		$typeIndex = $req->type ?? [0];
@@ -123,9 +123,9 @@ class VersionsController extends Controller
 	}
 
 	protected function create() {
-		$devVer = Versions::getReleaseTypes();
+		$devVer = Version::getReleaseTypes();
 
-		$defaultBanner = Versions::getDefaultBanner();
+		$defaultBanner = Version::getDefaultBanner();
 
 		return view('admin.versions.create', [
 			'devVersions' => $devVer,
@@ -136,8 +136,8 @@ class VersionsController extends Controller
 	protected function store(Request $req) {
 		$validator = Validator::make(
 			$req->all(),
-			Versions::getValidationRules(),
-			Versions::getValidationMessages()
+			Version::getValidationRules(),
+			Version::getValidationMessages()
 		);
 
 		if ($validator->fails()) {
@@ -208,7 +208,7 @@ class VersionsController extends Controller
 			unset($cleanData->bedrockRD);
 			unset($cleanData->javaRD);
 
-			Versions::create([
+			Version::create([
 				'banner' => $cleanData->banner,
 				'version' => $cleanData->devVersion,
 				'major_version' => $cleanData->majorVersion,
@@ -238,12 +238,20 @@ class VersionsController extends Controller
 			->with('flash_success', 'Version created successfully!');
 	}
 
+	protected function show(Request $req, $id) {
+		$version = Version::findOrFail($id);
+
+		return view('admin.versions.show', [
+			'version' => $version,
+		]);
+	}
+
 	protected function edit($id) {
-		$version = Versions::findOrFail($id);
+		$version = Version::findOrFail($id);
 
-		$devVer = Versions::getReleaseTypes();
+		$devVer = Version::getReleaseTypes();
 
-		$defaultBanner = Versions::getDefaultBanner();
+		$defaultBanner = Version::getDefaultBanner();
 
 		return view('admin.versions.edit', [
 			'version' => $version,
@@ -253,12 +261,12 @@ class VersionsController extends Controller
 	}
 
 	protected function update(Request $req, $id) {
-		$version = Versions::findOrFail($id);
+		$version = Version::findOrFail($id);
 
 		$validator = Validator::make(
 			$req->all(),
-			Versions::getValidationRules(),
-			Versions::getValidationMessages()
+			Version::getValidationRules(),
+			Version::getValidationMessages()
 		);
 
 		if ($validator->fails()) {
@@ -276,7 +284,7 @@ class VersionsController extends Controller
 			$hasBanner = $req->has('banner');
 			if ($hasBanner) {
 				// OLD BANNER DELETION
-				if ($version->banner != Versions::getDefaultBanner(false))
+				if ($version->banner != Version::getDefaultBanner(false))
 					File::delete(public_path() . "/uploads/versions/{$version->banner}");
 
 				$bannerName = "v{$cleanData->majorVersion}.{$cleanData->minorVersion}.{$cleanData->patchVersion}-{$cleanData->devVersion}.webp";
@@ -365,7 +373,7 @@ class VersionsController extends Controller
 	}
 
 	protected function archive($id) {
-		$version = Versions::findOrFail($id);
+		$version = Version::findOrFail($id);
 
 		$version->delete();
 
@@ -374,7 +382,7 @@ class VersionsController extends Controller
 	}
 
 	protected function unarchive($id) {
-		$version = Versions::onlyTrashed()->findOrFail($id);
+		$version = Version::onlyTrashed()->findOrFail($id);
 
 		$version->restore();
 
@@ -383,10 +391,10 @@ class VersionsController extends Controller
 	}
 
 	protected function delete($id) {
-		$version = Versions::withTrashed()->findOrFail($id);
+		$version = Version::withTrashed()->findOrFail($id);
 
 		// OLD BANNER DELETION
-		if ($version->banner != Versions::getDefaultBanner(false))
+		if ($version->banner != Version::getDefaultBanner(false))
 			File::delete(public_path() . "/uploads/versions/{$version->banner}");
 
 		$version->forceDelete();

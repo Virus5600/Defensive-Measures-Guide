@@ -13,6 +13,7 @@ return new class extends Migration
 	{
 		Schema::create('versions', function (Blueprint $table) {
 			$table->id();
+			$table->string('tag')->index();
 			$table->enum('version', ['alpha', 'beta', 'release'])->default('release');
 			$table->unsignedInteger('major_version');
 			$table->unsignedInteger('minor_version');

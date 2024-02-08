@@ -28,9 +28,9 @@
 				@if (\Request::is('downloads'))
 				<span class="nav-link active">Downloads</span>
 				@elseif (\Request::is('downloads*'))
-				<a href="{{ route('home') }}" class="nav-link active">Downloads</a>
+				<a href="{{ route('downloads.index') }}" class="nav-link active">Downloads</a>
 				@else
-				<a href="{{ route('home') }}" class="nav-link">Downloads</a>
+				<a href="{{ route('downloads.index') }}" class="nav-link">Downloads</a>
 				@endif
 			</li>
 

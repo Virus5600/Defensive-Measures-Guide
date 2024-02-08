@@ -1,16 +1,8 @@
-@php
-use App\Models\Settings;
-
-$webName = Settings::getValue('web-name');
-$webDesc = Settings::getValue('web-desc');
-$webLogo = Settings::getInstance('web-logo')->getImage();
-@endphp
-
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 	<head>
 		{{-- META DATA --}}
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="Content-Type" content="text/html">
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta http-equiv="Content-Language" content="en-US" />
@@ -45,7 +37,7 @@ $webLogo = Settings::getInstance('web-logo')->getImage();
 		{{-- COMMON LIBS --}}
 		<link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ mix('css/general.css') }}">
-		<script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+		<script type="text/javascript" src="{{ mix('js/app.js') }}" nonce="{{ csp_nonce() }}" data-auto-add-css="false"></script>
 
 		{{-- CUSTOM STYLES --}}
 		<link rel="stylesheet" type="text/css" href="{{ mix('views/layouts/public/public.css') }}">

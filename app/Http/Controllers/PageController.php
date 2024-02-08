@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Versions;
+use App\Models\Version;
 use Illuminate\Http\Request;
 
 use Facebook\Facebook;
@@ -84,7 +84,7 @@ class PageController extends Controller
 
 		// Fetch the latest version...
 		$sort = $sort = ['version', '-', 'major_version', '.', 'minor_version', '.', 'patch_version'];
-		$latestVersion = Versions::orderByConcat($sort, 'desc')
+		$latestVersion = Version::orderByConcat($sort, 'desc')
 			->where("deleted_at", "=", null)
 			->first();
 

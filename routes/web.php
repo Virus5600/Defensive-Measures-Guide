@@ -36,6 +36,16 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 		Route::get('/', 'ContentsController@index')->name('contents.index');
 	});
 
+	/////////////////////
+	// GUEST NAMESPACE //
+	/////////////////////
+	Route::group(['namespace' => "Guest"], function() {
+		// Downloads
+		Route::group(['prefix' => 'downloads'], function() {
+			Route::get('/', 'DownloadsController@index')->name('downloads.index');
+		});
+	});
+
 	//////////////////
 	// AUTH RELATED //
 	//////////////////
@@ -72,6 +82,9 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 				Route::get('/create', 'VersionsController@create')->name('admin.versions.create');
 				// Store
 				Route::post('/store', 'VersionsController@store')->name('admin.versions.store');
+
+				// Show
+				Route::get('/{id}', 'VersionsController@show')->name('admin.versions.show');
 
 				// Edit
 				Route::get('/edit/{id}', 'VersionsController@edit')->name('admin.versions.edit');
