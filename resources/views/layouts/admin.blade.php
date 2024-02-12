@@ -2,10 +2,11 @@
 <html lang="en">
 	<head>
 		{{-- META DATA --}}
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="Content-Type" content="text/html">
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta http-equiv="Content-Language" content="en-US" />
+		<meta name="csp-nonce" content="{{ csp_nonce() }}">
 
 		{{-- CUSTOM META --}}
 		@yield('meta')
@@ -44,7 +45,7 @@
 		<link rel="stylesheet" type="text/css" href="{{ mix('css/general.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ mix('css/util/animations.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ mix('css/util/custom-scrollbar.css') }}">
-		<script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+		<script type="text/javascript" src="{{ mix('js/app.js') }}" data-auto-add-css="false"></script>
 
 		{{-- CUSTOM STYLES --}}
 		<link rel="stylesheet" type="text/css" href="{{ mix('views/layouts/admin/admin.css') }}">

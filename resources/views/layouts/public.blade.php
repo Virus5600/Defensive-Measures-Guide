@@ -37,7 +37,9 @@
 		{{-- COMMON LIBS --}}
 		<link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ mix('css/general.css') }}">
-		<script type="text/javascript" src="{{ mix('js/app.js') }}" nonce="{{ csp_nonce() }}" data-auto-add-css="false"></script>
+		<link rel="stylesheet" type="text/css" href="{{ mix('css/util/animations.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ mix('css/util/custom-scrollbar.css') }}">
+		<script type="text/javascript" src="{{ mix('js/app.js') }}" data-auto-add-css="false"></script>
 
 		{{-- CUSTOM STYLES --}}
 		<link rel="stylesheet" type="text/css" href="{{ mix('views/layouts/public/public.css') }}">
@@ -74,6 +76,9 @@
 		@include('includes.swal-flash')
 
 		{{-- CUSTOM SCRIPTS --}}
+		<script type="text/javascript" src="{{ mix('js/util/animation.js') }}"></script>
+		<script type="text/javascript" src="{{ mix('js/util/fallback-image.js') }}" defer></script>
+		<script type="text/javascript" src="{{ mix('js/util/swal-flash.js') }}"></script>
 		@yield('scripts')
 	</body>
 </html>

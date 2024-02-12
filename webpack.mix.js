@@ -79,6 +79,9 @@ mix
 	.js('resources/js/views/index.js', 'public/views/index')
 	.sass('resources/scss/views/index.scss', 'public/views/index')
 
+	// Downloads (Index) Page
+	.js('resources/js/views/downloads/index.js', 'public/views/downloads/index')
+
 	// Login Page
 	.js('resources/js/views/login.js', 'public/views/login')
 	.sass('resources/scss/views/login.scss', 'public/views/login')

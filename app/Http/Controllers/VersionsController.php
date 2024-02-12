@@ -299,9 +299,9 @@ class VersionsController extends Controller
 
 			// CHANGELOG HANDLER
 			$cleanData->changelog = json_encode([
-				'add' => $cleanData->add,
-				'mod' => $cleanData->mod,
-				'rem' => $cleanData->rem,
+				'add' => $cleanData->add ?? [],
+				'mod' => $cleanData->mod ?? [],
+				'rem' => $cleanData->rem ?? [],
 			]);
 			unset($cleanData->add);
 			unset($cleanData->mod);

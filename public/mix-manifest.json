@@ -7,6 +7,7 @@
     "/js/libs/swal.js": "/js/libs/swal.js",
     "/views/layouts/admin/admin.js": "/views/layouts/admin/admin.js",
     "/views/index/index.js": "/views/index/index.js",
+    "/views/downloads/index/index.js": "/views/downloads/index/index.js",
     "/views/login/login.js": "/views/login/login.js",
     "/views/admin/versions/index.js": "/views/admin/versions/index.js",
     "/views/admin/versions/create.js": "/views/admin/versions/create.js",

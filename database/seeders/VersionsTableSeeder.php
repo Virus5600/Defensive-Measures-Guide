@@ -87,7 +87,7 @@ class VersionsTableSeeder extends Seeder
 			'major_version' => 1,
 			'minor_version' => 0,
 			'patch_version' => 0,
-			'description' => "Finally! After some months working on the some new turrets, we now have reached the v1.0.0-beta version and this marks the end of Alpha Phase! I proudly announce that this is now officially in public beta and will continue to have Versions albeit very slow.",
+			'description' => "Finally! After some months working on some new turrets, we now have reached the v1.0.0-beta version and this marks the end of Alpha Phase! I proudly announce that this is now officially in public beta and will continue to have Versions albeit very slow.",
 			'changelog' => "{
 				\"add\": [
 					\"Added Ballista Turret, a cheap starter turret!\",

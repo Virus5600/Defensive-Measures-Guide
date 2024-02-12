@@ -1,9 +1,10 @@
 // Missing image handling
 const head = document.getElementsByTagName('head')[0];
 const img = document.getElementsByTagName('img');
+const nonce = head.querySelector('meta[name="csp-nonce"]')?.getAttribute('content');
 
 const style = `
-<style>
+<style ${nonce ? `nonce=${nonce}` : ''}>
 	@keyframes img-fallback-missing-pulse {
 		0% {
 			opacity: 0.125;
@@ -39,13 +40,13 @@ const style = `
 
 		border-radius: 5px;
 		box-shadow: 0px 0px 12.5px #ff0000 inset;
-		
+
 		-webkit-animation: 1.25s cubic-bezier(0.5, 1, 0.5, 1) img-fallback-missing-pulse;
 		-moz-animation: 1.25s cubic-bezier(0.5, 1, 0.5, 1) img-fallback-missing-pulse;
 		-ms-animation: 1.25s cubic-bezier(0.5, 1, 0.5, 1) img-fallback-missing-pulse;
 		-o-animation: 1.25s cubic-bezier(0.5, 1, 0.5, 1) img-fallback-missing-pulse;
 		animation: 1.25s cubic-bezier(0.5, 1, 0.5, 1) img-fallback-missing-pulse;
-		
+
 		-webkit-animation-iteration-count: infinite;
 		-moz-animation-iteration-count: infinite;
 		-ms-animation-iteration-count: infinite;

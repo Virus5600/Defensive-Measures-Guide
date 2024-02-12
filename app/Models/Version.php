@@ -167,7 +167,7 @@ class Version extends Model
 			"majorVersion" => ['required', 'numeric', 'min:0'],
 			"minorVersion" => ['required', 'numeric', 'min:0'],
 			"patchVersion" => ['required', 'numeric', 'min:0'],
-			"devVersion" => ['required', 'string', Rule::in(Versions::getReleaseTypes())],
+			"devVersion" => ['required', 'string', Rule::in(Version::getReleaseTypes())],
 			"description" => ['required', 'string'],
 			"add" => ['array'],
 			"add.*" => ['sometimes', 'required_with:add', 'string'],

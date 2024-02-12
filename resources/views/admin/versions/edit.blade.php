@@ -117,6 +117,7 @@
 
 					{{-- DESCRIPTION ERROR MESSAGE --}}
 					@if ($errors->has('description'))
+					<div class="text-danger">{{ $errors->first('description') }}</div>
 					@endif
 				</div>
 
@@ -130,23 +131,25 @@
 
 							<div class="card-body px-3" id="add">
 								{{-- OLD ADD --}}
-								@foreach (json_decode($version->changelog)->add as $k => $v)
-								<div class="row my-3 justify-content-center">
-									<div class="col-1 d-flex justify-content-center align-items-center">
-										<button type="button" class="remove-button-style log-remover" title="Remove Entry">
-											<i class="fas fa-circle-minus text-danger"></i>
-										</button>
-									</div>
+								@if (!old('add'))
+									@foreach (json_decode($version->changelog)->add as $k => $v)
+									<div class="row my-3 justify-content-center">
+										<div class="col-1 d-flex justify-content-center align-items-center">
+											<button type="button" class="remove-button-style log-remover" title="Remove Entry">
+												<i class="fas fa-circle-minus text-danger"></i>
+											</button>
+										</div>
 
-									<div class="col-10">
-										<input type="text" class="form-control" name="add[]" value="{{ $v }}" required>
-									</div>
+										<div class="col-10">
+											<input type="text" class="form-control" name="add[]" value="{{ $v }}" required>
+										</div>
 
-									@if ($errors->has("add.$k"))
-									<div class="col-12 mt-2">{{ $errors->first("add.$k") }}</div>
-									@endif
-								</div>
-								@endforeach
+										@if ($errors->has("add.$k"))
+										<div class="col-12 mt-2 text-end text-danger">{{ $errors->first("add.$k") }}</div>
+										@endif
+									</div>
+									@endforeach
+								@endif
 
 								{{-- NEW ADD --}}
 								@foreach (old('add') ?? [] as $k => $v)
@@ -162,7 +165,7 @@
 									</div>
 
 									@if ($errors->has("add.$k"))
-									<div class="col-12 mt-2">{{ $errors->first("add.$k") }}</div>
+									<div class="col-12 mt-2 text-end text-danger">{{ $errors->first("add.$k") }}</div>
 									@endif
 								</div>
 								@endforeach
@@ -186,23 +189,25 @@
 
 							<div class="card-body px-3" id="mod">
 								{{-- OLD MOD --}}
-								@foreach (json_decode($version->changelog)->mod as $k => $v)
-								<div class="row my-3 justify-content-center">
-									<div class="col-1 d-flex justify-content-center align-items-center">
-										<button type="button" class="remove-button-style log-remover" title="Remove Entry">
-											<i class="fas fa-circle-minus text-danger"></i>
-										</button>
-									</div>
+								@if (!old('mod'))
+									@foreach (json_decode($version->changelog)->mod as $k => $v)
+									<div class="row my-3 justify-content-center">
+										<div class="col-1 d-flex justify-content-center align-items-center">
+											<button type="button" class="remove-button-style log-remover" title="Remove Entry">
+												<i class="fas fa-circle-minus text-danger"></i>
+											</button>
+										</div>
 
-									<div class="col-10">
-										<input type="text" class="form-control" name="mod[]" value="{{ $v }}" required>
-									</div>
+										<div class="col-10">
+											<input type="text" class="form-control" name="mod[]" value="{{ $v }}" required>
+										</div>
 
-									@if ($errors->has("mod.$k"))
-									<div class="col-12 mt-2">{{ $errors->first("mod.$k") }}</div>
-									@endif
-								</div>
-								@endforeach
+										@if ($errors->has("mod.$k"))
+										<div class="col-12 mt-2 text-end text-danger">{{ $errors->first("mod.$k") }}</div>
+										@endif
+									</div>
+									@endforeach
+								@endif
 
 								{{-- NEW MOD --}}
 								@foreach (old('mod') ?? [] as $k => $v)
@@ -218,7 +223,7 @@
 									</div>
 
 									@if ($errors->has("mod.$k"))
-									<div class="col-12 mt-2">{{ $errors->first("mod.$k") }}</div>
+									<div class="col-12 mt-2 text-end text-danger">{{ $errors->first("mod.$k") }}</div>
 									@endif
 								</div>
 								@endforeach
@@ -242,23 +247,25 @@
 
 							<div class="card-body" id="rem">
 								{{-- OLD REM --}}
-								@foreach (json_decode($version->changelog)->rem as $k => $v)
-								<div class="row my-3 justify-content-center">
-									<div class="col-1 d-flex justify-content-center align-items-center">
-										<button type="button" class="remove-button-style log-remover" title="Remove Entry">
-											<i class="fas fa-circle-minus text-danger"></i>
-										</button>
-									</div>
+								@if (!old('rem'))
+									@foreach (json_decode($version->changelog)->rem as $k => $v)
+									<div class="row my-3 justify-content-center">
+										<div class="col-1 d-flex justify-content-center align-items-center">
+											<button type="button" class="remove-button-style log-remover" title="Remove Entry">
+												<i class="fas fa-circle-minus text-danger"></i>
+											</button>
+										</div>
 
-									<div class="col-10">
-										<input type="text" class="form-control" name="rem[]" value="{{ $v }}" required>
-									</div>
+										<div class="col-10">
+											<input type="text" class="form-control" name="rem[]" value="{{ $v }}" required>
+										</div>
 
-									@if ($errors->has("rem.$k"))
-									<div class="col-12 mt-2">{{ $errors->first("rem.$k") }}</div>
-									@endif
-								</div>
-								@endforeach
+										@if ($errors->has("rem.$k"))
+										<div class="col-12 mt-2 text-end text-danger">{{ $errors->first("rem.$k") }}</div>
+										@endif
+									</div>
+									@endforeach
+								@endif
 
 								{{-- NEW REM --}}
 								@foreach (old('rem') ?? [] as $k => $v)
@@ -274,7 +281,7 @@
 									</div>
 
 									@if ($errors->has("rem.$k"))
-									<div class="col-12 mt-2">{{ $errors->first("rem.$k") }}</div>
+									<div class="col-12 mt-2 text-end text-danger">{{ $errors->first("rem.$k") }}</div>
 									@endif
 								</div>
 								@endforeach
@@ -303,21 +310,23 @@
 
 							<div class="card-body row" id="bedrock">
 								{{-- OLD COMPATIBILITY BEDROCK --}}
-								@foreach (json_decode($version->compatibility)->bedrock ?? [] as $k => $v)
-								<div class="col-6 col-lg-4 py-3 version-entry">
-									<div class="input-group">
-										<button type="button" class="btn btn-danger entry-remover d-flex justify-content-center align-items-center" title="Remove Entry">
-											<i class="fas fa-minus"></i>
-										</button>
+								@if (!old('bedrock'))
+									@foreach (json_decode($version->compatibility)->bedrock ?? [] as $k => $v)
+									<div class="col-6 col-lg-4 py-3 version-entry">
+										<div class="input-group">
+											<button type="button" class="btn btn-danger entry-remover d-flex justify-content-center align-items-center" title="Remove Entry">
+												<i class="fas fa-minus"></i>
+											</button>
 
-										<input type="text" class="form-control" name="bedrock[]" value="{{ $v }}" required pattern="(^\d{1,3})(\.)(\d{1,3})(\.(?=\d{1,3})\d{1,3})?$">
+											<input type="text" class="form-control" name="bedrock[]" value="{{ $v }}" required pattern="(^\d{1,3})(\.)(\d{1,3})(\.(?=\d{1,3})\d{1,3})?$">
+										</div>
+
+										@if ($errors->has("bedrock.$k"))
+										<div class="col-12 mt-2 text-end text-danger">{{ $errors->first("bedrock.$k") }}</div>
+										@endif
 									</div>
-
-									@if ($errors->has("bedrock.$k"))
-									<div class="col-12 mt-2">{{ $errors->first("bedrock.$k") }}</div>
-									@endif
-								</div>
-								@endforeach
+									@endforeach
+								@endif
 
 								{{-- NEW COMPATIBILITY BEDROCK --}}
 								@foreach (old('bedrock') ?? [] as $k => $v)
@@ -355,21 +364,23 @@
 
 							<div class="card-body row" id="java">
 								{{-- OLD COMPATIBILITY JAVA --}}
-								@foreach (json_decode($version->compatibility)->java ?? [] as $k => $v)
-								<div class="col-6 col-lg-4 py-3 version-entry">
-									<div class="input-group">
-										<button type="button" class="btn btn-danger entry-remover d-flex justify-content-center align-items-center" title="Remove Entry">
-											<i class="fas fa-minus"></i>
-										</button>
+								@if (!old('java'))
+									@foreach (json_decode($version->compatibility)->java ?? [] as $k => $v)
+									<div class="col-6 col-lg-4 py-3 version-entry">
+										<div class="input-group">
+											<button type="button" class="btn btn-danger entry-remover d-flex justify-content-center align-items-center" title="Remove Entry">
+												<i class="fas fa-minus"></i>
+											</button>
 
-										<input type="text" class="form-control" name="java[]" value="{{ $v }}" required pattern="(^\d{1,3})(\.)(\d{1,3})(\.(?=\d{1,3})\d{1,3})?$">
+											<input type="text" class="form-control" name="java[]" value="{{ $v }}" required pattern="(^\d{1,3})(\.)(\d{1,3})(\.(?=\d{1,3})\d{1,3})?$">
+										</div>
+
+										@if ($errors->has("java.$k"))
+										<div class="col-12 mt-2 text-end text-danger">{{ $errors->first("java.$k") }}</div>
+										@endif
 									</div>
-
-									@if ($errors->has("java.$k"))
-									<div class="col-12 mt-2">{{ $errors->first("java.$k") }}</div>
-									@endif
-								</div>
-								@endforeach
+									@endforeach
+								@endif
 
 								{{-- NEW COMPATIBILITY JAVA --}}
 								@foreach (old('java') ?? [] as $k => $v)
@@ -446,36 +457,38 @@
 							<div class="card-body" id="bedrockDL">
 								{{-- OLD LINKS --}}
 								@php($link_index = 0)
-								@foreach (json_decode($version->bedrock_link) as $k => $v)
-								<div class="row my-3">
-									<div class="col-2 d-flex justify-content-center align-items-center">
-										<button type="button" class="remove-button-style link-remover" title="Remove Entry">
-											<i class="fas fa-circle-minus text-danger"></i>
-										</button>
+								@if (!old('bedrockDL'))
+									@foreach (json_decode($version->bedrock_link) as $k => $v)
+									<div class="row my-3">
+										<div class="col-2 d-flex justify-content-center align-items-center">
+											<button type="button" class="remove-button-style link-remover" title="Remove Entry">
+												<i class="fas fa-circle-minus text-danger"></i>
+											</button>
+										</div>
+
+										<div class="col-5">
+											<input type="text" class="form-control" name="bedrockDL[]" value="{{ $v }}" placeholder="URL" required>
+										</div>
+
+										<div class="col-5">
+											<input type="text" class="form-control" name="bedrockDLW[]" value="{{ $k }}" placeholder="Website" required>
+										</div>
+
+										@if ($errors->has("bedrockDL.$link_index") && $errors->has("bedrockDLW.$link_index"))
+										<div class="col-6 mt-2">{{ $errors->first("bedrockDL.$link_index") }}</div>
+										<div class="col-6 mt-2">{{ $errors->first("bedrockDL.$link_index") }}</div>
+										@elseif ($errors->has("bedrockDL.$link_index"))
+										<div class="col-6 mt-2">{{ $errors->first("bedrockDL.$link_index") }}</div>
+										<div class="col-6 mt-2"></div>
+										@elseif ($errors->has("bedrockDLW.$link_index"))
+										<div class="col-6 mt-2"></div>
+										<div class="col-6 mt-2">{{ $errors->first("bedrockDLW.$link_index") }}</div>
+										@endif
+
+										@php($link_index++)
 									</div>
-
-									<div class="col-5">
-										<input type="text" class="form-control" name="bedrockDL[]" value="{{ $v }}" placeholder="URL" required>
-									</div>
-
-									<div class="col-5">
-										<input type="text" class="form-control" name="bedrockDLW[]" value="{{ $k }}" placeholder="Website" required>
-									</div>
-
-									@if ($errors->has("bedrockDL.$link_index") && $errors->has("bedrockDLW.$link_index"))
-									<div class="col-6 mt-2">{{ $errors->first("bedrockDL.$link_index") }}</div>
-									<div class="col-6 mt-2">{{ $errors->first("bedrockDL.$link_index") }}</div>
-									@elseif ($errors->has("bedrockDL.$link_index"))
-									<div class="col-6 mt-2">{{ $errors->first("bedrockDL.$link_index") }}</div>
-									<div class="col-6 mt-2"></div>
-									@elseif ($errors->has("bedrockDLW.$link_index"))
-									<div class="col-6 mt-2"></div>
-									<div class="col-6 mt-2">{{ $errors->first("bedrockDLW.$link_index") }}</div>
-									@endif
-
-									@php($link_index++)
-								</div>
-								@endforeach
+									@endforeach
+								@endif
 
 								{{-- NEW LINKS --}}
 								@foreach (old('bedrockDL') ?? [] as $k => $v)
@@ -529,36 +542,38 @@
 							<div class="card-body" id="javaDL">
 								{{-- OLD LINKS --}}
 								@php($link_index = 0)
-								@foreach (json_decode($version->java_link) as $k => $v)
-								<div class="row my-3">
-									<div class="col-2 d-flex justify-content-center align-items-center">
-										<button type="button" class="remove-button-style link-remover" title="Remove Entry">
-											<i class="fas fa-circle-minus text-danger"></i>
-										</button>
+								@if (!old('javaDL'))
+									@foreach (json_decode($version->java_link) as $k => $v)
+									<div class="row my-3">
+										<div class="col-2 d-flex justify-content-center align-items-center">
+											<button type="button" class="remove-button-style link-remover" title="Remove Entry">
+												<i class="fas fa-circle-minus text-danger"></i>
+											</button>
+										</div>
+
+										<div class="col-5">
+											<input type="text" class="form-control" name="javaDL[]" value="{{ $v }}" placeholder="URL" required>
+										</div>
+
+										<div class="col-5">
+											<input type="text" class="form-control" name="javaDLW[]" value="{{ $k }}" placeholder="Website" required>
+										</div>
+
+										@if ($errors->has("javaDL.$link_index") && $errors->has("javaDLW.$link_index"))
+										<div class="col-6 mt-2">{{ $errors->first("javaDL.$link_index") }}</div>
+										<div class="col-6 mt-2">{{ $errors->first("javaDL.$link_index") }}</div>
+										@elseif ($errors->has("javaDL.$link_index"))
+										<div class="col-6 mt-2">{{ $errors->first("javaDL.$link_index") }}</div>
+										<div class="col-6 mt-2"></div>
+										@elseif ($errors->has("javaDLW.$link_index"))
+										<div class="col-6 mt-2"></div>
+										<div class="col-6 mt-2">{{ $errors->first("javaDLW.$link_index") }}</div>
+										@endif
+
+										@php($link_index++)
 									</div>
-
-									<div class="col-5">
-										<input type="text" class="form-control" name="javaDL[]" value="{{ $v }}" placeholder="URL" required>
-									</div>
-
-									<div class="col-5">
-										<input type="text" class="form-control" name="javaDLW[]" value="{{ $k }}" placeholder="Website" required>
-									</div>
-
-									@if ($errors->has("javaDL.$link_index") && $errors->has("javaDLW.$link_index"))
-									<div class="col-6 mt-2">{{ $errors->first("javaDL.$link_index") }}</div>
-									<div class="col-6 mt-2">{{ $errors->first("javaDL.$link_index") }}</div>
-									@elseif ($errors->has("javaDL.$link_index"))
-									<div class="col-6 mt-2">{{ $errors->first("javaDL.$link_index") }}</div>
-									<div class="col-6 mt-2"></div>
-									@elseif ($errors->has("javaDLW.$link_index"))
-									<div class="col-6 mt-2"></div>
-									<div class="col-6 mt-2">{{ $errors->first("javaDLW.$link_index") }}</div>
-									@endif
-
-									@php($link_index++)
-								</div>
-								@endforeach
+									@endforeach
+								@endif
 
 								{{-- NEW LINKS --}}
 								@foreach (old('javaDL') ?? [] as $k => $v)

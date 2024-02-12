@@ -45,6 +45,15 @@ class RTLoader {
 			console.error(e);
 		},
 		finally: (component) => {},
+		// POPSTATE EVENT
+		popstateEvent: {
+			enabled: true,
+			fn: (e) => {
+				let data = e.state.content;
+
+				document.getElementById(this.elementID).innerHTML;
+			}
+		}
 	};
 
 	/**
@@ -220,6 +229,9 @@ class RTLoader {
 	 */
 	enablePopstateEvent() {
 		this.#options.pushHistoryState = true;
+		this.#options.popstateEvent.enabled = true;
+
+		if (this.#options.popstateEvent.fn != this) {}
 
 		this.#popstateEventFn = ((e) => {
 			document.getElementById(this.elementID)
@@ -238,6 +250,7 @@ class RTLoader {
 	 */
 	disablePopstateEvent() {
 		this.#options.pushHistoryState = false;
+		this.#options.popstateEvent.enabled = true;
 
 		window.removeEventListener('popstate', this.#popstateEventFn);
 	}
