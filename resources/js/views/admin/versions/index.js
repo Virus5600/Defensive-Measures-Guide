@@ -13,6 +13,10 @@ $(() => {
 		data: form.serialize(),
 		pushHistoryState: true,
 		success: (data) => {
+			// Replace nonce...
+			let nonce = head.querySelector('meta[name="csp-nonce"]')?.getAttribute('content');
+			data = data.replaceAll(/(nonce=)(.\w+.)/gm, `$1"${nonce}"`);
+
 			data = new DOMParser().parseFromString(data, `text/html`);
 			filters = data.querySelector(`#filters`);
 			form = data.querySelector(`#table-content`);
@@ -26,27 +30,6 @@ $(() => {
 	$(document).on(`submit`, `#filters`, (e) => {
 		e.preventDefault();
 		e.stopPropagation();
-
-		let form = $(e.currentTarget);
-
-		// $.ajax({
-		// 	"url": form.attr(`action`),
-		// 	"type": form.attr(`method`),
-		// 	"data": form.serialize(),
-		// 	"success": (data) => {
-		// 		data = new DOMParser().parseFromString(data, `text/html`);
-		// 		data = data.querySelector(`#inner-content`);
-
-		// 		$(`#inner-content`).html(data.innerHTML);
-
-		// 		// History handler
-		// 		window.history.pushState(
-		// 			{"content": $(`#inner-content`).html()},
-		// 			"",
-		// 			window.location.href + "?" + form.serialize()
-		// 		);
-		// 	}
-		// });
 	});
 
 	// Reset handler

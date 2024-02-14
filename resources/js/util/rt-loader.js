@@ -51,7 +51,9 @@ class RTLoader {
 			fn: (e) => {
 				let data = e.state.content;
 
-				document.getElementById(this.elementID).innerHTML;
+				document.getElementById(this.elementID).innerHTML = data.content;
+			},
+			pushFn: () => {
 			}
 		}
 	};
@@ -231,12 +233,15 @@ class RTLoader {
 		this.#options.pushHistoryState = true;
 		this.#options.popstateEvent.enabled = true;
 
-		if (this.#options.popstateEvent.fn != this) {}
-
-		this.#popstateEventFn = ((e) => {
-			document.getElementById(this.elementID)
-				.innerHTML = e.state.content;
-		}).bind(this);
+		if (this.#options.popstateEvent.fn == RTLoader.#defaultOptions.popstateEvent.fn) {
+			this.#popstateEventFn = ((e) => {
+				document.getElementById(this.elementID)
+					.innerHTML = e.state.content;
+			}).bind(this);
+		}
+		else {
+			this.#popstateEventFn = this.#options.popstateEvent.fn.bind(this);
+		}
 
 		window.addEventListener('popstate', this.#popstateEventFn);
 	}
@@ -309,6 +314,15 @@ class RTLoader {
 						console.log("Data:\n", data);
 
 					this.#options.success(data);
+
+					// Pushes the current state into the history if the option is enabled.
+					// Only runs after a successful request.
+					if (this.#options.pushHistoryState) {
+						RTLoader.#pushState(
+							document.getElementById(this.#elementID).innerHTML,
+							newURL
+						);
+					}
 				});
 		}
 		// Calls the error callback if the request failed.
@@ -317,14 +331,6 @@ class RTLoader {
 				console.error(response);
 
 			this.#options.error(response);
-		}
-
-		// Pushes the current state into the history if the option is enabled.
-		if (this.#options.pushHistoryState) {
-			RTLoader.#pushState(
-				document.getElementById(this.#elementID).innerHTML,
-				newURL
-			);
 		}
 
 		// Calls the finally callback then sets the component's fetching state to false.

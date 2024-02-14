@@ -13,12 +13,25 @@ $(() => {
 		data: form.serialize(),
 		pushHistoryState: true,
 		success: (data) => {
+			// Replace nonce...
+			let nonce = head.querySelector('meta[name="csp-nonce"]')?.getAttribute('content');
+			data = data.replaceAll(/(nonce=)(.\w+.)/gm, `$1"${nonce}"`);
+
 			data = new DOMParser().parseFromString(data, `text/html`);
 			filters = data.querySelector(`#filters`);
 			form = data.querySelector(`#table-content`);
 
 			$(`#filters`).html(filters.innerHTML);
 			$(`#table-content`).html(form.innerHTML);
+		},
+		popstateEvent: {
+			enabled: true,
+			fn: (e) => {
+				let data = e.state;
+				console.log(data);
+				$(`#filters`).html(data.filters);
+				$(`#table-content`).html(data.form);
+			}
 		}
 	});
 
@@ -26,8 +39,6 @@ $(() => {
 	$(document).on(`submit`, `#filters`, (e) => {
 		e.preventDefault();
 		e.stopPropagation();
-
-		let form = $(e.currentTarget);
 	});
 
 	// Reset handler
@@ -54,13 +65,5 @@ $(() => {
 				);
 			}
 		});
-	});
-
-	// Popstate handler
-	$(window).on(`popstate`, (e) => {
-		let data = e.originalEvent.state.content;
-
-		$(`#filters`).html(filters.innerHTML);
-		$(`#table-content`).html(form.innerHTML);
 	});
 });

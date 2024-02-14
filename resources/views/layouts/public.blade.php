@@ -6,6 +6,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta http-equiv="Content-Language" content="en-US" />
+		<meta name="csp-nonce" content="{{ csp_nonce() }}">
 
 		{{-- SITE META --}}
 		<meta name="type" content="website">
