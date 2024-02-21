@@ -35,6 +35,9 @@ class RTLoader {
 		},
 		// CALLBACKS
 		success: (data) => {
+			if (data.includes("nonce="))
+				data = data.replaceAll(/(nonce=)(.\w+.)/g, `$1="${document.querySelector('meta[name="csp-nonce"]').content}"`);
+
 			let el = new DOMParser().parseFromString(data, 'text/html')
 				.querySelector(this.elementID);
 
