@@ -144,7 +144,7 @@
 			<div class="col-12 col-lg-9">
 				<div class="border rounded table-responsive-container">
 					<div class="table-responsive">
-						<table class="table table-striped table-hover table-sm">
+						<table class="table table-striped table-hover table-sm m-0">
 							<thead>
 								<tr>
 									<th class="p-3" scope="col">Version</th>

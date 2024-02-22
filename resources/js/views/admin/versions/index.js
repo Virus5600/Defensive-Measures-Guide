@@ -15,7 +15,7 @@ $(() => {
 		success: (data) => {
 			// Replace nonce...
 			if (data.includes("nonce="))
-				data = data.replaceAll(/(nonce=)(.\w+.)/g, `$1="${document.querySelector('meta[name="csp-nonce"]').content}"`);
+				data = data.replaceAll(/(nonce=)(.\w+.)/g, `$1${document.querySelector('meta[name="csp-nonce"]').content}`);
 
 			data = new DOMParser().parseFromString(data, `text/html`);
 			filters = data.querySelector(`#filters`);
@@ -41,7 +41,7 @@ $(() => {
 			"type": obj.prop(`method`),
 			"success": (data) => {
 				if (data.includes("nonce="))
-					data = data.replaceAll(/(nonce=)(.\w+.)/g, `$1="${document.querySelector('meta[name="csp-nonce"]').content}"`);
+					data = data.replaceAll(/(nonce=)(.\w+.)/g, `$1${document.querySelector('meta[name="csp-nonce"]').content}`);
 				data = new DOMParser().parseFromString(data, `text/html`);
 
 				filters = data.querySelector(`#filters`);

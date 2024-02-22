@@ -36,10 +36,10 @@ class RTLoader {
 		// CALLBACKS
 		success: (data) => {
 			if (data.includes("nonce="))
-				data = data.replaceAll(/(nonce=)(.\w+.)/g, `$1="${document.querySelector('meta[name="csp-nonce"]').content}"`);
+				data = data.replaceAll(/(nonce=)(.\w+.)/g, `$1${document.querySelector('meta[name="csp-nonce"]').content}`);
 
 			let el = new DOMParser().parseFromString(data, 'text/html')
-				.querySelector(this.elementID);
+				.getElementById(this.elementID);
 
 			document.getElementById(this.elementID)
 				.insertAdjacentElement('beforeend', el);
@@ -128,6 +128,8 @@ class RTLoader {
 		// If popstate is enabled, add the event listener.
 		if (this.options.pushHistoryState)
 			this.enablePopstateEvent();
+
+		RTLoader.#init();
 	}
 
 	/**
@@ -370,6 +372,18 @@ class RTLoader {
 		}
 
 		return new RTLoader(id, options);
+	}
+
+	static #init() {
+		document.addEventListener('readystatechange', (e) => {
+			window.history.replaceState(
+				{"content": document.getElementById('inner-content').innerHTML},
+				"",
+				window.location.href
+			)
+		}, {
+			once: true
+		});
 	}
 
 	/**
