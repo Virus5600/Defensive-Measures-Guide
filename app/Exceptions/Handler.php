@@ -45,7 +45,7 @@ class Handler extends ExceptionHandler
 			return redirect()
 				->back()
 				->withInput($request->except('_token'))
-				->with('flash_message', "Oops! Seems you couldn't submit the form for a long time. Please try again.")
+				->with('flash_info', "Oops! Seems you couldn't submit the form for a long time. Please try again.")
 				->with('has_icon', 'true');
 		}
 		else if ($exception instanceof ModelNotFoundException) {

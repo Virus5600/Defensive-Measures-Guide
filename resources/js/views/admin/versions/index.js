@@ -23,6 +23,28 @@ $(() => {
 
 			$(`#filters`).html(filters.innerHTML);
 			$(`#table-content`).html(form.innerHTML);
+		},
+		popstateEvent: {
+			enabled: true,
+			pushFn: () => {
+				return {
+					'form': document.getElementById('filters').innerHTML,
+					'table': document.getElementById('table-content').innerHTML
+				};
+			},
+			popFn: (e) => {
+				const data = RTLoader.getStates(e) ?? { content: e.state.content };
+				const { form = null, table = null, content = null } = data;
+
+				if (form != null)
+					$(`#filters`).html(form);
+
+				if (table != null)
+					$(`#table-content`).html(table);
+
+				if (content != null)
+					$(`#inner-content`).html(content)
+			}
 		}
 	});
 
@@ -37,7 +59,7 @@ $(() => {
 		let obj = $(e.currentTarget);
 
 		$.ajax({
-			"url": obj.prop(`action`) ?? window.location.href.split("?")[0],
+			"url": obj.prop(`action`).split("?")[0] ?? window.location.href.split("?")[0],
 			"type": obj.prop(`method`),
 			"success": (data) => {
 				if (data.includes("nonce="))
@@ -58,13 +80,5 @@ $(() => {
 				);
 			}
 		});
-	});
-
-	// Popstate handler
-	$(window).on(`popstate`, (e) => {
-		let data = e.originalEvent.state.content;
-
-		$(`#filters`).html(filters.innerHTML);
-		$(`#table-content`).html(form.innerHTML);
 	});
 });

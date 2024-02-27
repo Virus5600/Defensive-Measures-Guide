@@ -43,7 +43,6 @@
 		{{-- CUSTOM STYLES --}}
 		<link rel="stylesheet" type="text/css" href="{{ mix('views/login/login.css') }}">
 		<script type="text/javascript" src="{{ mix('views/login/login.js') }}" nonce="{{ csp_nonce() }}"></script>
-		@yield('css')
 
 		{{-- TITLE --}}
 		<title>{{ $webName }} | Admin Login</title>

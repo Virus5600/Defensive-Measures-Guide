@@ -40,7 +40,7 @@ class PasswordReset extends Model
 		try {
 			DB::beginTransaction();
 
-			$this->expires_at = now()->timezone("Asia/Manila")->addWeeksw(1);
+			$this->expires_at = now()->timezone("Asia/Manila")->addWeeks(1);
 			$this->save();
 
 			DB::commit();

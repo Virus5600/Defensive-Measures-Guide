@@ -114,7 +114,7 @@ class User extends Authenticatable
 		}
 	}
 
-	public function getAvatar($useDefault=false, $getFull=true, $isUrl=true) {
+	public function getAvatar($useDefault=false, $getFull=true, $isUrl=true, $additionalClasses='') {
 		$avatarF = $this->avatar;
 		$avatarU = asset('/uploads/users/'.$this->avatar);
 		$avatarD = asset('/uploads/users/default.png');
@@ -137,7 +137,7 @@ class User extends Authenticatable
 
 		if ($isUrl)
 			return $toRet;
-		return "<img src=\"" . asset($toRet) . "\" class=\"avatar avatar-3 rounded-circle\">";
+		return "<img src=\"" . asset($toRet) . "\" class=\"avatar avatar-3 rounded-circle border {$additionalClasses}\">";
 	}
 
 	public function getName($include_middle = false) {
