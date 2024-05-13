@@ -16,7 +16,7 @@ class Base extends Policy
 			// BASIC DIRECTIVES
 			->addDirective(Directive::DEFAULT, Keyword::NONE)
 			->addDirective(Directive::BASE, Keyword::SELF)
-			->addDirective(Directive::CONNECT, Keyword::SELF)
+			->addDirective(Directive::CONNECT, Keyword::SELF . " data:")
 			->addDirective(Directive::DEFAULT, Keyword::SELF)
 			->addDirective(Directive::FORM_ACTION, Keyword::SELF)
 			->addDirective(Directive::IMG, "self data:")

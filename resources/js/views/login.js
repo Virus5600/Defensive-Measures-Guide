@@ -41,6 +41,11 @@ $(() => {
 		}
 	});
 
+	leftHemi.on(`click`, () => {
+		if (!loginCard.hasClass(`show`))
+			leftHemi.addClass(`unblur`);
+	});
+
 	lockView.on(`classChange`, (e) => {
 		let obj = $(e.currentTarget);
 

@@ -102,7 +102,7 @@
 						<div class="card-footer">
 							<p class="text-light">
 								@if (isset($v->description) || property_exists($v, 'description'))
-									{!! preg_replace("/(https?:\/\/(www\.)?)([a-zA-Z\-]+)([a-zA-Z\-\.\/\?=&0-9]+)/", "<a href=\"$1$3$4\">$3</a>", $v->description) !!}
+									{!! preg_replace("/(https?:\/\/(www\.)?)([a-zA-Z\-]+)([a-zA-Z\-\.\/\?=&0-9]+)/", "<a href=\"$1$3$4\">$3</a>", nl2br($v->description)) !!}
 								@endif
 							</p>
 						</div>

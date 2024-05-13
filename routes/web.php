@@ -18,6 +18,9 @@ Route::group(['namespace' => "App\Http\Controllers"], function() {
 	// USER SIDE //
 	///////////////
 
+	// Test Page
+	Route::get('test', 'PageController@test')->name('test');
+
 	// Home Page
 	Route::get('/', 'PageController@index')->name('home');
 

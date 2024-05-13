@@ -94,6 +94,10 @@ class PageController extends Controller
 		]);
 	}
 
+	protected function test() {
+		return view('test');
+	}
+
 	////////////////
 	// ADMIN SIDE //
 	////////////////

@@ -38,6 +38,8 @@ mix
 	.js('resources/js/custom/components/login-page.js', 'public/js/custom/components')
 	.js('resources/js/custom/components/navbar-dynamic.js', 'public/js/custom/components')
 
+	.js('resources/js/custom/wrapper/three.js', 'public/js/custom/wrapper')
+
 	// JS Libs
 	.js('resources/js/libs/slick.js', 'public/js/libs')
 	.js('resources/js/libs/summernote.js', 'public/js/libs')
@@ -95,4 +97,7 @@ mix
 	.js('resources/js/views/admin/settings.js', 'public/views/admin/settings')
 
 	// ENDING
+
+	// Testing stuff
+	.js('resources/js/views/test.js', 'public/views/test')
 	;
