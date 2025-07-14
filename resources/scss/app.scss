@@ -1,21 +1,81 @@
-// Normalize CSS
-@import "./libs/normalize";
+@use "/resources/scss/libs/tailwind.scss";
 
-// Bootstrap 5.3
-@import "./libs/bootstrap5";
+*:target {
+	scroll-margin-top: calc(1rem + var(--navbar-height));
+}
 
-// Sweetalert 2
-@import "./libs/swal";
+.required-after,
+.required-end {
+	&:after {
+		margin-left: 0.25rem;
+		content: "*";
+		color: var(--required-color);
+	}
+}
 
-// Fontawesome 6
-@import "./libs/fontawesome";
+.required,
+.required-before,
+.required-start {
+	&:before {
+		margin-right: 0.25rem;
+		content: "*";
+		color: var(--required-color);
+	}
+}
 
-// Toast UI - Editor
-@import "./libs/editor";
+.enlarge-on-hover {
+	@apply transition-all ease-in-out duration-150;
 
-// Contains all the general stylings
-@import "variables";
+	&:hover {
+		@apply md:border-accent/50;
+		@apply scale-[102.5%];
 
-:root {
-	--m-gray: #{$mGray};
+		& .bg-accent\/25 {
+			@apply bg-accent/50;
+		}
+	}
+}
+
+// Header modification
+h1,
+.h1 {
+	@apply text-4xl lg:text-6xl font-black;
+	@apply text-center mb-10;
+}
+
+h2,
+.h2 {
+	@apply text-3xl lg:text-5xl font-black;
+	@apply text-center mb-10;
+}
+
+h3,
+.h3 {
+	@apply text-2xl lg:text-4xl font-black;
+	@apply text-center mb-10;
+}
+
+h4,
+.h4 {
+	@apply text-xl lg:text-2xl font-black;
+	@apply text-center mb-10;
+}
+
+h5,
+.h5 {
+	@apply text-lg lg:text-xl font-black;
+	@apply text-center mb-10;
+}
+
+h6,
+.h6 {
+	@apply text-base lg:text-lg font-black;
+	@apply text-center mb-10;
+}
+
+// Paragraph modification
+p,
+.p {
+	@apply text-base;
+	@apply text-start mb-4 indent-4;
 }

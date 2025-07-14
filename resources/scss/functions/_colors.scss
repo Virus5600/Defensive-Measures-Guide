@@ -1,0 +1,98 @@
+@use "sass:color" as *;
+@use "sass:meta" as *;
+
+@function darken($color, $amount, $useMix: false) {
+	@if $useMix {
+		@return mix(black, $color, $amount);
+	}
+
+	@return adjust($color, $lightness: -($amount));
+}
+
+@function lighten($color, $amount, $useMix: false) {
+	@if $useMix {
+		@return mix(white, $color, $amount);
+	}
+
+	@return adjust($color, $lightness: $amount);
+}
+
+@function extractRGB($color, $useComma: false) {
+	$color: if(type-of($color) == "color", $color, str-to-color($color));
+
+	$red: channel($color, "red", $space: rgb);
+	$green: channel($color, "green", $space: rgb);
+	$blue: channel($color, "blue", $space: rgb);
+
+	@if $useComma {
+		@return $red, $green, $blue;
+	}
+	@return $red $green $blue;
+}
+
+@function extractRGBA($color, $alpha) {
+	@return rgba(
+		channel($color, "red", $space: rgb),
+		channel($color, "green", $space: rgb),
+		channel($color, "blue", $space: rgb),
+		$alpha
+	);
+}
+
+@function extractLightness($color) {
+	@return channel($color, "lightness", $space: hsl);
+}
+
+/// Function to check if the foreground color is contrasting with the background color.
+/// The function returns a boolean value. If the $returnContrastValue is set to true,
+/// the function will return the contrast value.
+///
+/// The basis for the contrast value is the WCAG 2.0 standard. The standard states that
+/// the contrast ratio between the foreground and background colors should be at least 4.5:1
+/// for normal text and 3:1 for large text (18pt or 14pt bold).
+///
+/// @param {Color} $fg - The foreground color.
+/// @param {Color} $bg - The background color.
+/// @param {Boolean} $returnContrastValue - The flag to return the contrast value.
+///
+/// @return {Boolean|Number} - The boolean value or the contrast value.
+///
+/// @see https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
+/// @see https://contrastchecker.com/
+@function isContrasting($fg, $bg, $returnContrastValue: false) {
+	$r: (max(channel($fg, "red", $space: rgb), channel($bg, "red", $space: rgb))) -
+		(min(channel($fg, "red", $space: rgb), channel($bg, "red", $space: rgb)));
+	$g: (max(channel($fg, "green", $space: rgb), channel($bg, "green", $space: rgb))) -
+		(min(channel($fg, "green", $space: rgb), channel($bg, "green", $space: rgb)));
+	$b: (max(channel($fg, "blue", $space: rgb), channel($bg, "blue", $space: rgb))) -
+		(min(channel($fg, "blue", $space: rgb), channel($bg, "blue", $space: rgb)));
+	$sum-rgb: $r + $g + $b;
+
+	@if $returnContrastValue {
+		@return $sum-rgb;
+	} @else {
+		@if $sum-rgb < 500 {
+			@return "false";
+		} @else {
+			@return "true";
+		}
+	}
+}
+
+/// Function to select the color to use for the text based on the contrast between the foreground and background colors.
+///
+/// @param {Color} $bg - The background color.
+/// @param {Color} $light - The light color to use for the foreground. The default value is white.
+/// @param {Color} $dark - The dark color to use for the foreground. The default value is black.
+/// @param {Number} $threshold - The threshold value for the contrast. The default value is 500.
+///
+/// @return {Color} - The color to use for the text.
+@function selectColorContrast($bg, $light: black, $dark: white, $threshold: 500) {
+	$contrast: isContrasting($light, $bg, true);
+
+	@if $contrast < $threshold {
+		@return $dark;
+	} @else {
+		@return $light;
+	}
+}

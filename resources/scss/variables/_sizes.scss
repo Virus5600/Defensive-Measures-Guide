@@ -1,0 +1,15 @@
+@use "sass:list";
+
+$standardSizeNames: ();
+
+@for $i from 1 through 6 {
+	$standardSizeNames: list.append($standardSizeNames, $i);
+}
+
+// L, XL, 2XL,	 3XL, 4XL, 5XL, 6XL, 7XL, 8XL, 9XL
+$standardSizeNames: list.append($standardSizeNames, "l");
+$standardSizeNames: list.append($standardSizeNames, "xl");
+
+@for $i from 2 through 10 {
+	$standardSizeNames: list.append($standardSizeNames, "#{$i}xl");
+}

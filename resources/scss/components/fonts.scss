@@ -1,15 +1,13 @@
-@import "node_modules/@fortawesome/fontawesome-free/scss/brands";
-@import "node_modules/@fortawesome/fontawesome-free/scss/regular";
-@import "node_modules/@fortawesome/fontawesome-free/scss/solid";
-
-$fonts: (
-	fas: "Font Awesome 6 Free",
-	far: "Font Awesome 6 Regular",
-	fab: "Font Awesome 6 Brands"
-);
+$fonts: ();
 
 $unregisteredFonts: (
-	minecraftia: url("/fonts/Minecraftia.ttf"),
+	fas: url("../../storage/fonts/fontawesome/webfonts/fa-solid-900.woff2")
+		url("../../storage/fonts/fontawesome/webfonts/fa-solid-900.ttf"),
+	far: url("../../storage/fonts/fontawesome/webfonts/fa-regular-400.woff2")
+		url("../../storage/fonts/fontawesome/webfonts/fa-regular-400.ttf"),
+	fab: url("../../storage/fonts/fontawesome/webfonts/fa-brands-400.woff2")
+		url("../../storage/fonts/fontawesome/webfonts/fa-brands-400.ttf"),
+	nasalization: url("../../storage/fonts/nasalization rg.otf")
 );
 
 @each $type, $font in $fonts {

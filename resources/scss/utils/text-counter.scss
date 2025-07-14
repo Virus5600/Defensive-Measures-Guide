@@ -1,0 +1,49 @@
+:root {
+	--txc-warning: 224 168 0; // Yellow
+	--txc-danger: 220 53 69; // Red
+	--txc-counter-bg: 108 117 125; // Gray
+	--txc-counter-text: 255 255 255; // White
+}
+
+.text-counter-parent {
+	display: flex;
+	flex-direction: column;
+	padding: 2.5px;
+
+	.text-counter-input {
+		border-radius: 0.25rem;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+
+		&.mark-warning:focus {
+			border-color: rgb(var(--txc-warning, 244 168 0) / 25%);
+			box-shadow: 0 0 0 0.2rem rgb(var(--txc-warning, 244 168 0) / 25%);
+		}
+
+		&.mark-danger:focus {
+			border-color: rgb(var(--txc-danger, 255 0 0) / 25%);
+			box-shadow: 0 0 0 0.2rem rgb(var(--txc-danger, 255 0 0) / 25%);
+		}
+	}
+
+	.text-counter {
+		border-radius: 0.25rem;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+		text-align: right;
+		color: rgb(var(--txc-counter-text, 255 255 255));
+		background-color: rgb(var(--txc-counter-bg, 108 117 125));
+		padding-left: 0.25rem;
+		padding-right: 0.25rem;
+		transition: 0.25s;
+
+		&.bg-warning {
+			background-color: rgb(var(--txc-warning, 224 168 0));
+			color: #000;
+		}
+
+		&.bg-danger {
+			background-color: rgb(var(--txc-danger, 220 53 69));
+		}
+	}
+}

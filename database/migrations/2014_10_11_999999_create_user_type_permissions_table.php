@@ -12,11 +12,9 @@ return new class extends Migration
 	public function up(): void
 	{
 		Schema::create('user_type_permissions', function (Blueprint $table) {
-			$table->foreignId('user_type_id')->unsigned();
-			$table->foreignId('permission_id')->unsigned();
-			
-			$table->foreign('user_type_id')->references('id')->on('user_types')->onDelete('cascade');
-			$table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
+			$table->id();
+			$table->foreignId('user_type_id')->constrained('user_types')->cascadeOnDelete();
+			$table->foreignId('permission_id')->constrained('permissions')->cascadeOnDelete();
 		});
 	}
 

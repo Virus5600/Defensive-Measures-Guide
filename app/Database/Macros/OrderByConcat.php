@@ -4,7 +4,6 @@ namespace App\Database\Macros;
 
 use DB;
 use Exception;
-use Schema;
 
 /**
  * OrderByConcat
@@ -59,7 +58,7 @@ class OrderByConcat
 		$tableColumns = self::getColumnsForTable($builder->from);
 
 		// Determine how to wrap our field names
-		$filter = function($field) use($tableColumns) {
+		$filter = function ($field) use ($tableColumns) {
 			return in_array($field, $tableColumns)
 				? "`{$field}`"
 				: "'" . addslashes($field) . "'";

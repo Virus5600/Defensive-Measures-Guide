@@ -13,7 +13,7 @@ return new class extends Migration
 	{
 		Schema::create('permissions', function (Blueprint $table) {
 			$table->id();
-			$table->foreignId('parent_permission')->nullable();
+			$table->foreignId('parent_permission')->nullable()->constrained('permissions')->cascadeOnDelete();
 			$table->string('name', 50);
 			$table->string('slug', 50);
 			$table->timestamps();

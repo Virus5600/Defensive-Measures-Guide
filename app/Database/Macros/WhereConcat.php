@@ -74,10 +74,32 @@ class WhereConcat
 		$tableColumns = self::getColumnsForTable($builder->from);
 
 		// Determine how to wrap our field names
-		$filter = function($field) use($tableColumns) {
-			return in_array($field, $tableColumns)
-				? "`{$field}`"
-				: "'" . addslashes($field) . "'";
+		$filter = function ($field) use ($tableColumns) {
+			$table = null;
+			$field = preg_split('/\./', $field);
+			$hasTablePrefix = count($field) > 1;
+
+			// If the field is prefixed with a table name, split them so we can wrap the field name
+			// with backticks or quotes depending on the driver.
+			if ($hasTablePrefix) {
+				$table = $field[0];
+				$field = $field[1];
+			} else
+				$field = $field[0];
+
+			$toReturn = null;
+			if (in_array($field, $tableColumns)) {
+				$toReturn = "`{$field}`";
+			} else {
+				if ($table != null)
+					$tableColumns = self::getColumnsForTable($table);
+
+				$toReturn = in_array($field, $tableColumns)
+					? "`{$table}`.`{$field}`"
+					: "'" . addslashes($field) . "'";
+			}
+
+			return $toReturn;
 		};
 
 		// Differentiate concatenation techniques per driver

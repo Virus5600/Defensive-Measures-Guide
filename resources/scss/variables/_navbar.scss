@@ -1,0 +1,15 @@
+@use "./../functions/colors" as *;
+
+@use "./variables" as *;
+
+// General Variables
+$navbar-height: 3.5rem !default;
+$navbar-padding: 0.5rem !default;
+
+// Dark Mode
+$navbar-bg-dark: lighten($background-dark, 5%) !default;
+$navbar-color-dark: $text-dark !default;
+
+// Light Mode
+$navbar-bg: lighten($background, 5%) !default;
+$navbar-color: $text !default;

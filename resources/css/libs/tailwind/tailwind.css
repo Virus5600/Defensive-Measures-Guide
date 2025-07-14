@@ -1,0 +1,23 @@
+@source "tailwindcss";
+@source "flowbite/src/themes/default";
+
+@plugin "flowbite/plugin";
+
+@source "../../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+@source "../../../node_modules/flowbite";
+@source "../../../storage/framework/views/*.php";
+@source "../../../../app/Http/**/*.php";
+@source "../../../../app/Services/**/*.php";
+@source "../../../../app/View/**/*.php";
+@source "../../views/**/*.blade.php";
+@source "../../scss/**/*.scss";
+@source "../../css/**/*.css";
+@source "../../js/**/*.js";
+
+@source "./tailwind.scss";
+
+@theme {
+	--font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+		"Noto Color Emoji";
+}

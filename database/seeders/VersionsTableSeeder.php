@@ -21,29 +21,28 @@ class VersionsTableSeeder extends Seeder
 			'minor_version' => 1,
 			'patch_version' => 0,
 			'description' => "An initial release with the basics of the basic features of the mod.",
-			'changelog' => "{
-				\"add\": [
-					\"Added Cannon Turret\",
-					\"Added Cannon Turret related items\"
+			'changelog' => [
+				"add" => [
+					"Added Cannon Turret",
+					"Added Cannon Turret related items"
 				],
-				\"mod\": [],
-				\"rem\": []
-			}",
-			'compatibility' => "{
-				\"bedrock\": [\"1.16.100\"],
-				\"java\": [\"1.19.2\"]
-			}",
-			'release_date' => "{
-				\"bedrock\": \"2020-12-11\",
-				\"java\": \"2022-11-10\"
-			}",
-			'bedrock_link' => "{
-			}",
-			'java_link' => "{
-				\"GitHub\": \"https://github.com/Virus5600/Defensive-Measures-Mod/releases/tag/v0.1.0-alpha\",
-				\"Modrinth\": \"https://modrinth.com/mod/defensive-measures/version/0.1.0-alpha-1.19.2\",
-				\"CurseForge\": \"https://www.curseforge.com/minecraft/mc-mods/defensive-measures/files/4077594\"
-			}",
+				"mod" => [],
+				"rem" => []
+			],
+			'compatibility' => [
+				"bedrock" => ["1.16.100"],
+				"java" => ["1.19.2"]
+			],
+			'release_date' => [
+				"bedrock" => "2020-12-11",
+				"java" => "2022-11-10"
+			],
+			'bedrock_link' => [],
+			'java_link' => [
+				"GitHub" => "https://github.com/Virus5600/Defensive-Measures-Mod/releases/tag/v0.1.0-alpha",
+				"Modrinth" => "https://modrinth.com/mod/defensive-measures/version/0.1.0-alpha-1.19.2",
+				"CurseForge" => "https://www.curseforge.com/minecraft/mc-mods/defensive-measures/files/4077594"
+			],
 			'banner' => "default.webp",
 		]);
 
@@ -55,28 +54,26 @@ class VersionsTableSeeder extends Seeder
 			'minor_version' => 2,
 			'patch_version' => 0,
 			'description' => "Progress lads! Cannon Turret is now fully functional and can be used in-game. New animation and effects are now also visible for the turret so you can feel the cannon's wrath befalling a hostile! Also added a new tool called Turret Remover to remove the placed turrets.",
-			'changelog' => "{
-				\"add\": [
-					\"Cannon Turret fully functional\",
-					\"Added Turret Remover\"
+			'changelog' => [
+				"add" => [
+					"Cannon Turret fully functional",
+					"Added Turret Remover"
 				],
-				\"mod\": [
-					\"Cannon Turret now has PFX and SFX\",
-					\"Cannon Turret now has a crafting recipe (so you can now acquire it in Survival).\",
-					\"Some optimization in the animations\"
+				"mod" => [
+					"Cannon Turret now has PFX and SFX",
+					"Cannon Turret now has a crafting recipe (so you can now acquire it in Survival).",
+					"Some optimization in the animations"
 				],
-				\"rem\": []
-			}",
-			'compatibility' => "{
-				\"bedrock\": [\"1.16.100\"]
-			}",
-			'release_date' => "{
-				\"bedrock\": \"2020-12-14\"
-			}",
-			'bedrock_link' => "{
-			}",
-			'java_link' => "{
-			}",
+				"rem" => []
+			],
+			'compatibility' => [
+				"bedrock" => ["1.16.100"]
+			],
+			'release_date' => [
+				"bedrock" => "2020-12-14"
+			],
+			'bedrock_link' => [],
+			'java_link' => [],
 			'banner' => "default.webp",
 		]);
 
@@ -88,36 +85,36 @@ class VersionsTableSeeder extends Seeder
 			'minor_version' => 0,
 			'patch_version' => 0,
 			'description' => "Finally! After some months working on some new turrets, we now have reached the v1.0.0-beta version and this marks the end of Alpha Phase! I proudly announce that this is now officially in public beta and will continue to have Versions albeit very slow.",
-			'changelog' => "{
-				\"add\": [
-					\"Added Ballista Turret, a cheap starter turret!\",
-					\"Added Ballista related items so you can craft it.\",
-					\"Added Ballista crafting recipe for those survival enthusiasts!\",
-					\"Added MG Turret, the first modern turret which shoots a barrage of bullets that deals relatively high damage.\",
-					\"Added MG Turret related items, of course, to craft it.\",
-					\"Added MG Turret crafting recipe so peeps can use them in their survival worlds!\",
-					\"Added Arrowhead trap block which damages anyone who steps on it! Cheap but weak damage~\"
+			'changelog' => [
+				"add" => [
+					"Added Ballista Turret, a cheap starter turret!",
+					"Added Ballista related items so you can craft it.",
+					"Added Ballista crafting recipe for those survival enthusiasts!",
+					"Added MG Turret, the first modern turret which shoots a barrage of bullets that deals relatively high damage.",
+					"Added MG Turret related items, of course, to craft it.",
+					"Added MG Turret crafting recipe so peeps can use them in their survival worlds!",
+					"Added Arrowhead trap block which damages anyone who steps on it! Cheap but weak damage~"
 				],
-				\"mod\": [],
-				\"rem\": []
-			}",
-			'compatibility' => "{
-				\"bedrock\": [\"1.16.100\"],
-				\"java\": [\"1.19.2\"]
-			}",
-			'release_date' => "{
-				\"bedrock\": \"2020-12-15\",
-				\"java\": \"2022-11-13\"
-			}",
-			'bedrock_link' => "{
-				\"Mediafire (Mobile)\": \"https://www.mediafire.com/file/ec6zag61hoqhdp9/Defensive_Measures_Add-on_%2528Mobile%2529.zip/file\",
-				\"Mediafire (Win10)\": \"https://www.mediafire.com/file/6n5kf5h8ow7b84p/Defensive_Measures_Add-on_%2528Win10%2529.zip/file\"
-			}",
-			'java_link' => "{
-				\"GitHub\": \"https://github.com/Virus5600/Defensive-Measures-Mod/releases/tag/v1.0.0-beta\",
-				\"Modrinth\": \"https://modrinth.com/mod/defensive-measures/version/1.0.0-beta-1.19.2\",
-				\"CurseForge\": \"https://www.curseforge.com/minecraft/mc-mods/defensive-measures/files/4082767\"
-			}",
+				"mod" => [],
+				"rem" => []
+			],
+			'compatibility' => [
+				"bedrock" => ["1.16.100"],
+				"java" => ["1.19.2"]
+			],
+			'release_date' => [
+				"bedrock" => "2020-12-15",
+				"java" => "2022-11-13"
+			],
+			'bedrock_link' => [
+				"Mediafire (Mobile)" => "https://www.mediafire.com/file/ec6zag61hoqhdp9/Defensive_Measures_Add-on_%2528Mobile%2529.zip/file",
+				"Mediafire (Win10)" => "https://www.mediafire.com/file/6n5kf5h8ow7b84p/Defensive_Measures_Add-on_%2528Win10%2529.zip/file"
+			],
+			'java_link' => [
+				"GitHub" => "https://github.com/Virus5600/Defensive-Measures-Mod/releases/tag/v1.0.0-beta",
+				"Modrinth" => "https://modrinth.com/mod/defensive-measures/version/1.0.0-beta-1.19.2",
+				"CurseForge" => "https://www.curseforge.com/minecraft/mc-mods/defensive-measures/files/4082767"
+			],
 			'banner' => "default.webp",
 		]);
 
@@ -129,30 +126,31 @@ class VersionsTableSeeder extends Seeder
 			'minor_version' => 0,
 			'patch_version' => 1,
 			'description' => "Server compatibility patch. This allows the mod to be played within servers or even on multiplayer LAN games. This also fixes the issue where the mod is not working on servers.",
-			'changelog' => "{
-				\"add\": [],
-				\"mod\": [
-					\"\"
+			'changelog' => [
+				"add" => [
+					"Added option to play the mod on Fabric server.",
+					"Added option to play the mod on Quilt server."
 				],
-				\"rem\": []
-			}",
-			'compatibility' => "{
-				\"bedrock\": [\"1.16.100\", \"1.17\", \"1.18\", \"1.19\", \"1.20\"],
-				\"java\": [\"1.19.2\"]
-			}",
-			'release_date' => "{
-				\"bedrock\": \"2020-12-18\",
-				\"java\": \"2023-01-30\"
-			}",
-			'bedrock_link' => "{
-				\"Mediafire (Mobile)\": \"https://www.mediafire.com/file/0asm32n3hlzgxd4/Defensive_Measures_Add-on_v1.0.1-beta_%2528Mobile%2529.zip/file\",
-				\"Mediafire (Win10)\": \"https://www.mediafire.com/file/u6qrpi2jxjdyy6i/Defensive_Measures_Add-on_v1.0.1-beta_%2528Win10%2529.zip/file\"
-			}",
-			'java_link' => "{
-				\"GitHub\": \"https://github.com/Virus5600/Defensive-Measures-Mod/releases/tag/v1.0.1-beta\",
-				\"Modrinth\": \"https://modrinth.com/mod/defensive-measures/version/1.0.1-beta-1.19.2\",
-				\"CurseForge\": \"https://www.curseforge.com/minecraft/mc-mods/defensive-measures/files/4373514\"
-			}",
+				"mod" => [],
+				"rem" => []
+			],
+			'compatibility' => [
+				"bedrock" => ["1.16.100", "1.17", "1.18", "1.19", "1.20"],
+				"java" => ["1.19.2"]
+			],
+			'release_date' => [
+				"bedrock" => "2020-12-18",
+				"java" => "2023-01-30"
+			],
+			'bedrock_link' => [
+				"Mediafire (Mobile)" => "https://www.mediafire.com/file/0asm32n3hlzgxd4/Defensive_Measures_Add-on_v1.0.1-beta_%2528Mobile%2529.zip/file",
+				"Mediafire (Win10)" => "https://www.mediafire.com/file/u6qrpi2jxjdyy6i/Defensive_Measures_Add-on_v1.0.1-beta_%2528Win10%2529.zip/file"
+			],
+			'java_link' => [
+				"GitHub" => "https://github.com/Virus5600/Defensive-Measures-Mod/releases/tag/v1.0.1-beta",
+				"Modrinth" => "https://modrinth.com/mod/defensive-measures/version/1.0.1-beta-1.19.2",
+				"CurseForge" => "https://www.curseforge.com/minecraft/mc-mods/defensive-measures/files/4373514"
+			],
 			'banner' => "default.webp",
 		]);
 
@@ -164,29 +162,78 @@ class VersionsTableSeeder extends Seeder
 			'minor_version' => 0,
 			'patch_version' => 2,
 			'description' => "Some quality of life (QoL) update and bug fixes.",
-			'changelog' => "{
-				\"add\": [
-					\"Added sound events for when the turrets are fixed (healed).\"
+			'changelog' => [
+				"add" => [
+					"Added sound events for when the turrets are fixed (healed)."
 				],
-				\"mod\": [
-					\"Fixed a bug where an item won't get consumed and tools used to repair the turrets won't get damaged.\"
+				"mod" => [
+					"Fixed a bug where an item won't get consumed and tools used to repair the turrets won't get damaged."
 				],
-				\"rem\": []
-			}",
-			'compatibility' => "{
-				\"java\": [\"1.19.2\"]
-			}",
-			'release_date' => "{
-				\"java\": \"2023-04-07\"
-			}",
-			'bedrock_link' => "{
-			}",
-			'java_link' => "{
-				\"GitHub\": \"https://github.com/Virus5600/Defensive-Measures-Mod/releases/tag/v1.0.2-beta-1.19.2\",
-				\"Modrinth\": \"https://modrinth.com/mod/defensive-measures/version/1.0.2-beta-1.19.2\",
-				\"CurseForge\": \"https://www.curseforge.com/minecraft/mc-mods/defensive-measures/files/4478218\"
-			}",
+				"rem" => []
+			],
+			'compatibility' => [
+				"java" => ["1.19.2"]
+			],
+			'release_date' => [
+				"java" => "2023-04-07"
+			],
+			'bedrock_link' => [],
+			'java_link' => [
+				"GitHub" => "https://github.com/Virus5600/Defensive-Measures-Mod/releases/tag/v1.0.2-beta-1.19.2",
+				"Modrinth" => "https://modrinth.com/mod/defensive-measures/version/1.0.2-beta-1.19.2",
+				"CurseForge" => "https://www.curseforge.com/minecraft/mc-mods/defensive-measures/files/4478218"
+			],
 			'banner' => "default.webp",
+		]);
+
+		// v.1.0.1-beta-1.21.4
+		Version::create([
+			'tag' => 'v1.0.1-beta-1.21.4',
+			'version' => 'beta',
+			'major_version' => 1,
+			'minor_version' => 0,
+			'patch_version' => 1,
+			'description' => "Compatibility patch for Minecraft 1.21.4. This version is not compatible with the previous versions of Minecraft. Also, optimization fixes and some minor bug fixes.",
+			'changelog' => [
+				"add" => [
+					"New MG Turret shooting particle.",
+					"Turret items now shows some statistical information when hovered.",
+					"Buffed the Cannon Turret; it now has a longer range at 24 blocks but now has a minimum range of 3 blocks. Its damage is also increased via its projectile, which now deals 10 damage.",
+					"Buffed the MG Turret via its projectile, which now also pierce entities depending on their armor value. MG Turrets now also have a base armor value of 2 with a toghness of 1. Its range is also upped from the former 16 blocks to 20 blocks.",
+					"Bullet hits now has different sound effects depending on the block it hits.",
+				],
+				"mod" => [
+					"Fixed the mod to work on Minecraft 1.21.4.",
+					"Fixed particle effects being off from intended position for the turrets.",
+					"Fixed turrets despawning when out of loaded chunks. Turrets, by default, are now persistent and will not despawn when out of loaded chunks.",
+					"Fixed turrets getting knocked back when hit by an explosion.",
+					"Fixed an issue where the game crashes whenever the MG Turret shoots when playing in multiplayer.",
+					"Updated shooting formula for the turrets, making some turrets shoot a bit more parabolic.",
+					"Updated targeting mechanics for the turrets. They now lose target focus when out of their vertical firing arc.",
+					"Updated turret's rendering code to now pitch the turret up a bit when firing to match the projectile's trajectory.",
+					"Updated Cannonball projectiles to now deal less damage to entities outside its effective explosion radius.",
+					"Updated Ballista Turret to now shoot its last projectile when it is destroyed as a continuation of its death animation.",
+					"Reworked the MG Turret's projectile, allowing it to not only pierce entities but also destroy \"fragile\" blocks like glass and leaves. This could still be disabled by toggling the `mobGriefing` gamerule.",
+					"Turret Remover now has fewer allowed item ingredients for repair.",
+					"MG Turret now has a smaller hitbox and model.",
+				],
+				"rem" => [
+					"Removed previous anvil repair mechanics modification.",
+				]
+			],
+			'compatibility' => [
+				"java" => ["1.21.4"]
+			],
+			'release_date' => [
+				"java" => "2025-03-30"
+			],
+			'bedrock_link' => [],
+			'java_link' => [
+				"GitHub" => "https://github.com/Virus5600/Defensive-Measures-Mod/releases/tag/v1.0.1-beta-1.21.4",
+				"Modrinth" => "https://modrinth.com/mod/defensive-measures/version/1.0.1-beta-1.21.4",
+				"CurseForge" => "https://www.curseforge.com/minecraft/mc-mods/defensive-measures/files/6364014",
+				"PlanetMinecraft" => "https://www.planetminecraft.com/mod/defensive-measures-mod",
+			]
 		]);
 	}
 }

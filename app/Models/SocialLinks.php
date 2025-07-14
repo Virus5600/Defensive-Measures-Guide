@@ -33,6 +33,11 @@ class SocialLinks extends Model
 		"twitter" => "Twitter",
 		"x-twitter" => "X",
 		"youtube" => "YouTube",
+
+		// Custom websites
+		"modrinth" => "Modrinth",
+		"curseforge" => "CurseForge",
+		"planet-minecraft" => "Planet Minecraft",
 	];
 
 	// CUSTOM METHODS

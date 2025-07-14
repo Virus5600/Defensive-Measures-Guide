@@ -1,48 +1,25 @@
 <IfModule mod_rewrite.c>
-	<IfModule mod_negotiation.c>
-		Options -MultiViews -Indexes
-	</IfModule>
-
-	<IfModule mod_headers.c>
-        # REMOVES UNWANTED HEADERS
-        Header unset X-Powered-By
-        Header unset Server
-        Header unset Access-Control-Allow-Origin
-
-        # APPLY FLAGS TO HEADERS
-        Header always edit Set-Cookie (.*) "$1; HTTPOnly"
-
-        # SETS NEEDED HEADERS
-        Header always set X-Content-Type-Options "nosniff"
-        Header set Strict-Transport-Security "max-age=7200; includeSubDomains; preload"
-        Header set Cache-Control "public; max-age=7200; immutable;"
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
     </IfModule>
 
-	RewriteEngine On
+    RewriteEngine On
 
-	# Handle Authorization Header
-	RewriteCond %{HTTP:Authorization} .
-	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-	# Redirect Trailing Slashes If Not A Folder...
-	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteCond %{REQUEST_URI} (.+)/$
-	RewriteRule ^ %1 [L,R=301]
+    # Handle X-XSRF-Token Header
+    RewriteCond %{HTTP:x-xsrf-token} .
+    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
 
-	# Send Requests To Front Controller...
-	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteCond %{REQUEST_FILENAME} !-f
-	RewriteRule ^ index.php [L]
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
 
-	# Sets PHP max post size
-    <IfModule mod_php.c>
-        php_value upload_max_filesize 32M
-        php_value post_max_size 128M
-        php_value max_input_time 300
-        php_value max_execution_time 300
-    </IfModule>
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
 </IfModule>
-
-<Files ".user.ini">
-    Require all denied
-</Files>

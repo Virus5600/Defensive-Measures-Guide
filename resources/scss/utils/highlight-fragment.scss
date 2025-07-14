@@ -1,0 +1,53 @@
+:root {
+	--hf-highlight-color: #ffffff;
+	--hf-highlight-border-color: #acb0b4;
+	--hf-highlight-bg-color: #7f8387;
+}
+
+.hf-outline-only:not(.hf-flash) :target {
+	box-shadow: 0 0 10px 5px var(--hf-highlight-bg-color) !important;
+}
+
+.hf-all:not(.hf-flash) :target {
+	color: var(--hf-highlight-color) !important;
+	border-color: var(--hf-highlight-border-color) !important;
+	background-color: var(--hf-highlight-bg-color) !important;
+
+	@extend .hf-outline-only;
+}
+
+.hf-flash {
+	&.hf-outline-only :target {
+		animation: flash-outline 5s normal;
+	}
+
+	&.hf-all :target {
+		animation:
+			flash-outline 5s normal,
+			flash-content 5s normal;
+	}
+}
+
+@keyframes flash-outline {
+	0% {
+		box-shadow: 0 0 10px 5px var(--hf-highlight-bg-color);
+	}
+
+	100% {
+		box-shadow: 0 0 10px -10px var(--hf-highlight-bg-color);
+	}
+}
+
+@keyframes flash-content {
+	0% {
+		color: var(--hf-highlight-color) !important;
+		border-color: var(--hf-highlight-border-color) !important;
+		background-color: var(--hf-highlight-bg-color) !important;
+	}
+
+	100% {
+		color: initial;
+		border-color: initial;
+		background-color: initial;
+	}
+}

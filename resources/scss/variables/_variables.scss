@@ -1,0 +1,274 @@
+@use "sass:list";
+@use "sass:map";
+
+@use "./../functions/colors" as *;
+
+// PREFIX
+$prefix: tw- !default;
+
+// THEME COLORS //
+// General Theme
+$success: #15803d;
+$warning: #ffb300;
+$error: #dc2828;
+$info: #00bbff;
+$light: #f5f5f5;
+$dark: #27272a;
+
+$white: #ffffff;
+$black: #000000;
+
+// RGB values
+$success-rgb: extractRGB($success);
+$warning-rgb: extractRGB($warning);
+$error-rgb: extractRGB($error);
+$info-rgb: extractRGB($info);
+$light-rgb: extractRGB($light);
+$dark-rgb: extractRGB($dark);
+
+$white-rgb: extractRGB($white);
+$black-rgb: extractRGB($black);
+
+// Light Theme
+$primary: #1e3a8a;
+$secondary: #bdbdc2;
+$accent: #93c5fd;
+
+$primary-rgb: extractRGB($primary);
+$secondary-rgb: extractRGB($secondary);
+$accent-rgb: extractRGB($accent);
+
+// Dark Theme
+$secondary-dark: #050b1f;
+$primary-dark: #011e89;
+$accent-dark: #60a5fa;
+
+$primary-dark-rgb: extractRGB($primary-dark);
+$secondary-dark-rgb: extractRGB($secondary-dark);
+$accent-dark-rgb: extractRGB($accent-dark);
+
+/*
+ * NOTE: The text and background colors' base (dark theme) values are from the
+ * colors Gray-50 (light) and Zinc-800 (dark). The light theme's values are
+ * derived from the dark theme's values.
+ */
+// Text and Background colors //
+// Light Theme
+$text: #111827;
+$text-rgb: extractRGB($text);
+
+$background: #f8fafc;
+$background-rgb: extractRGB($background);
+
+// Dark Theme
+$text-dark: #f8fafc;
+$text-dark-rgb: extractRGB($text-dark);
+
+$background-dark: #27272a;
+$background-dark-rgb: extractRGB($background-dark);
+
+// Border colors //
+// Light Theme
+$border-color: #374151;
+$border-color-rgb: extractRGB($border-color);
+// Dark Theme
+$border-color-dark: #d1d5db;
+$border-color-rgb-dark: extractRGB($border-color-dark);
+
+// Color Map //
+// Static
+$static-theme-colors: (
+	"success": $success,
+	"warning": $warning,
+	"error": $error,
+	"info": $info,
+	"light": $light,
+	"dark": $dark,
+	"white": $white,
+	"black": $black
+);
+
+$static-theme-colors-rgb: (
+	"success": $success-rgb,
+	"warning": $warning-rgb,
+	"error": $error-rgb,
+	"info": $info-rgb,
+	"light": $light-rgb,
+	"dark": $dark-rgb,
+	"white": $white-rgb,
+	"black": $black-rgb
+);
+
+// Dynamic
+$dynamic-theme-colors: (
+	"primary": (
+		$primary,
+		$primary-dark
+	),
+	"secondary": (
+		$secondary,
+		$secondary-dark
+	),
+	"accent": (
+		$accent,
+		$accent-dark
+	),
+	"text": (
+		$text,
+		$text-dark
+	),
+	"background": (
+		$background,
+		$background-dark
+	),
+	"border-color": (
+		$border-color,
+		$border-color-dark
+	)
+);
+
+$dynamic-theme-colors-rgb: (
+	"primary": (
+		$primary-rgb,
+		$primary-dark-rgb
+	),
+	"secondary": (
+		$secondary-rgb,
+		$secondary-dark-rgb
+	),
+	"accent": (
+		$accent-rgb,
+		$accent-dark-rgb
+	),
+	"text": (
+		$text-rgb,
+		$text-dark-rgb
+	),
+	"background": (
+		$background-rgb,
+		$background-dark-rgb
+	),
+	"border-color": (
+		$border-color-rgb,
+		$border-color-rgb-dark
+	)
+);
+
+// Background Text Colors //
+// Dynamic Background Text Colors
+$primary-bg-text: selectColorContrast($primary, $text-dark, $text, 434);
+$secondary-bg-text: selectColorContrast($secondary, $text-dark, $text, 434);
+$accent-bg-text: selectColorContrast($accent, $text-dark, $text, 434);
+
+$primary-dark-bg-text: selectColorContrast($primary-dark, $text-dark, $text, 434);
+$secondary-dark-bg-text: selectColorContrast($secondary-dark, $text-dark, $text, 434);
+$accent-dark-bg-text: selectColorContrast($accent-dark, $text-dark, $text, 434);
+
+// Insert background text colors into the map
+$dynamic-theme-bg-text: (
+	"primary": (
+		$primary-bg-text,
+		$primary-dark-bg-text
+	),
+	"secondary": (
+		$secondary-bg-text,
+		$secondary-dark-bg-text
+	),
+	"accent": (
+		$accent-bg-text,
+		$accent-dark-bg-text
+	)
+);
+
+// MAP AND CSS VARS //
+// Insert theme colors into the map
+$lightTheme: ();
+$lightThemeRGB: ();
+$darkTheme: ();
+$darkThemeRGB: ();
+
+@each $k, $v in $dynamic-theme-colors {
+	$lightTheme: map.merge(
+		$lightTheme,
+		(
+			$k: list.nth($v, 1)
+		)
+	);
+
+	$darkTheme: map.merge(
+		$darkTheme,
+		(
+			$k: list.nth($v, 2)
+		)
+	);
+}
+
+@each $k, $v in $dynamic-theme-colors-rgb {
+	$lightThemeRGB: map.merge(
+		$lightThemeRGB,
+		(
+			$k: list.nth($v, 1)
+		)
+	);
+
+	$darkThemeRGB: map.merge(
+		$darkThemeRGB,
+		(
+			$k: list.nth($v, 2)
+		)
+	);
+}
+
+@each $k, $v in $dynamic-theme-bg-text {
+	$lightTheme: map.merge(
+		$lightTheme,
+		(
+			"#{$k}-bg-text": list.nth($v, 1)
+		)
+	);
+
+	$darkTheme: map.merge(
+		$darkTheme,
+		(
+			"#{$k}-bg-text": list.nth($v, 2)
+		)
+	);
+}
+
+$appColors: (
+	"light": $lightTheme,
+	"dark": $darkTheme
+);
+
+$appColorsRGB: (
+	"light": $lightThemeRGB,
+	"dark": $darkThemeRGB
+);
+
+// @debug "=========================";
+// @debug "Light Theme:";
+// @debug $lightTheme;
+// @debug $lightThemeRGB;
+// @debug "=========================";
+// @debug "Dark Theme:";
+// @debug $darkTheme;
+// @debug $darkThemeRGB;
+
+// Create CSS variables for the colors
+:root {
+	@each $k, $v in $appColors {
+		// @debug "=========================";
+		@each $key, $value in $v {
+			// @debug --#{$prefix}#{$k}-#{$key};
+			--#{$prefix}#{$k}-#{$key}: #{$value};
+		}
+	}
+
+	@each $k, $v in $appColorsRGB {
+		// @debug "=========================";
+		@each $key, $value in $v {
+			// @debug "--#{$prefix}rgb-#{$k}-#{$key}: #{$value}";
+			--#{$prefix}#{$k}-#{$key}: #{$value};
+		}
+	}
+}

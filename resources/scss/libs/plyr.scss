@@ -1,0 +1,9 @@
+@use "plyr/dist/plyr.css";
+
+:root {
+	--plyr-color-main: var(--tw-primary);
+	--plyr-video-background: var(--tw-secondary, transparent);
+
+	--plyr-menu-color: var(--tw-text);
+	--plyr-menu-background: var(--tw-primary);
+}

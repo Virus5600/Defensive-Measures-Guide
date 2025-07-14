@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -33,54 +32,13 @@ class Version extends Model
 		'release'
 	];
 
-	// ATTRIBUTE MORPHERS
-	protected function changelog(): Attribute
-	{
-		return Attribute::make(
-			get: fn ($value) => json_decode($value, true),
-			set: fn ($value) => json_encode($value)
-		);
-	}
-
-	protected function compatibility(): Attribute
-	{
-		return Attribute::make(
-			get: fn ($value) => json_decode($value, true),
-			set: fn ($value) => json_encode($value)
-		);
-	}
-
-	protected function release_date(): Attribute
-	{
-		return Attribute::make(
-			get: function($val) {
-				$obj = json_decode($val, true);
-				$dates = [];
-
-				foreach ($obj as $k => $v) {
-					$dates[$k] = date('Y-m-d', strtotime($v));
-				}
-				return (object) $dates;
-			},
-			set: fn ($val) => json_encode($val)
-		);
-	}
-
-	protected function bedrock_link(): Attribute
-	{
-		return Attribute::make(
-			get: fn ($value) => json_decode($value, true),
-			set: fn ($value) => json_encode($value)
-		);
-	}
-
-	protected function java_link(): Attribute
-	{
-		return Attribute::make(
-			get: fn ($value) => json_decode($value, true),
-			set: fn ($value) => json_encode($value)
-		);
-	}
+	protected $casts = [
+		'changelog' => 'array',
+		'compatibility' => 'array',
+		'release_date' => 'array',
+		'bedrock_link' => 'array',
+		'java_link' => 'array',
+	];
 
 	// CUSTOM METHODS
 	/**
@@ -105,10 +63,10 @@ class Version extends Model
 	 *
 	 * @return string The banner of the version. If `$isUrl` is true, it will return the URL of the banner. Otherwise, it will return the `<img>` tag.
 	 */
-	public function getBanner($useDefault=false, $getFull=true, $isUrl=true, $customClasses=""): string
+	public function getBanner($useDefault = false, $getFull = true, $isUrl = true, $customClasses = ""): string
 	{
 		$bannerF = $this->banner;
-		$bannerU = asset('/uploads/versions/'.$this->banner);
+		$bannerU = asset('/uploads/versions/' . $this->banner);
 		$bannerD = static::getDefaultBanner();
 		$toRet = null;
 
@@ -117,12 +75,10 @@ class Version extends Model
 				return $bannerD;
 			else
 				return 'default.webp';
-		}
-		else {
+		} else {
 			if ($getFull) {
 				$toRet = $bannerU;
-			}
-			else {
+			} else {
 				$toRet = $bannerF;
 			}
 		}

@@ -1,0 +1,140 @@
+@use "./../functions/colors" as *;
+
+/// Creates a button class with a given background color and text color. The created class will
+/// have a hover state that darkens the background color by 5% and will be named "btn-#{$name}"
+/// and "btn-outline-#{$name}" if $includeOutlineVariant is true.
+///
+/// The text color will be automatically determined based on the background color. If the background
+///
+///
+/// @param {String} $name - The suffix of the class name. (i.e. "primary" == "btn-primary")
+/// @param {Color} $background-color - The background color of the button.
+/// @param {Color} $light-color - The light color of the button. Defaults to $background-color.
+/// @param {Color} $dark-color - The dark color of the button. Defaults to $background-color.
+/// @param {Boolean} $includeOutlineVariant - Whether to include an outline variant of the button. Defaults to true.
+///
+/// @output .btn-#{$name} - The button class.
+/// @output .btn-outline-#{$name} - The outline button class if $includeOutlineVariant is true.
+@mixin button($name, $background-color, $light-color: black, $dark-color: white, $includeOutlineVariant: true) {
+	.btn-#{$name} {
+		$background-color: extractRGB($background-color);
+		$light-color: extractRGB($light-color);
+		$dark-color: extractRGB($dark-color);
+
+		$text-color: selectColorContrast(rgb($background-color), rgb($light-color), rgb($dark-color), 434);
+
+		--tw-btn-bg: rgb(#{$background-color});
+		--tw-btn-color: #{$text-color};
+
+		&:hover,
+		&:focus {
+			$lightness: extractLightness(rgb($background-color));
+			$hoverColor: rgb($background-color);
+			// @debug "Lightness of color #{$name}: #{$lightness}";
+
+			@if $lightness > 75 {
+				$hoverColor: #{darken($hoverColor, 10%)};
+			} @else if $lightness >= 50 {
+				$hoverColor: #{lighten($hoverColor, 5%)};
+			} @else if $lightness < 50 {
+				$hoverColor: #{darken($hoverColor, 5%)};
+			} @else if $lightness < 25 {
+				$hoverColor: #{lighten($hoverColor, 10%)};
+			}
+
+			// @debug "Hover color for #{$name}: #{$hoverColor} from #{$background-color}";
+			--tw-btn-bg: #{$hoverColor};
+		}
+
+		&:focus-visible {
+			outline: 0;
+			$shadow-color: rgb($background-color);
+			$shadow-color: rgba($shadow-color, 0.5);
+			--tw-btn-shadow: #{lighten($shadow-color, 5%)};
+		}
+	}
+
+	@if $includeOutlineVariant {
+		.btn-outline-#{$name} {
+			--tw-btn-bg: transparent;
+			--tw-btn-color: #{rgb($background-color)};
+			border: 1px solid #{rgb($background-color)};
+
+			&:hover,
+			&:focus-visible {
+				--tw-btn-bg: #{rgb($background-color)};
+
+				$text-color: selectColorContrast(rgb($background-color), rgb($light-color), rgb($dark-color), 434);
+				--tw-btn-color: #{$text-color};
+			}
+
+			&:focus-visible {
+				outline: 0;
+				$shadow-color: rgb($background-color);
+				$shadow-color: rgba($shadow-color, 0.5);
+				--tw-btn-shadow: #{lighten($shadow-color, 5%)};
+			}
+		}
+	}
+}
+
+/// Creates a button class using a color CSS variable. The created class will
+/// have a hover state that darkens the background color by 5% and will be named "btn-#{$name}"
+/// and "btn-outline-#{$name}" if $includeOutlineVariant is true.
+///
+/// The text color will be automatically determined based on the background color. If the background
+///
+/// This particular mixin is used for creating buttons with dynamic colors by utilizing the given
+/// CSS variable name that contains the color value. The text color will be automatically determined
+/// based on the background color. If the background color is light, the text color will be dark and
+/// vice versa.
+///
+///
+/// @param {String} $name - The suffix of the class name. (i.e. "primary" == "btn-primary")
+/// @param {String} $color-css-var-name - The name of the CSS variable that contains the color value. Must be a color CSS variable.
+/// @param {Boolean} $includeOutlineVariant - Whether to include an outline variant of the button. Defaults to true.
+///
+/// @output .btn-#{$name} - The button class.
+/// @output .btn-outline-#{$name} - The outline button class if $includeOutlineVariant is true.
+@mixin dynamicButton($name, $color-css-var-name, $includeOutlineVariant: true) {
+	$color: var(#{$color-css-var-name});
+	$text-color: var(#{$color-css-var-name}-bg-text);
+
+	.btn-#{$name} {
+		--tw-btn-bg: #{$color};
+		--tw-btn-color: #{$text-color};
+
+		&:hover,
+		&:focus {
+			--tw-btn-bg: color-mix(in srgb, #{$color} 50%, black 5%);
+		}
+
+		&:focus-visible {
+			outline: 0;
+			z-index: 1;
+			$shadow-color: var(#{$color-css-var-name});
+			--tw-btn-shadow: color-mix(in srgb, #{$shadow-color} 50%, white 5%);
+		}
+	}
+
+	@if $includeOutlineVariant {
+		.btn-outline-#{$name} {
+			--tw-btn-bg: transparent;
+			--tw-btn-color: #{$color};
+			border: 1px solid $color;
+
+			&:hover,
+			&:focus-visible {
+				--tw-btn-bg: #{$color};
+				--tw-btn-color: #{$text-color};
+			}
+
+			&:focus-visible {
+				outline: 0;
+				z-index: 1;
+				$shadow-color: var(#{$color-css-var-name});
+				--tw-btn-shadow: color-mix(in srgb, #{$shadow-color} 50%, white 5%);
+			}
+		}
+	}
+}

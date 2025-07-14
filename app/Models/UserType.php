@@ -11,7 +11,8 @@ class UserType extends Model
 
 	protected $fillable = [
 		'name',
-		'slug'
+		'slug',
+		'description',
 	];
 
 	protected $casts = [
@@ -21,11 +22,18 @@ class UserType extends Model
 	];
 
 	// Relationships
-	public function users() { return $this->hasMany('App\Models\User'); }
-	public function permissions() { return $this->belongsToMany('App\Models\Permission', 'user_type_permissions'); }
+	public function users()
+	{
+		return $this->hasMany('App\Models\User');
+	}
+	public function permissions()
+	{
+		return $this->belongsToMany('App\Models\Permission', 'user_type_permissions');
+	}
 
 	// Custom Functions
-	public function hasPermission(...$permissions) {
+	public function hasPermission(...$permissions)
+	{
 		$matches = 0;
 
 		foreach ($permissions as $t) {
@@ -40,7 +48,8 @@ class UserType extends Model
 	}
 
 	// STATIC FUNCTIONS
-	public static function showRoute($id) {
+	public static function showRoute($id)
+	{
 		$type = UserType::withTrashed()->find($id);
 
 		if ($type == null)

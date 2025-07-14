@@ -1,0 +1,15 @@
+php artisan make:component Directory.ComponentName --phpunit --view
+php artisan make:livewire Directory.ComponentName --test
+php artisan make:model ModelName -cfms [--api] --phpunit
+php artisan make:policy PolicyName -m ModelName
+php artisan make:request RequestName
+
+php artisan test --env=local-testing --parallel --processes=4
+
+ngrok http https://trw.test --url=https://glad-cuddly-gelding.ngrok-free.app --host-header=rewrite
+
+======
+
+NOTES:
+
+make:model => cfms == Controller; Factory; Migration; Seeder

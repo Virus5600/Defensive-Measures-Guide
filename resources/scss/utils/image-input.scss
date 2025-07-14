@@ -1,0 +1,134 @@
+.image-input-scope {
+	--input-avatar-size: 10rem;
+	--input-avatar-min-width: var(--input-avatar-size);
+	--input-avatar-max-width: var(--input-avatar-size);
+	--input-avatar-min-height: var(--input-avatar-size);
+	--input-avatar-max-height: var(--input-avatar-size);
+
+	/* HOVER CAM */
+	.hover-cam {
+		width: min-content;
+		height: min-content;
+		position: relative;
+
+		& > span.icon {
+			background-color: rgba(0, 0, 0, 0.5);
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+			cursor: pointer;
+
+			& > .hover-icon {
+				font-size: 250%;
+			}
+
+			& > .hover-icon-2x {
+				font-size: 500%;
+			}
+
+			& > .hover-icon,
+			& > .hover-icon-2x {
+				top: 50%;
+				left: 50%;
+				position: absolute;
+				-o-transform: translate(-50%, -50%);
+				-ms-transform: translate(-50%, -50%);
+				-moz-transform: translate(-50%, -50%);
+				-webkit-transform: translate(-50%, -50%);
+				transform: translate(-50%, -50%);
+				opacity: 0.75;
+			}
+		}
+	}
+
+	.hover-cam > span.icon,
+	.hover-zoom,
+	.hover-zoom-2,
+	.div-hover-zoom > div,
+	.a-hover-zoom > a,
+	.a-fa-hover-zoom > a > svg,
+	.div-hover-zoom-2 > div,
+	.a-hover-zoom-2 > a,
+	.a-fa-hover-zoom-2 > a > svg,
+	.secondary-hover-dark {
+		transition: 0.25s;
+	}
+
+	.hover-zoom:hover,
+	.div-hover-zoom > div:hover,
+	.a-hover-zoom > a:hover,
+	.a-fa-hover-zoom > a > svg:hover {
+		-webkit-transform: scale(1.0625);
+		-moz-transform: scale(1.0625);
+		-ms-transform: scale(1.0625);
+		-o-transform: scale(1.0625);
+		transform: scale(1.0625);
+	}
+	.hover-zoom-2:hover,
+	.div-hover-zoom-2 > div:hover,
+	.a-hover-zoom-2 > a:hover,
+	.a-fa-hover-zoom-2 > a > svg:hover {
+		-webkit-transform: scale(1.125);
+		-moz-transform: scale(1.125);
+		-ms-transform: scale(1.125);
+		-o-transform: scale(1.125);
+		transform: scale(1.125);
+	}
+
+	.hover-cam > span.icon:hover,
+	.hover-cam > span.icon:focus {
+		opacity: 1;
+	}
+	/* HOVER CAM END */
+
+	/* INPUT AVATAR */
+	.input-avatar {
+		min-width: var(--input-avatar-min-width) !important;
+		max-width: var(--input-avatar-max-width) !important;
+		min-height: var(--input-avatar-min-height) !important;
+		max-height: var(--input-avatar-max-height) !important;
+		cursor: pointer !important;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		img {
+			object-position: center;
+			object-fit: contain;
+		}
+	}
+	/* INPUT AVATAR END */
+
+	/* DRAG-DROP RELATED CLASSES */
+	.drag-drop-overlay {
+		background-color: rgba(0 0 0 / 0.75);
+		border-radius: var(--bs-border-radius);
+
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		font-size: 500%;
+		color: white;
+		opacity: 0;
+
+		z-index: -1;
+
+		width: 100%;
+		height: 100%;
+
+		top: 0;
+		left: 0;
+
+		transition: 0.25s;
+
+		&.show {
+			opacity: 1;
+			z-index: 1000;
+		}
+	}
+}
